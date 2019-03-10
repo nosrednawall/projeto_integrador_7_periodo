@@ -11,7 +11,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:hint="Endereço"
+        android:hint="CPF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -21,8 +21,25 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:hint="Endereço"
+        android:hint="E-mail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <EditText
+        android:hint="Senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:max="10"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Salvar"/>
 
 </LinearLayout>
