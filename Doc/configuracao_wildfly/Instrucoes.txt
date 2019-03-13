@@ -1,0 +1,3 @@
+1. Copiar a pasta org para [Wildfly Home]\modules
+2. Abrir o arquivo [Wildfly Home]\standalone\configuration\standalone.xml
+3. Copiar o conteúdo das tags datasource e driver (arquivo datasource.xml) para dentro da tag datasources (substituir a tag drivers)

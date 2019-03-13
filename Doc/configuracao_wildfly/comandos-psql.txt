@@ -1,0 +1,14 @@
+https://gist.github.com/nosrednawall/91b29c4db37b00ad99c7a0aea62be7cd
+-- Comando para logar como admin no postgres
+$ sudo -u postgres psql postgres
+
+--Comandos dentro do psql
+
+-- Cria o usuário sa_projeto com a senha projeto_senha
+CREATE USER sa_projeto WITH PASSWORD 'projeto_senha' CREATEDB;
+-- cria o banco de dados projeto
+CREATE DATABASE projeto WITH OWNER sa_projeto;
+-- acessa o banco de dados projeto
+\c projeto;
+-- atribui todos os provilegios do banco criado ao usuário criado
+GRANT ALL PRIVILEGES ON DATABASE projeto TO sa_projeto;
