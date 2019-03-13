@@ -21,7 +21,7 @@ public class PerfilDao extends BaseDao<Perfil> {
 	private static final long serialVersionUID = 1L;
 	
 	@PersistenceContext(
-			unitName = "cupons-querocomprar-persistence-unit")
+			unitName = "projeto-integrador-persistence-unit")
 	private EntityManager em;
 
 
