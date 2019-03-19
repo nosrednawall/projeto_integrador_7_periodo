@@ -159,7 +159,13 @@
 							//alert(sdata);
 							$.post(url,sdata,function(result2){});
 					
-            			
+							            			                			
+							url2="IOServer.htm";
+							name='"IOMotor".Power';
+							//val=$('input[id=Power]').val();
+							sdata=escape(name)+'='+val;
+							//alert(sdata);
+							$.post(url,sdata,function(result2){});
 					}
 					return false;
 				},false);	

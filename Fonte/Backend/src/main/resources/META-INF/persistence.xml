@@ -4,11 +4,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	
-	<persistence-unit name="projeto-integrador-persistence-unit" 
+	<persistence-unit name="code-sismatic-persistence-unit" 
 		transaction-type="JTA">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-		<jta-data-source>java:jboss/datasources/projeto_integrador_ds</jta-data-source>
+		<jta-data-source>java:jboss/datasources/code_sismatic_ds</jta-data-source>
 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 

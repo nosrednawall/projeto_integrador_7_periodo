@@ -1,8 +1,8 @@
-<datasource jta="false" jndi-name="java:jboss/datasources/cupons_querocomprar_ds" pool-name="cupons_querocomprar_ds" enabled="true">
-	<connection-url>jdbc:postgresql://localhost/cupom_querocomprar</connection-url>
+<datasource jta="false" jndi-name="java:jboss/datasources/code_sismatic_ds" pool-name="code_sismatic_ds" enabled="true">
+	<connection-url>jdbc:postgresql://localhost/code_sismaticr</connection-url>
 	<driver>postgresql-jdbc4</driver>
 	<security>
-		<user-name>sa_projetointegrador</user-name>
+		<user-name>sa_code_sismatic</user-name>
 		<password>123</password>
 	</security>
 	<validation>
