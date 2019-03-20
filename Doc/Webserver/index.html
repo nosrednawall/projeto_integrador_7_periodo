@@ -83,17 +83,22 @@
 
 	<script language="Javascript">
 			function gerarJson(){
+
 				var dado_status_run = document.getElementById('Status_Run').innerHTML;
-				console.log($dado_status_run);
+				console.log(dado_status_run);
 				var dado_no_run = document.getElementById('NoRun').innerHTML;
 				var dado_speed_pv = document.getElementById('Speed_PV').innerHTML;
 	
-				var jsonDados = '{"dados" : [{ "status_run": ' + $dado_status_run +' },{ "no_run":'+ $dado_no_run +' },{ "speed_pv":'+ $dado_speed_pv +' }' +
-				']}';
+				// var jsonDados = '{"dados" : [{ "status_run": ' + dado_status_run + ' },{ "no_run":'+ dado_no_run +' },{ "speed_pv":'+ dado_speed_pv +' }]}';
+				var dados = { "status_run": dado_status_run,
+							"no_run":dado_no_run,
+							"speed_pv":dado_speed_pv
+						};
+				
+				console.log(dados);
+				// var objeto_json = JSON.parse(dados);
 	
-				var objeto_json = JSON.parse(jsonDados);
-	
-				console.log(objeto_json);
+				// console.log(objeto_json);
 			}
 
 		(function() {
@@ -137,8 +142,8 @@
 				min: 0,
 				max: 1500,
 				title: "Speed",	
-				//label: "RPM",	
-				//levelColors: ["#00fff6","#ff00fc","#1200ff"],				
+				label: "RPM",	
+				levelColors: ["#00fff6","#ff00fc","#1200ff"],				
 				textRenderer: customValue,
 				titleFontColor: "red",				
 				valueFontColor: "blue",
@@ -151,10 +156,10 @@
 						var val = document.getElementById('Power').value;
 						
 						///
-						//$('#NoRun').text(x);					
-						//var tmp = $('#Power').val();
-						//var max_val = document.getElementById('Power').max;
-						//var min_val = document.getElementById('Power').min;						
+						$('#NoRun').text(x);					
+						var tmp = $('#Power').val();
+						var max_val = document.getElementById('Power').max;
+						var min_val = document.getElementById('Power').min;						
 						if(val>100.0){
 							val = 100.0;
 							alert("Value must be between 0.0 and 100.0");
@@ -206,11 +211,11 @@
 						sdata=escape('"IOMotor".Power')+'='+val;
 						//alert(sdata);
 						$.post(url,sdata,function(result3){});
-						//$('#Power').attr("disabled", "disabled");
+						$('#Power').attr("disabled", "disabled");
 						}
 					else{
 						document.getElementById('Power').disabled = false;
-						//$('#Power').removeAttr('disabled');
+						$('#Power').removeAttr('disabled');
 						}
 					
             							
@@ -223,7 +228,7 @@
 					pos3.refresh(result["Speed_PV"].trim());
             		});
 					var d = new Date();
-					//var n = d.toLocaleDateString();
+					var n = d.toLocaleDateString();
 					var m = d.toLocaleTimeString();
 					$('#DateNow').text(m);
         		},1000);
