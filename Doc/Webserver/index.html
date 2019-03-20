@@ -8,9 +8,7 @@
 	<meta charset="utf-8" />
 	<title>Motor DAQ</title>
     
-	<script src="raphael-2.1.4.min.js"></script>
-    <script src="justgage.js"></script>	
-    <script src="jquery-3.2.1.min.js"></script>
+
 	<link rel="stylesheet" href="mystyle.css"> 
     <link rel="stylesheet" href="switch.css" type="text/css" media="screen" />
     
@@ -86,18 +84,16 @@
 	<script language="Javascript">
 			function gerarJson(){
 				var dado_status_run = document.getElementById('Status_Run').innerHTML;
+				console.log($dado_status_run);
 				var dado_no_run = document.getElementById('NoRun').innerHTML;
 				var dado_speed_pv = document.getElementById('Speed_PV').innerHTML;
 	
-				var jsonDados = '{"dados" : [{ "status_run": 'dado_status_run +' },' +
-				'{ "no_run":'+ dado_no_run +' },' +
-				'{ "speed_pv":'+ dado_speed_pv +' }' +
+				var jsonDados = '{"dados" : [{ "status_run": ' + $dado_status_run +' },{ "no_run":'+ $dado_no_run +' },{ "speed_pv":'+ $dado_speed_pv +' }' +
 				']}';
 	
 				var objeto_json = JSON.parse(jsonDados);
 	
 				console.log(objeto_json);
-				alert(objeto_json);
 			}
 
 		(function() {
@@ -246,5 +242,8 @@
 		})()
 		
 	</script>
+	<script src="raphael.min.js"></script>
+	<script src="justgage.js"></script>	
+	<script src="jquery-3.2.1.min.js"></script>
 </body>
 </html>
