@@ -26,7 +26,7 @@
         <div id="content">
 			<div id="pos1">				
 				<h3>Setting Parameters</h3>
-				<table frame="box" cellpadding="6px" cellspacing="7px" bgcolor="yellow" align="center" >					
+				<table frame="box" cellpadding="6px" cellspacing="7px" bg-color="yellow" align="center" >					
 					<tr>
 						<th align="left" style="text-align:justify" title="ON=Auto, OFF=Man">Auto/Man 							
 						</th>
@@ -50,7 +50,7 @@
 			</div>
             <div id="pos2">				
 				<h3>Monitoring</h3>
-				<table border="3px" cellpadding="6px" cellspacing="5px" bgcolor="yellow" align="center">					
+				<table border="3px" cellpadding="6px" cellspacing="5px" bg-color="yellow" align="center">					
 					<tr>
 						<th>Status 							
 						</th>
@@ -74,6 +74,7 @@
 			</div>
 			<div id="pos3">				
 			</div>
+			<input type="button" onclick="gerarJson()" value="gerar Json"/>
 			<div align = "center"  id="pos4">				
 				<a href="https://www.dmcinfo.com/latest-thinking/blog/id/8567/categoryid/26/siemens-s7-1200-web-server-tutorial--from-getting-started-to-html5-user-defined-pages">				
 				Reference</a>				
@@ -82,11 +83,30 @@
 		<div id="footer">&copy;2017 NDH</div>
 		</div>
 
-	<script>
+	<script language="Javascript">
+			function gerarJson(){
+				var dado_status_run = document.getElementById('Status_Run').innerHTML;
+				var dado_no_run = document.getElementById('NoRun').innerHTML;
+				var dado_speed_pv = document.getElementById('Speed_PV').innerHTML;
+	
+				var jsonDados = '{"dados" : [{ "status_run": 'dado_status_run +' },' +
+				'{ "no_run":'+ dado_no_run +' },' +
+				'{ "speed_pv":'+ dado_speed_pv +' }' +
+				']}';
+	
+				var objeto_json = JSON.parse(jsonDados);
+	
+				console.log(objeto_json);
+				alert(objeto_json);
+			}
+
 		(function() {
 			var $$ = function(selector) {
 				return Array.prototype.slice.call(document.querySelectorAll(selector));
 			}
+
+
+
 			document.addEventListener("DOMContentLoaded", function() {
 				var checkbox;
 				$$(".switch").forEach(function(switchControl) {
@@ -170,8 +190,9 @@
 					return false;
 				},false);	
 			
-					
-					
+				
+				$
+
             	$.ajaxSetup({ cache: false });
         		setInterval(function() {
 					url="IOServer.htm";
@@ -223,6 +244,7 @@
 				}				
 			}, false);
 		})()
+		
 	</script>
 </body>
 </html>
