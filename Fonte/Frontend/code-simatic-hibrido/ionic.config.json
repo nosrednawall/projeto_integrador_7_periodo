@@ -1,6 +1,8 @@
 {
   "name": "code-simatic-hibrido",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular",
   "id": "237b7736"
 }
