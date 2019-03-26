@@ -23,9 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".MainActivity">
 
         </activity>
+=======
+        <activity android:name=".Dashboard"></activity>
+>>>>>>> 3af0713ce8711316b00bdc91bb74e302ebb01cc1
     </application>
 
 </manifest>
