@@ -77,11 +77,42 @@
 				<a href="https://www.dmcinfo.com/latest-thinking/blog/id/8567/categoryid/26/siemens-s7-1200-web-server-tutorial--from-getting-started-to-html5-user-defined-pages">				
 				Reference</a>				
 			</div>
+			<div class="json">
+
+			</div>
         </div>		
 		<div id="footer">&copy;2017 NDH</div>
 		</div>
 
 	<script language="Javascript">
+
+			function getRandomArbitrary(min, max) {
+				return Math.random() * (max - min) + min;
+			  }
+
+			function gerar_dados_json(){
+
+
+				var Speed_PV = getRandomArbitrary(0,200);
+				var Power = getRandomArbitrary(0,1);
+				var No_Run = getRandomArbitrary(0,1);
+				var Auto_Man = 1;
+				var Run_CMD = getRandomArbitrary(0,1); 
+				var Status = 1;
+
+				var dados = {
+					"Speed_PV":Speed_PV,
+					"Power":Power,
+					"No_Run":No_Run,
+					"Auto_Man":Auto_Man,
+					"Run_CMD":Run_CMD,
+					"Status":Status
+				}
+
+				return dados;
+			}
+
+
 			function gerarJson(){
 
 				var dado_status_run = document.getElementById('Status_Run').innerHTML;
@@ -96,6 +127,73 @@
 				// var objeto_json = JSON.parse(dados);
 	
 				// console.log(objeto_json);
+			}
+
+			//faz parte do ajax que fica atualizando a tela
+			function request_json_arquivo(){
+				url="IOServer.htm";
+	            		//$.gerar_dados_json
+
+				var json_arquivo = $.getJSON(url, function(result){
+	                	$('#Speed_PV').text(result["Speed_PV"]+ " RPM");
+					$('#NoRun').text(result["No_Run"]);
+					
+					document.getElementById('Power').value = result["Power"];	
+					
+					// Enable or disable input Power					
+					if(result["Auto_Man"]==1){
+						val = 69.0;
+						document.getElementById('Power').disabled = true;
+						document.getElementById('Power').value = val;
+						sdata=escape('"IOMotor".Power')+'='+val;
+						//alert(sdata);
+						$.post(url,sdata,function(result3){});
+						$('#Power').attr("disabled", "disabled");
+					}
+					else{
+						document.getElementById('Power').disabled = false;
+						$('#Power').removeAttr('disabled');
+					}
+					
+	            							
+					if(result["Status"]==0){
+						$('#Status_Run').text("Stop");
+						}
+					else{
+						$('#Status_Run').text("Running");
+						}
+					pos3.refresh(result["Speed_PV"].trim());
+	            	});
+
+				var d = new Date();
+				var n = d.toLocaleDateString();
+				var m = d.toLocaleTimeString();
+				$('#DateNow').text(m);
+				//return json_arquivo;
+			}
+
+			function gerador_dados_na_tela(){
+				var json_gerado = gerar_dados_json();
+
+				if(json_gerado.Auto_Man==1){
+					val = 69.0;
+					document.getElementById('Power').disabled = true;
+					document.getElementById('Power').value = val;
+				}else{
+					document.getElementById('Power').disabled = false;
+				}						
+				
+				if(json_gerado.Status ==0){
+					document.getElementById('Status_Run').innerHTML = "Stop";
+				}else{
+					document.getElementById('Status_Run').innerHTML = "Running";
+				}
+
+				var d = new Date();
+				var n = d.toLocaleDateString();
+				var m = d.toLocaleTimeString();
+				$('#DateNow').text(m);
+			//return json_arquivo;
 			}
 
 		(function() {
@@ -120,7 +218,7 @@
 						checkbox = switchControl.lastElementChild;
 		
 						checkbox.checked = !checkbox.checked;
-						//var url = "/" + window.location.pathname.substr(1);
+						var url = "/" + window.location.pathname.substr(1);
 						url="IOServer.htm";
 						var ival = +checkbox.checked;
 						var sdata = checkbox.id;
@@ -188,46 +286,14 @@
 					return false;
 				},false);	
 			
-				
-				$
-
+				//atualiza os dados na tela e envia o json
             	$.ajaxSetup({ cache: false });
         		setInterval(function() {
-					url="IOServer.htm";
-            		$.getJSON(url, function(result){
-                	$('#Speed_PV').text(result["Speed_PV"]+ " RPM");
-					$('#NoRun').text(result["No_Run"]);
+					//caso esteja no servidor utilize essa função
+					//request_json_arquivo();
 					
-					//document.getElementById('Power').value = result["Power"];	
-					
-					// Enable or disable input Power					
-					if(result["Auto_Man"]==1){
-						val = 69.0;
-						document.getElementById('Power').disabled = true;
-						document.getElementById('Power').value = val;
-						sdata=escape('"IOMotor".Power')+'='+val;
-						//alert(sdata);
-						$.post(url,sdata,function(result3){});
-						$('#Power').attr("disabled", "disabled");
-						}
-					else{
-						document.getElementById('Power').disabled = false;
-						$('#Power').removeAttr('disabled');
-						}
-					
-            							
-					if(result["Status"]==0){
-						$('#Status_Run').text("Stop");
-						}
-					else{
-						$('#Status_Run').text("Running");
-						}
-					pos3.refresh(result["Speed_PV"].trim());
-            		});
-					var d = new Date();
-					var n = d.toLocaleDateString();
-					var m = d.toLocaleTimeString();
-					$('#DateNow').text(m);
+					//caso não esteja utilize essa
+					gerador_dados_na_tela();
         		},1000);
         	
 			
@@ -243,6 +309,8 @@
 			}, false);
 		})()
 		
+
+
 	</script>
 	<script src="raphael.min.js"></script>
 	<script src="justgage.js"></script>	
