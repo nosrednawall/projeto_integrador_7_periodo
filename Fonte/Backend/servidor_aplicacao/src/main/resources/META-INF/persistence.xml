@@ -20,6 +20,8 @@
 				name="hibernate.transaction.flush_before_completion" value="true" />
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="javax.persistence.validation.mode"
+                value="callback, ddl"/>
 		</properties>
 	</persistence-unit>
 </persistence>

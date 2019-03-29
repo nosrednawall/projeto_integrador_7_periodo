@@ -10,12 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Version;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @NamedQueries({
-	@NamedQuery(name = "dadosMaquina.listarTodos", query = "SELECT DISTINCT d FROM tb_dados_maquina d"),
-	@NamedQuery(name = "dadosMaquina.find", query = "SELECT DISTINCT d FROM tb_dados_maquina d WHERE d.id = :pId"),
+	@NamedQuery(name = "DadosMaquina.listarTodos", query = "SELECT DISTINCT d FROM tb_dados_maquina d"),
+	@NamedQuery(name = "DadosMaquina.find", query = "SELECT DISTINCT d FROM tb_dados_maquina d WHERE d.id = :pId"),
 })
 @Entity(name = "tb_dados_maquina")
 @XmlRootElement
@@ -28,35 +30,86 @@ public class DadosMaquina implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Version
-	@Column(name = "version")
+	@Column(name = "version",updatable = false)
 	private int version;
 
-	@Column(name = "speed_pv")
+	@Column(name = "speed_pv",updatable = false)
 	@NotNull
 	private String speedPV;
 
-	@Column(name = "power")
+	@Column(name = "power",updatable = false)
+	@Min(0) @Max(1)
 	@NotNull
-	private String power;
+	private int power;
 
-	@Column(name = "no_run")
+	@Column(name = "no_run",updatable = false)
 	@NotNull
-	private String noRun;
+	@Min(0) @Max(1)
+	private int noRun;
 
-	@Column(name = "auto_man")
+	@Column(name = "auto_man",updatable = false)
 	@NotNull
-	private String autoMan;
+	@Min(0) @Max(1)
+	private int autoMan;
 	
-	@Column(name = "run_cmd")
+	@Column(name = "run_cmd",updatable = false)
 	@NotNull
-	private String runCmd;
+	@Min(0) @Max(1)
+	private int runCmd;
 	
-	@Column(name = "status")
+	@Column(name = "status",updatable = false)
 	@NotNull
-	private String status;
+	@Min(0) @Max(1)
+	private int status;
 	
-	
-	
+	public String getSpeedPV() {
+		return speedPV;
+	}
+
+	public void setSpeedPV(String speedPV) {
+		this.speedPV = speedPV;
+	}
+
+	public int getPower() {
+		return power;
+	}
+
+	public void setPower(int power) {
+		this.power = power;
+	}
+
+	public int getNoRun() {
+		return noRun;
+	}
+
+	public void setNoRun(int noRun) {
+		this.noRun = noRun;
+	}
+
+	public int getAutoMan() {
+		return autoMan;
+	}
+
+	public void setAutoMan(int autoMan) {
+		this.autoMan = autoMan;
+	}
+
+	public int getRunCmd() {
+		return runCmd;
+	}
+
+	public void setRunCmd(int runCmd) {
+		this.runCmd = runCmd;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	public Long getId() {
 		return id;
 	}
