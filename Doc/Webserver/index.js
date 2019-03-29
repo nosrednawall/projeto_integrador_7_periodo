@@ -21,28 +21,38 @@ function gerar_dados_json(){
     var Run_CMD = getRandomInt(0,1); 
     var Status = getRandomInt(0,1);
 
-    var dados = {
-        "Speed_PV":Speed_PV,
-        "Power":Power,
-        "No_Run":No_Run,
-        "Auto_Man":Auto_Man,
-        "Run_CMD":Run_CMD,
-        "Status":Status
-    }
+    // var dados = {
+    //     "Speed_PV":Speed_PV,
+    //     "Power":Power,
+    //     "No_Run":No_Run,
+    //     "Auto_Man":Auto_Man,
+    //     "Run_CMD":Run_CMD,
+    //     "Status":Status
+    // };
+
+    var dados ={
+        "speedPV":Speed_PV,
+        "power":Power,
+        "noRun":No_Run,
+        "autoMan":Auto_Man,
+        "runCmd":Run_CMD,
+        "status":Status
+    };
+
 
     return dados;
 }
 
 // Função envia o json para o servidor tal
 function enviaJson(json){
-    console.log(json);
+    //console.log(json);
 
     // Exemplo de requisição POST
     var ajax = new XMLHttpRequest();
 
     // Seta tipo de requisição: Post e a URL da API
-    ajax.open("POST", "minha-url-api", true);
-    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    ajax.open("POST", "http://0.0.0.0:8080/code-simatic/rest/dados-maquina", true);
+    ajax.setRequestHeader("Content-type", "application/json");
 
     // Seta paramêtros da requisição e envia a requisição
     ajax.send(json);
@@ -221,11 +231,12 @@ function request_json_arquivo(){
     $.ajaxSetup({ cache: false });
         setInterval(function() {
             //caso esteja no servidor utilize essa função
-            request_json_arquivo();
+            // request_json_arquivo();
 
             //caso não esteja utilize essa
-            // var json = gerador_dados_na_tela();
-            // enviaJson(json);
+            var json = gerador_dados_na_tela();
+
+            enviaJson(json);
         },1000);
             	
         function customValue(val) {				
