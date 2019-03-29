@@ -1,6 +1,7 @@
 package org.iel.code_sismatic.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,6 +63,18 @@ public class DadosMaquina implements Serializable {
 	@Min(0) @Max(1)
 	private int status;
 	
+	@Column(name = "date_time",updatable = false)
+	private LocalDateTime dateTime;
+	
+
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
+	}
+
 	public String getSpeedPV() {
 		return speedPV;
 	}
@@ -159,7 +172,8 @@ public class DadosMaquina implements Serializable {
 				+" o status de AutoMan é de: "+this.getAutoMan()+"\n"
 				+" o status de NoRun é de: "+this.getNoRun()+"\n"
 				+" o status de RunCMD é de: "+this.getRunCmd()+"\n"
-				+" o status de Status é de: "+this.getStatus()+"\n";
+				+" o status de Status é de: "+this.getStatus()+"\n"
+				+" a hora em que ocorreu é: "+this.getDateTime()+"\n";
 		
 		return texto.toString();
 	}

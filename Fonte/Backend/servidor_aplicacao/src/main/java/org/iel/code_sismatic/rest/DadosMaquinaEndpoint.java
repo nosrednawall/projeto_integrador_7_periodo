@@ -1,5 +1,6 @@
 package org.iel.code_sismatic.rest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -35,6 +36,7 @@ public class DadosMaquinaEndpoint {
 	@Consumes("application/json")
 	public Response create(DadosMaquina entity) {
 		System.out.println(entity.toString());
+		entity.setDateTime(LocalDateTime.now());
 		dao.save(entity);
 		return Response
 				.created(UriBuilder.fromResource(DadosMaquinaEndpoint.class).path(String.valueOf(entity.getId())).build())

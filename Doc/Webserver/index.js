@@ -39,7 +39,6 @@ function gerar_dados_json(){
         "status":Status
     };
 
-
     return dados;
 }
 
