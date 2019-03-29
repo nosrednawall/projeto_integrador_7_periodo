@@ -25,7 +25,7 @@ import org.iel.code_sismatic.model.DadosMaquina;
  * 
  */
 @Stateless
-@Path("/dados_maquina")
+@Path("/dados-maquina")
 public class DadosMaquinaEndpoint {
 
 	/**
@@ -38,7 +38,7 @@ public class DadosMaquinaEndpoint {
 	@Consumes("application/json")
 	public Response create(DadosMaquina entity) {
 		System.out.println(entity.toString());
-//		dao.save(entity);
+		dao.save(entity);
 		return Response
 				.created(UriBuilder.fromResource(DadosMaquinaEndpoint.class).path(String.valueOf(entity.getId())).build())
 				.build();
