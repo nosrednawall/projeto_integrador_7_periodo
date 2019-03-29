@@ -150,5 +150,18 @@ public class DadosMaquina implements Serializable {
 	public void setVersion(int version) {
 		this.version = version;
 	}
+	
+	@Override
+	public String toString() {
+		String texto = 
+				"O SpeedPV é de: "+this.getSpeedPV()+"\n"
+				+" o status de Power é de: "+this.getPower()+"\n"
+				+" o status de AutoMan é de: "+this.getAutoMan()+"\n"
+				+" o status de NoRun é de: "+this.getNoRun()+"\n"
+				+" o status de RunCMD é de: "+this.getRunCmd()+"\n"
+				+" o status de Status é de: "+this.getStatus()+"\n";
+		
+		return texto.toString();
+	}
 
 }
