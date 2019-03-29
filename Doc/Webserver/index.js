@@ -221,11 +221,11 @@ function request_json_arquivo(){
     $.ajaxSetup({ cache: false });
         setInterval(function() {
             //caso esteja no servidor utilize essa função
-            //request_json_arquivo();
+            request_json_arquivo();
 
             //caso não esteja utilize essa
-            var json = gerador_dados_na_tela();
-            enviaJson(json);
+            // var json = gerador_dados_na_tela();
+            // enviaJson(json);
         },1000);
             	
         function customValue(val) {				
