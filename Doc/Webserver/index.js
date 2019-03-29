@@ -47,6 +47,8 @@ function gerar_dados_json(){
 function enviaJson(json){
     // Exemplo de requisição POST
     var ajax = new XMLHttpRequest();
+
+    //esse é o cara
     var json_object = JSON.stringify(json);
 
     // Seta tipo de requisição: Post e a URL da API
@@ -62,10 +64,7 @@ function enviaJson(json){
         console.log('status ' + ajax.status);
         // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
         if (ajax.readyState == 4 && ajax.status == 200) {
-        
             var data = ajax.responseText;
-
-            
         // Retorno do Ajax
             console.log(data);
         }else{
