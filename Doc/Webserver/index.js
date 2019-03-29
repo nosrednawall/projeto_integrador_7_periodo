@@ -15,11 +15,11 @@ function getRandomInt(min, max) {
 function gerar_dados_json(){
 
     var Speed_PV = getRandomArbitrary(0,1500);
-    var Power = getRandomInt(0,1);
-    var No_Run = getRandomInt(0,1);
-    var Auto_Man = getRandomInt(0,1);
-    var Run_CMD = getRandomInt(0,1); 
-    var Status = getRandomInt(0,1);
+    var Power = getRandomInt(0,2);
+    var No_Run = getRandomInt(0,2);
+    var Auto_Man = getRandomInt(0,2);
+    var Run_CMD = getRandomInt(0,2); 
+    var Status = getRandomInt(0,2);
 
     // var dados = {
     //     "Speed_PV":Speed_PV,
