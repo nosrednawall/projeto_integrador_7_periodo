@@ -45,28 +45,31 @@ function gerar_dados_json(){
 
 // Função envia o json para o servidor tal
 function enviaJson(json){
-    //console.log(json);
-
     // Exemplo de requisição POST
     var ajax = new XMLHttpRequest();
+    var json_object = JSON.stringify(json);
 
     // Seta tipo de requisição: Post e a URL da API
     ajax.open("POST", "http://0.0.0.0:8080/code-simatic/rest/dados-maquina", true);
-    ajax.setRequestHeader("Content-type", "application/json");
+    ajax.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 
     // Seta paramêtros da requisição e envia a requisição
-    ajax.send(json);
-
+    ajax.send(json_object);
+    console.log(json_object);
     // Cria um evento para receber o retorno.
     ajax.onreadystatechange = function() {
-    
-    // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
+        console.log('readyState ' + ajax.readyState);
+        console.log('status ' + ajax.status);
+        // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
         if (ajax.readyState == 4 && ajax.status == 200) {
         
             var data = ajax.responseText;
+
             
         // Retorno do Ajax
             console.log(data);
+        }else{
+            console.log(ajax.response);
         }
     };
 
