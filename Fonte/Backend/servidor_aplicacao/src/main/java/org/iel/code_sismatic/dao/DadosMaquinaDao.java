@@ -19,7 +19,7 @@ public class DadosMaquinaDao extends BaseDao<DadosMaquina> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@PersistenceContext(unitName = "code-sismatic-persistence-unit")
+	@PersistenceContext(unitName = "code-simatic-persistence-unit")
 	private EntityManager em;
 
 	@Override

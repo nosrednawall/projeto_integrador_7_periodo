@@ -21,7 +21,7 @@ public class PerfilDao extends BaseDao<Perfil> {
 	private static final long serialVersionUID = 1L;
 	
 	@PersistenceContext(
-			unitName = "code-sismatic-persistence-unit")
+			unitName = "code-simatic-persistence-unit")
 	private EntityManager em;
 
 
