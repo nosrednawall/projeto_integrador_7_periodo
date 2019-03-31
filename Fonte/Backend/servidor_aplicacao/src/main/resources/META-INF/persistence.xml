@@ -8,7 +8,7 @@
 		transaction-type="JTA">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-		<jta-data-source>java:jboss/datasources/code_sismatic_ds</jta-data-source>
+		<jta-data-source>java:jboss/datasources/code_simatic_ds</jta-data-source>
 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 
