@@ -59,8 +59,11 @@ function enviaJson(json){
     console.log(json_object);
     // Cria um evento para receber o retorno.
     ajax.onreadystatechange = function() {
-        console.log('readyState ' + ajax.readyState);
-        console.log('status ' + ajax.status);
+        
+        //apenas para verificar se a requisição está chegando no servidor 
+        //console.log('readyState ' + ajax.readyState);
+        //console.log('status ' + ajax.status);
+        
         // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
         if (ajax.readyState == 4 && ajax.status == 200) {
             var data = ajax.responseText;

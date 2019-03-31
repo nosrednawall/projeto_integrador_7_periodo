@@ -35,8 +35,8 @@ public class DadosMaquinaEndpoint {
 	@POST
 	@Consumes("application/json")
 	public Response create(DadosMaquina entity) {
-		System.out.println(entity.toString());
 		entity.setDateTime(LocalDateTime.now());
+		System.out.println(entity.toString());
 		dao.save(entity);
 		return Response
 				.created(UriBuilder.fromResource(DadosMaquinaEndpoint.class).path(String.valueOf(entity.getId())).build())
