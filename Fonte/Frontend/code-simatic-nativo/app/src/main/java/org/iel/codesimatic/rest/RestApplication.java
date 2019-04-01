@@ -1,13 +1,9 @@
 package org.iel.codesimatic.rest;
 
-import retrofit2.Retrofit;
 
+/**
+ * Classe responsável por setar o endereço do servidor rest e o tipo de conversor que será utilizado para deserializar os objetos enviados
+ */
 public class RestApplication {
-
-   private void init(){
-      Retrofit retrofit = new Retrofit.Builder()
-               .baseUrl("http://192.168.0.119:8080/")
-               .build();
-    }
 
 }
