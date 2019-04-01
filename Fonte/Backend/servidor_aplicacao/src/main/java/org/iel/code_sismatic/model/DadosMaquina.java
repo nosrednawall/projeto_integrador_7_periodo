@@ -35,6 +35,7 @@ public class DadosMaquina implements Serializable {
 	private int version;
 
 	@Column(name = "speed_pv",updatable = false)
+	@Min(0) @Max(1500)
 	@NotNull
 	private String speedPV;
 
