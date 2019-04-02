@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CadastroUsuarioActivity"></activity>
+        <activity android:name=".activity.CadastroUsuarioActivity"
+            android:label="@string/cadastro_titulo">
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login">

@@ -14,4 +14,18 @@
     </string>
 
     <!--Strings para tela de formulário-->
+    <string name="cadastro_titulo">Cadastro Usuário</string>
+    <string name="cadastro_nome">Nome completo</string>
+    <string name="cadastro_cpf">CPF</string>
+    <string name="cadastro_ramal">Ramal</string>
+    <string name="cadastro_sexo">Sexo</string>
+    <string name="cadastro_email">E-mail</string>
+    <string name="cadastro_senha">Senha</string>
+    <string name="cadastro_salvar">Salvar</string>
+    <string name="cadastro_setor">Setor</string>
+    <string-array name="cadastro_setores">
+        <item>TI</item>
+        <item>Gerência</item>
+        <item>Testes</item>
+    </string-array>
 </resources>

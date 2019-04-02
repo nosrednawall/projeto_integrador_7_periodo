@@ -7,35 +7,37 @@
     tools:context="org.iel.codesimatic.activity.CadastroUsuarioActivity">
 
     <EditText
-        android:hint="Nome Completo"
+        android:hint="@string/cadastro_nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    
     <EditText
-        android:hint="CPF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:hint="Setor"
+        android:hint="@string/cadastro_cpf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:hint="Ramal"
+        android:hint="@string/cadastro_setor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:hint="E-mail"
+        android:hint="@string/cadastro_ramal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <EditText
-        android:hint="Senha"
+        android:hint="@string/cadastro_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:hint="@string/cadastro_senha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="Salvar"
+        android:text="@string/cadastro_salvar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
