@@ -12,37 +12,44 @@
         <EditText
             android:hint="@string/cadastro_nome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/cadastro_usuario_nome"/>
 
         <EditText
             android:hint="@string/cadastro_cpf"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/cadastro_usuario_cpf"/>
 
         <EditText
             android:hint="@string/cadastro_setor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/cadastro_usuario_setor"/>
 
         <EditText
             android:hint="@string/cadastro_ramal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/cadastro_usuario_ramal"/>
 
         <EditText
             android:hint="@string/cadastro_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/cadastro_usuario_email" />
 
         <EditText
             android:hint="@string/cadastro_senha"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/cadastro_usuario_senha"/>
 
         <Button
             android:text="@string/cadastro_salvar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/cadastro_usuario_salvar"/>
 
     </LinearLayout>
 </ScrollView>
