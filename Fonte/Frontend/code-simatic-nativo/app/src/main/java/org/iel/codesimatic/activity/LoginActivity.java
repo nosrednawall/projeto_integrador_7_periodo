@@ -1,9 +1,12 @@
 package org.iel.codesimatic.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 
 import org.iel.codesimatic.R;
 
@@ -28,7 +31,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView)findViewById(R.id.email);
+        AutoCompleteTextView emailTextView = (AutoCompleteTextView)findViewById(R.id.email);
+        Button efetuaLoginOuRegistro = (Button) findViewById(R.id.email_sign_in_button);
+
+        efetuaLoginOuRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent formulario = new Intent(getApplicationContext(),CadastroUsuarioActivity.class);
+                startActivity(formulario);
+            }
+        });
     }
 
     /**
@@ -38,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
 
 
 
