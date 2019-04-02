@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 
 import org.iel.codesimatic.R;
 
@@ -32,11 +33,13 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
         AutoCompleteTextView emailTextView = (AutoCompleteTextView)findViewById(R.id.email);
+        EditText senhaEditText = (EditText) findViewById(R.id.password);
         Button efetuaLoginOuRegistro = (Button) findViewById(R.id.email_sign_in_button);
 
         efetuaLoginOuRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                email = emailTextView.getText();
                 Intent formulario = new Intent(getApplicationContext(),CadastroUsuarioActivity.class);
                 startActivity(formulario);
             }
@@ -50,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
 
 
 
