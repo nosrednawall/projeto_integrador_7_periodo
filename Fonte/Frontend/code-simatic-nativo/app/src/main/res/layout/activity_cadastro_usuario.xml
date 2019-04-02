@@ -33,6 +33,33 @@
             android:layout_height="wrap_content"
             android:id="@+id/cadastro_usuario_ramal"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cadastro_usuario_radio_group"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cadastro_usuario_feminino"
+                    android:text="@string/cadastro_feminino"
+                    android:layout_gravity="left"
+                    />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cadastro_usuario_masculino"
+                    android:text="@string/cadastro_masculino"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="80pt"/>
+            </RadioGroup>
+        </LinearLayout>
+
+
         <EditText
             android:hint="@string/cadastro_email"
             android:layout_width="match_parent"

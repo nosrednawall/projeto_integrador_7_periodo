@@ -28,4 +28,6 @@
         <item>Gerência</item>
         <item>Testes</item>
     </string-array>
+    <string name="cadastro_feminino">Feminino</string>
+    <string name="cadastro_masculino">Masculino</string>
 </resources>
