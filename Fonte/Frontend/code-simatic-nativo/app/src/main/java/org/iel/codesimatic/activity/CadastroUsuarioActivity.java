@@ -9,9 +9,12 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import org.iel.codesimatic.R;
+import org.iel.codesimatic.model.SexoEnum;
 import org.iel.codesimatic.model.Usuario;
 
 public class CadastroUsuarioActivity extends AppCompatActivity {
+
+    private static SexoEnum sexo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,23 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
             }
         });
 
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.cadastro_usuario_radio_group);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.cadastro_usuario_feminino:
+                        if(checkedId==1){
+                           sexo = SexoEnum.FEMININO;
+                        }
+                    case R.id.cadastro_usuario_masculino:
+                        if(checkedId==1){
+                            sexo = SexoEnum.MASCULINO;
+                        }
+                }
+            }
+        });
+
     }
 
     private Usuario instanciaDadosTelaERetornaUsuario(){
@@ -40,7 +60,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         EditText emailEditText = (EditText) findViewById(R.id.cadastro_usuario_email);
         EditText senhaEditText = (EditText) findViewById(R.id.cadastro_usuario_senha);
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.cadastro_usuario_radio_group);
+
 
 
         return null;
