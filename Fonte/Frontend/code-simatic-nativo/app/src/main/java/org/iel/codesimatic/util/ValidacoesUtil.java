@@ -12,4 +12,6 @@ public class ValidacoesUtil {
     public static boolean validaEmail(String email){
         return true;
     }
+
+    public static boolean validaUsuarioAntesdeInstanciar() { return true; }
 }
