@@ -25,21 +25,21 @@ public class MainActivity extends AppCompatActivity {
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
+                new DataPoint(0, 6),
+                new DataPoint(1, 1),
+                new DataPoint(2, 6),
+                new DataPoint(3, 1),
                 new DataPoint(4, 6)
         });
         graph.addSeries(series);
 
-        DadosMaquinaController dados = new DadosMaquinaController();
-        dados.start();
+//        DadosMaquinaController dados = new DadosMaquinaController();
+//        dados.start();
 
-        if(!dados.getDados().isEmpty()){
-            listagem = new ArrayList<>();
-            listagem.addAll(dados.getDados());
-        }
+//        if(!dados.getDados().isEmpty()){
+//            listagem = new ArrayList<>();
+//            listagem.addAll(dados.getDados());
+//        }
 
     }
 }
