@@ -21,7 +21,9 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CadastroUsuarioActivity.this, "Botão clicado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CadastroUsuarioActivity.this, "Usuário salvo com sucesso", Toast.LENGTH_SHORT).show();
+                finish();
+
             }
         });
 
