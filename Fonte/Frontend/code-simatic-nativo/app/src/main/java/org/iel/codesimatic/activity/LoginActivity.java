@@ -55,10 +55,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
     /**
      * valida os inputs
      * @param email
