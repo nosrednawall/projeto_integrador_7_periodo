@@ -21,55 +21,81 @@ import static org.iel.codesimatic.util.ValidacoesUtil.validaSenha;
 public class LoginActivity extends AppCompatActivity {
 
     //variáveis que serão utilizadas
-    private String email;
-    private String senha;
+    private String email = "";
+    private String senha = "";
 
     public static final String PREFS_NAME = "code-simatic-file";
-    private boolean emailSalvo;
+
     /**
      * Executado ao criar uma tela
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
         //obtem a instancia da tela, eu acho
         super.onCreate(savedInstanceState);
+
+        //recupera a instancia dos objetos
+        if(savedInstanceState != null){
+            //recupera os dados
+        }
 
         //seleciona a activity s instancia ela
         setContentView(R.layout.activity_login);
 
-        //pego as shared preferences, no modo privado
-        SharedPreferences dadosLoginSalvo = getSharedPreferences(PREFS_NAME, 0);
-
-        //verifico se possui dados salvos no sharedpreferences
-        boolean possuiEmailLoginSalvo = dadosLoginSalvo.getBoolean("boolean_email",false);
-        setEmailSalvo(possuiEmailLoginSalvo);
-
-        //faco a recuperação desses dados
-        if(possuiEmailLoginSalvo){
-            setEmail(dadosLoginSalvo.getString("email_login",""));
-        }
-
-        //pego os valores do textview de email
+        //pego a instancia do textview de email
         AutoCompleteTextView emailTextView = (AutoCompleteTextView)findViewById(R.id.email);
-        emailTextView.setText(getEmail());
 
-        //pego os valores de senha
+        //pego a instancia de valores de senha
         EditText senhaEditText = (EditText) findViewById(R.id.password);
 
         //pego a instancia do botão de login
         Button efetuaLoginOuRegistro = (Button) findViewById(R.id.email_sign_in_button);
 
+        //pego as shared preferences, no modo privado
+        SharedPreferences dadosLoginSalvo = getSharedPreferences(PREFS_NAME, 0);
+
+        //verifico se possui dados salvos no sharedpreferences
+        boolean possuiEmailLoginSalvo = dadosLoginSalvo.contains("email_login");
+
+        //faco a recuperação desses dados
+        if(possuiEmailLoginSalvo){
+            setEmail(dadosLoginSalvo.getString("email_login",""));
+            emailTextView.setText(getEmail());
+        }
+
         //crio uma função anônima para tratar os eventos do botão
         efetuaLoginOuRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                setEmail(emailTextView.getText().toString());
+                //se o email não estiver vazio, salve-o no shared preferences
+                if(!getEmail().isEmpty()) {
+                    salvaEmailNoSharedPreferences(emailTextView.getText().toString());
+                }
 //                email = emailTextView.getText();
                 Intent formulario = new Intent(getApplicationContext(),CadastroUsuarioActivity.class);
                 startActivity(formulario);
             }
         });
+
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+
+        //meu código aqui
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        //meu código aqui
     }
 
     /**
@@ -78,12 +104,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        SharedPreferences dadosLoginSalvo = getSharedPreferences(PREFS_NAME,0);
-        SharedPreferences.Editor editor = dadosLoginSalvo.edit();
-        if(emailSalvo) {
-            editor.putBoolean("boolean_email", true);
-            editor.putString("email_login", getEmail());
-        }
+        salvaEmailNoSharedPreferences(getEmail());
     }
 
     /**
@@ -92,8 +113,21 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        salvaEmailNoSharedPreferences(getEmail());
     }
 
+    /**
+     * Funcao salva email no sharedpreferences
+     * @param email
+     */
+    public void salvaEmailNoSharedPreferences(String email){
+        SharedPreferences dadosLoginSalvo = getSharedPreferences(PREFS_NAME,0);
+        SharedPreferences.Editor editor = dadosLoginSalvo.edit();
+        editor.putString("email_login", email);
+
+        //salva
+        editor.commit();
+    }
 
     /**
      * valida os inputs
@@ -107,14 +141,6 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             return false;
         }
-    }
-
-    public void setEmailSalvo(boolean emailSalvo) {
-        this.emailSalvo = emailSalvo;
-    }
-
-    public boolean isEmailSalvo() {
-        return emailSalvo;
     }
 
     public String getEmail() {
