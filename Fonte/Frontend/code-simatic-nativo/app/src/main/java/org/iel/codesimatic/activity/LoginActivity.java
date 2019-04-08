@@ -136,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
      * @return boolean
      */
     private boolean validaInputs(String email, String senha){
+        //métodos na classe validacoesUtil
         if(validaSenha(senha) && validaEmail(email)){
             return true;
         }else{
