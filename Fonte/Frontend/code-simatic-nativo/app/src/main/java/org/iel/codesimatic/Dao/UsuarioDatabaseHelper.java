@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class UsuarioDatabaseHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
-    private static final String USUARIO_NOME_TABELA = "usuario.db";
+    public static final String USUARIO_NOME_TABELA = "usuario.db";
     public static final String USUARIO_CAMPO_ID = "id";
     public static final String USUARIO_CAMPO_VERSION = "version";
     public static final String USUARIO_CAMPO_NOME = "nomeCompleto";
@@ -35,6 +35,8 @@ public class UsuarioDatabaseHelper extends SQLiteOpenHelper {
     private static final String TIPO_REAL = "REAL";
     private static final String TIPO_TEXT = "TEXT";
     private static final String TIPO_BLOB = "BLOB";
+    private static final String TIPO_NUMERIC = "NUMERIC";
+
 
     //cria tabela
     private static final String USUARIO_DAO_TABLE_CRIACAO = "CREATE TABLE " +
@@ -48,8 +50,8 @@ public class UsuarioDatabaseHelper extends SQLiteOpenHelper {
             + USUARIO_CAMPO_SEXO + TIPO_TEXT
             + USUARIO_CAMPO_SETOR + TIPO_TEXT
             + USUARIO_CAMPO_RAMAL + TIPO_TEXT
-            + USUARIO_CAMPO_DATA_CRIACAO + TIPO_TEXT
-            + USUARIO_CAMPO_STATUS + TIPO_TEXT
+            + USUARIO_CAMPO_DATA_CRIACAO + TIPO_NUMERIC
+            + USUARIO_CAMPO_STATUS + TIPO_INTEGER
             + ");";
 
     //remove tabela

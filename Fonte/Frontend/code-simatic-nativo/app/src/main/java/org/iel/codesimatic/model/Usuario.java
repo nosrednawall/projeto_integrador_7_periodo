@@ -97,6 +97,10 @@ public class Usuario implements Serializable {
         return sexo;
     }
 
+    public Integer getSexoInteger() {
+        return sexo.ordinal();
+    }
+
     public void setSexo(SexoEnum sexo) {
         this.sexo = sexo;
     }
@@ -121,12 +125,20 @@ public class Usuario implements Serializable {
         return dataCriacao;
     }
 
+    public LocalDateTime getDataCriacaoReal() {
+        return dataCriacao;
+    }
+
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
     public StatusEnum getStatus() {
         return status;
+    }
+
+    public Integer getStatusInteger() {
+        return status.ordinal();
     }
 
     public void setStatus(StatusEnum status) {
