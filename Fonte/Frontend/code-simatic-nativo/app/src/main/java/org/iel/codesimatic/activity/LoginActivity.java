@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.iel.codesimatic.R;
+import org.iel.codesimatic.model.Usuario;
 
 import static org.iel.codesimatic.util.ValidacoesUtil.validaEmail;
 import static org.iel.codesimatic.util.ValidacoesUtil.validaSenha;
@@ -69,14 +71,27 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //pego o email informado
                 setEmail(emailTextView.getText().toString());
+
+                //pego a senha informada
+                setSenha(senhaEditText.getText().toString());
+
+                Usuario usuario = getAutenticacao(getEmail(),getSenha());
+
+                //se o usuário possuir id 0
+                if(usuario.getId() == 0){
+                    Intent formulario = new Intent(getApplicationContext(),CadastroUsuarioActivity.class);
+                    startActivity(formulario);
+                    Toast.makeText(LoginActivity.this, "Usuário não encontrado, por favor efetue o cadastro", Toast.LENGTH_LONG).show();
+                }
+
                 //se o email não estiver vazio, salve-o no shared preferences
                 if(!getEmail().isEmpty()) {
                     salvaEmailNoSharedPreferences(emailTextView.getText().toString());
                 }
-//                email = emailTextView.getText();
-                Intent formulario = new Intent(getApplicationContext(),CadastroUsuarioActivity.class);
-                startActivity(formulario);
+                Intent home = new Intent(getApplicationContext(),HomeActivity.class);
+                startActivity(home);
             }
         });
 
@@ -142,6 +157,14 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             return false;
         }
+    }
+
+    //TODO implementar com o backend
+    private Usuario getAutenticacao(String email, String senha){
+        Usuario usuario = new Usuario();
+
+        usuario.setId(Long.valueOf(0));
+        return usuario;
     }
 
     public String getEmail() {
