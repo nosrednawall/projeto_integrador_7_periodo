@@ -79,7 +79,7 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/circle_shape_deeppurple"
-                    android:src="@drawable/ic_donut_small_black_24dp"
+                    android:src="@drawable/ic_dashboard_black_24dp"
                     android:padding="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -116,8 +116,8 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:background="@drawable/cerclebackgroundpink"
-                    android:src="@drawable/ic_lightbulb_outline_black_24dp"
+                    android:background="@drawable/circle_shape_pink"
+                    android:src="@drawable/ic_exit_to_app_black_24dp"
                     android:padding="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -162,8 +162,8 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:background="@drawable/cerclebackgroundgreen"
-                    android:src="@drawable/ic_control_point_black_24dp"
+                    android:background="@drawable/circle_shape_yellow"
+                    android:src="@drawable/ic_place_black_24dp"
                     android:padding="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -202,9 +202,9 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:background="@drawable/cerclebackgroundyello"
+                    android:background="@drawable/circle_shape_green"
                     android:padding="10dp"
-                    android:src="@drawable/ic_attach_file_black_24dp" />
+                    android:src="@drawable/ic_person_black_24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
