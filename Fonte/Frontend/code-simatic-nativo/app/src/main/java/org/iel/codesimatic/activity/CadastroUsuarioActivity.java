@@ -11,7 +11,6 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import org.iel.codesimatic.R;
-import org.iel.codesimatic.model.SexoEnum;
 import org.iel.codesimatic.model.Usuario;
 
 import static org.iel.codesimatic.util.ValidacoesUtil.validaUsuarioAntesdeInstanciar;
