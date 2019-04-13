@@ -40,7 +40,7 @@
     <string name="home_configuracoes_nome">Configurações</string>
     <string name="home_configuracoes_descricao">Altere seus dados pessoais</string>
     <string name="home_maps_nome">Localização</string>
-    <string name="home_maps_descricao">Veja onde você está</string>
+    <string name="home_maps_desc">Veja onde você está</string>
     <string name="home_sair_nome">logoff</string>
     <string name="home_sair_descricao">Faça logoff da aplicação</string>
 </resources>
