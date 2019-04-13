@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    android:text="Add"/>
+                    android:text="@string/home_graficos_nome"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Check your bank activities"
+                    android:text="@string/home_graficos_descricao"
                     android:padding="5dp"
                     android:textColor="@android:color/darker_gray"/>
 
@@ -79,14 +79,14 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/circle_shape_deeppurple"
-                    android:src="@drawable/ic_dashboard_black_24dp"
+                    android:src="@drawable/ic_group_black_24dp"
                     android:padding="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    android:text="Banking"/>
+                    android:text="@string/home_usuarios_nome"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Check your bank activities"
+                    android:text="@string/home_usuarios_descricao"
                     android:padding="5dp"
                     android:textColor="@android:color/darker_gray"/>
 
@@ -116,15 +116,15 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:background="@drawable/circle_shape_pink"
-                    android:src="@drawable/ic_exit_to_app_black_24dp"
+                    android:background="@drawable/circle_shape_yellow"
+                    android:src="@drawable/ic_mode_edit_black_24dp"
                     android:padding="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    android:text="Ideas"/>
+                    android:text="@string/home_configuracoes_nome"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -134,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Check your bank activities"
+                    android:text="@string/home_configuracoes_descricao"
                     android:padding="5dp"
                     android:textColor="@android:color/darker_gray"/>
 
@@ -162,7 +162,7 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:background="@drawable/circle_shape_yellow"
+                    android:background="@drawable/circle_shape_green"
                     android:src="@drawable/ic_place_black_24dp"
                     android:padding="10dp"/>
                 <TextView
@@ -170,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    android:text="Add"/>
+                    android:text="@string/home_maps_nome"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -180,7 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Check your bank activities"
+                    android:text="@string/home_maps_descricao"
                     android:padding="5dp"
                     android:textColor="@android:color/darker_gray"/>
 
@@ -202,15 +202,15 @@
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:background="@drawable/circle_shape_green"
+                    android:background="@drawable/circle_shape_pink"
                     android:padding="10dp"
-                    android:src="@drawable/ic_person_black_24dp" />
+                    android:src="@drawable/ic_exit_to_app_black_24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Links"
+                    android:text="@string/home_sair_nome"
                     android:textStyle="bold" />
 
                 <View
@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="Check your bank activities"
+                    android:text="@string/home_sair_descricao"
                     android:textColor="@android:color/darker_gray" />
 
             </LinearLayout>

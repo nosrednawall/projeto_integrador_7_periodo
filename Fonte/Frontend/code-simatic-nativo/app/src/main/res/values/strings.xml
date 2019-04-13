@@ -31,4 +31,16 @@
     <string name="cadastro_feminino">Feminino</string>
     <string name="cadastro_masculino">Masculino</string>
     <string name="title_activity_maps">Map</string>
+
+    <!--Strings tela home-->
+    <string name="home_graficos_nome">Gráficos</string>
+    <string name="home_graficos_descricao">Visualize os dados de BI</string>
+    <string name="home_usuarios_nome">Usuários</string>
+    <string name="home_usuarios_descricao">Edite os usuários do sistema</string>
+    <string name="home_configuracoes_nome">Configurações</string>
+    <string name="home_configuracoes_descricao">Altere seus dados pessoais</string>
+    <string name="home_maps_nome">Localização</string>
+    <string name="home_maps_descricao">Veja onde você está</string>
+    <string name="home_sair_nome">logoff</string>
+    <string name="home_sair_descricao">Faça logoff da aplicação</string>
 </resources>
