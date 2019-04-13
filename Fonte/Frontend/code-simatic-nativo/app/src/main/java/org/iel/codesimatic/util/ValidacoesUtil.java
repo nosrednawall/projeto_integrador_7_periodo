@@ -9,14 +9,20 @@ import org.iel.codesimatic.util.ValidarCpfCnpjUtil;
 public class ValidacoesUtil {
 
     public static boolean validaSenha(String senha){
-
-
-
-        return true;
+        if(senha.matches(RegexUtil.REGEX_SENHA)) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static boolean validaEmail(String email){
-        return true;
+
+        if(email.matches(RegexUtil.REGEX_EMAIL)) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static boolean validaUsuarioAntesdeInstanciar() { return true; }
