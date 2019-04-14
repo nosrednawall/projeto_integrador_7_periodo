@@ -48,4 +48,5 @@
     <string name="lista_card_editar">Editar</string>
     <string name="lista_card_remover">Remover</string>
     <string name="lista_card_adicionar">Adicionar</string>
+    <string name="title_activity_recycle_view_layout">RecycleViewLayoutActivity</string>
 </resources>
