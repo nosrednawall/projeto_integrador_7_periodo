@@ -30,6 +30,13 @@ public class HomeActivity extends AppCompatActivity {
         CardView cardMaps = (CardView) findViewById(R.id.home_card_maps);
         CardView cardLogoff = (CardView) findViewById(R.id.home_card_logoff);
 
+        cardUsuarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent usuariosIntent = findViewById(R.id.lista_usuarios_view);
+            }
+        });
+
         //mostra o maps
         cardMaps.setOnClickListener(new View.OnClickListener() {
             @Override
