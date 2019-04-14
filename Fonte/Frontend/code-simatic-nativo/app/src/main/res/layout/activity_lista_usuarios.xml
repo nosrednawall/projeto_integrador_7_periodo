@@ -15,6 +15,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/lista_usuarios_botao_adicionar"
+        android:text="+"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 

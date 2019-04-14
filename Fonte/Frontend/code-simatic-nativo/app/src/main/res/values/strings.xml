@@ -43,4 +43,9 @@
     <string name="home_maps_desc">Veja onde você está</string>
     <string name="home_sair_nome">logoff</string>
     <string name="home_sair_descricao">Faça logoff da aplicação</string>
+
+    <!-- Strings lista de usuários -->
+    <string name="lista_card_editar">Editar</string>
+    <string name="lista_card_remover">Remover</string>
+    <string name="lista_card_adicionar">Adicionar</string>
 </resources>
