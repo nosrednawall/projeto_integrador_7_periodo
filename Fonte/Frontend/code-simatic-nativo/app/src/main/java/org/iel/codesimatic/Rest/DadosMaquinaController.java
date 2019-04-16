@@ -1,4 +1,4 @@
-package org.iel.codesimatic.Controller;
+package org.iel.codesimatic.Rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
