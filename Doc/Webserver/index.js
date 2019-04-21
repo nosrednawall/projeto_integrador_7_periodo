@@ -50,8 +50,12 @@ function enviaJson(json){
     //esse é o cara
     var json_object = JSON.stringify(json);
 
+    var servidor = "http://45.225.163.18:8080/";
+    var localhost = "http://0.0.0.0:8080/";
+    var rede_local = "http://192.168.0.11:8080/"
+    
     // Seta tipo de requisição: Post e a URL da API
-    ajax.open("POST", "http://0.0.0.0:8080/code-simatic/rest/dados-maquina", true);
+    ajax.open("POST", rede_local+"code-simatic/rest/dados-maquina", true);
     ajax.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 
     // Seta paramêtros da requisição e envia a requisição
