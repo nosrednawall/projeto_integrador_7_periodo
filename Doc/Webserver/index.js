@@ -14,11 +14,18 @@ function getRandomInt(min, max) {
 // Função cria um json com os valores aleatórios
 function gerar_dados_json(){
 
-    var Speed_PV = getRandomArbitrary(0,1500);
-    var Power = getRandomInt(0,2);
-    var No_Run = getRandomInt(0,2);
-    var Auto_Man = getRandomInt(0,2);
-    var Run_CMD = getRandomInt(0,2); 
+//     var Speed_PV = getRandomArbitrary(0,1500);
+//     var Power = getRandomInt(0,2);
+//     var No_Run = getRandomInt(0,2);
+//     var Auto_Man = getRandomInt(0,2);
+//     var Run_CMD = getRandomInt(0,2); 
+//     var Status = getRandomInt(0,2);
+    
+    var Speed_PV = 1500;
+    var Power = 1;
+    var No_Run = 1;
+    var Auto_Man = 1;
+    var Run_CMD = 1; 
     var Status = getRandomInt(0,2);
 
     // var dados = {
