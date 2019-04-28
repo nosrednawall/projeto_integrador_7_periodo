@@ -43,7 +43,7 @@ public class UsuarioDatabaseHelper extends SQLiteOpenHelper {
     //cria tabela
     private static final String USUARIO_DAO_TABLE_CRIACAO = "CREATE TABLE " +
             USUARIO_NOME_TABELA + "("
-            + USUARIO_CAMPO_ID + TIPO_INTEGER + VIRGULA
+            + USUARIO_CAMPO_ID + TIPO_INTEGER + " primary key autoincrement" + VIRGULA
             + USUARIO_CAMPO_NOME + TIPO_TEXT + VIRGULA
             + USUARIO_CAMPO_CPF + TIPO_TEXT + VIRGULA
             + USUARIO_CAMPO_EMAIL + TIPO_TEXT + VIRGULA
@@ -59,7 +59,7 @@ public class UsuarioDatabaseHelper extends SQLiteOpenHelper {
     private static final String USUARIO_DROP_TABLE = "DROP TABLE IF EXISTS " + USUARIO_NOME_TABELA;
 
     UsuarioDatabaseHelper(Context context){
-        super(context, USUARIO_NOME_TABELA, null, DATABASE_VERSION);
+        super(context, USUARIO_NOME_BANCO, null, DATABASE_VERSION);
     }
 
     @Override
