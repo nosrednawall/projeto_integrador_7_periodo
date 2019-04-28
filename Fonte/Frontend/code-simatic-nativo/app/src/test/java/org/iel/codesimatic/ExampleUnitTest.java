@@ -1,4 +1,4 @@
-package com.example.codesimatic;
+package org.iel.codesimatic;
 
 import org.junit.Test;
 

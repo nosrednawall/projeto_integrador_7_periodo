@@ -1,4 +1,4 @@
-package com.example.codesimatic;
+package org.iel.codesimatic;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
