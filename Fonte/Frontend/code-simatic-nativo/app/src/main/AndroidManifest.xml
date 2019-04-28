@@ -26,10 +26,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name="com.example.codesimatic.RecycleViewLayoutActivity"
-            android:label="@string/title_activity_recycle_view_layout"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity android:name=".activity.ListaUsuariosActivity" />
         <activity android:name=".activity.HomeActivity" />
         <!--

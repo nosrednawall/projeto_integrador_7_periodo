@@ -10,7 +10,9 @@ import org.iel.codesimatic.model.Usuario;
 
 public class UsuarioDao {
     private SQLiteDatabase database;
-    private UsuarioDatabaseHelper sqliteUsuario;
+
+    private UsuarioDatabaseHelper banco;
+
     private String[] columns = {
             UsuarioDatabaseHelper.USUARIO_CAMPO_ID,
             UsuarioDatabaseHelper.USUARIO_CAMPO_VERSION,
@@ -26,19 +28,19 @@ public class UsuarioDao {
     };
 
     public UsuarioDao(Context context){
-        sqliteUsuario = new UsuarioDatabaseHelper(context);
+        banco = new UsuarioDatabaseHelper(context);
     }
 
     public void open(){
         try {
-            database = sqliteUsuario.getWritableDatabase();
+            database = banco.getWritableDatabase();
         }catch (SQLException exception){
             System.out.println("Execeao de sql - "+exception.toString());
         }
     }
 
     public void close(){
-        sqliteUsuario.close();
+        banco.close();
     }
 
     public String salva (Usuario entity){
@@ -78,7 +80,7 @@ public class UsuarioDao {
 
     public Cursor listaUsuarios(){
         Cursor cursor;
-        database = sqliteUsuario.getReadableDatabase();
+        database = banco.getReadableDatabase();
         cursor = database.query(UsuarioDatabaseHelper.USUARIO_NOME_TABELA,columns,null,null,null,null,null,null);
 
         if(cursor != null){
@@ -90,7 +92,7 @@ public class UsuarioDao {
 
     public Cursor carregaUsuarioById(int id){
         Cursor cursor;
-        database = sqliteUsuario.getReadableDatabase();
+        database = banco.getReadableDatabase();
         String where = UsuarioDatabaseHelper.USUARIO_CAMPO_ID + "=" + id;
         cursor = database.query(UsuarioDatabaseHelper.USUARIO_NOME_TABELA,columns,where,null,null,null,null,null);
 
@@ -128,7 +130,7 @@ public class UsuarioDao {
 
     public void deleta(int id){
         String where = UsuarioDatabaseHelper.USUARIO_CAMPO_ID + "=" + id;
-        database = sqliteUsuario.getReadableDatabase();
+        database = banco.getReadableDatabase();
         database.delete(UsuarioDatabaseHelper.USUARIO_NOME_TABELA,where,null);
         close();
     }
