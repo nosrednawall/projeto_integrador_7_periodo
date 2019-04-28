@@ -44,7 +44,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
 
                 String retorno = dao.salva(usuario);
 
-                Toast.makeText(CadastroUsuarioActivity.this, retorno, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CadastroUsuarioActivity.this, retorno, Toast.LENGTH_LONG).show();
                 finish();
             }
         });
