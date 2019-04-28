@@ -48,7 +48,9 @@ public class UsuarioDao {
         long insertId;
 
         //abrindo conexao
-        open();
+        //open();
+
+        database = banco.getWritableDatabase();
 
         //inserindo tabela
         valores = new ContentValues();
@@ -69,7 +71,8 @@ public class UsuarioDao {
         insertId = database.insert(UsuarioDatabaseHelper.USUARIO_NOME_TABELA,null,valores);
 
         //fechando conexao
-        close();
+        //close();
+        database.close();
 
         if(insertId == -1){
             return "Erro ao inserir registro";

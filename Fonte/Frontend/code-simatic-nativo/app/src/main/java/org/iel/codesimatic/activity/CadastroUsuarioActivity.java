@@ -40,7 +40,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
 
                 Usuario usuario = instanciaDadosTelaERetornaUsuario();
 
-                UsuarioDao dao = new UsuarioDao(CadastroUsuarioActivity.this);
+                UsuarioDao dao = new UsuarioDao(getBaseContext());
 
                 String retorno = dao.salva(usuario);
 
