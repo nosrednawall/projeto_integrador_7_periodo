@@ -30,7 +30,9 @@ public class HomeActivity extends AppCompatActivity {
         cardUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent usuariosIntent = findViewById(R.id.lista_usuarios_view);
+
+                Intent listaUsuariosIntent = new Intent(getApplicationContext(),ListaUsuariosActivity.class);
+                startActivity(listaUsuariosIntent);
             }
         });
 

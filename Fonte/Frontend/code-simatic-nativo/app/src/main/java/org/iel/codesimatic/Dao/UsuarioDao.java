@@ -33,7 +33,11 @@ public class UsuarioDao {
 
     public void open(){
         try {
-            database = banco.getWritableDatabase();
+            if(banco.getDatabaseName() != null) {
+                database = banco.getWritableDatabase();
+            }else{
+                System.out.println("Database null");
+            }
         }catch (SQLException exception){
             System.out.println("Execeao de sql - "+exception.toString());
         }
@@ -58,7 +62,7 @@ public class UsuarioDao {
         valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_CPF, entity.getCpf());
 
         //tenho que fazer a conversao de LocalDateTime para o tipo real do banco
-//        valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_DATA_CRIACAO, entity.getDataCriacao());
+        valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_DATA_CRIACAO, entity.getDataCriacaoToString());
         valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_EMAIL, entity.getEmail());
         valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_SENHA, entity.getSenha());
         valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_RAMAL, entity.getRamal());
@@ -118,7 +122,7 @@ public class UsuarioDao {
         valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_CPF, entity.getCpf());
 
         //tenho que fazer a conversao de LocalDateTime para o tipo real do banco
-//        valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_DATA_CRIACAO, entity.getDataCriacao());
+        valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_DATA_CRIACAO, entity.getDataCriacaoToString());
         valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_EMAIL, entity.getEmail());
         valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_SENHA, entity.getSenha());
         valores.put(UsuarioDatabaseHelper.USUARIO_CAMPO_RAMAL, entity.getRamal());

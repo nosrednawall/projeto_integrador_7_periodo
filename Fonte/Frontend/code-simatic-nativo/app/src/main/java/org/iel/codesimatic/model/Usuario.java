@@ -125,8 +125,8 @@ public class Usuario implements Serializable {
         return dataCriacao;
     }
 
-    public LocalDateTime getDataCriacaoReal() {
-        return dataCriacao;
+    public String getDataCriacaoToString() {
+        return dataCriacao.toString();
     }
 
     public void setDataCriacao(LocalDateTime dataCriacao) {

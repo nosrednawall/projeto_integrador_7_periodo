@@ -51,7 +51,7 @@ public class UsuarioDatabaseHelper extends SQLiteOpenHelper {
             + USUARIO_CAMPO_SEXO + TIPO_TEXT + VIRGULA
             + USUARIO_CAMPO_SETOR + TIPO_TEXT + VIRGULA
             + USUARIO_CAMPO_RAMAL + TIPO_TEXT + VIRGULA
-            + USUARIO_CAMPO_DATA_CRIACAO + TIPO_NUMERIC + VIRGULA
+            + USUARIO_CAMPO_DATA_CRIACAO + TIPO_TEXT + VIRGULA
             + USUARIO_CAMPO_STATUS + TIPO_INTEGER
             + ");";
 
