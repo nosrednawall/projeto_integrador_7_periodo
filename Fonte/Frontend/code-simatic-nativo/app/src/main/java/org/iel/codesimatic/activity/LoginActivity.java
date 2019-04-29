@@ -79,19 +79,20 @@ public class LoginActivity extends AppCompatActivity {
 
                 Usuario usuario = getAutenticacao(getEmail(),getSenha());
 
-                //se o usuário possuir id 0
-//                if(usuario.getId() == 0){
-//                    Intent formulario = new Intent(getApplicationContext(),CadastroUsuarioActivity.class);
-//                    startActivity(formulario);
-//                    Toast.makeText(LoginActivity.this, "Usuário não encontrado, por favor efetue o cadastro", Toast.LENGTH_LONG).show();
-//                }
+//                se o usuário possuir id 0
+                if(usuario.getId() == 0){
+                    Intent formulario = new Intent(getApplicationContext(),CadastroUsuarioActivity.class);
+                    startActivity(formulario);
+                    Toast.makeText(LoginActivity.this, "Usuário não encontrado, por favor efetue o cadastro", Toast.LENGTH_LONG).show();
+                }else {
 
-                //se o email não estiver vazio, salve-o no shared preferences
-                if(!getEmail().isEmpty()) {
-                    salvaEmailNoSharedPreferences(emailTextView.getText().toString());
+                    //se o email não estiver vazio, salve-o no shared preferences
+                    if (!getEmail().isEmpty()) {
+                        salvaEmailNoSharedPreferences(emailTextView.getText().toString());
+                    }
+                    Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(home);
                 }
-                Intent home = new Intent(getApplicationContext(),HomeActivity.class);
-                startActivity(home);
             }
         });
 

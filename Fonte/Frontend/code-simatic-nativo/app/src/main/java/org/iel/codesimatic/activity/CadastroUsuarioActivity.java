@@ -1,5 +1,7 @@
 package org.iel.codesimatic.activity;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -10,14 +12,19 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import org.iel.codesimatic.Dao.UsuarioDao;
 import org.iel.codesimatic.R;
+import org.iel.codesimatic.model.SexoEnum;
+import org.iel.codesimatic.model.StatusEnum;
 import org.iel.codesimatic.model.Usuario;
+
+import java.time.LocalDateTime;
 
 import static org.iel.codesimatic.util.ValidacoesUtil.validaUsuarioAntesdeInstanciar;
 
 public class CadastroUsuarioActivity extends AppCompatActivity {
 
-    private static String sexo;
+    private SexoEnum sexo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +38,13 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(CadastroUsuarioActivity.this, "Usuário salvo com sucesso", Toast.LENGTH_SHORT).show();
+                Usuario usuario = instanciaDadosTelaERetornaUsuario();
+
+                UsuarioDao dao = new UsuarioDao(getBaseContext());
+
+                String retorno = dao.salva(usuario);
+
+                Toast.makeText(CadastroUsuarioActivity.this, retorno, Toast.LENGTH_LONG).show();
                 finish();
             }
         });
@@ -42,7 +55,12 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton button = (RadioButton) radioGroup.findViewById(checkedId);
                 String resposta = button.getText().toString();
-                sexo = resposta;
+                if(resposta.equals("Feminino")){
+                    sexo = SexoEnum.FEMININO;
+                }else{
+                    sexo = SexoEnum.MASCULINO;
+                }
+
             }
         });
 
@@ -55,6 +73,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
+
     private Usuario instanciaDadosTelaERetornaUsuario(){
         EditText nomeCompletoEditText = (EditText) findViewById(R.id.cadastro_usuario_nome);
         EditText cpfEditText = (EditText) findViewById(R.id.cadastro_usuario_cpf);
@@ -64,9 +83,23 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         EditText senhaEditText = (EditText) findViewById(R.id.cadastro_usuario_senha);
 
 
-
+        //todo desenvolver a validacao
         if(validaUsuarioAntesdeInstanciar()){
+
             Usuario usuario = new Usuario();
+            usuario.setCpf(cpfEditText.toString());
+            usuario.setSetor(setorEditText.toString());
+            usuario.setNomeCompleto(nomeCompletoEditText.toString());
+            usuario.setRamal(ramalEditText.toString());
+            usuario.setEmail(emailEditText.toString());
+            usuario.setSenha(senhaEditText.toString());
+
+            usuario.setStatus(StatusEnum.ATIVO);
+            usuario.setSexo(sexo);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                usuario.setDataCriacao(LocalDateTime.now());
+            }
+
             return usuario;
         }else{
             return null;
