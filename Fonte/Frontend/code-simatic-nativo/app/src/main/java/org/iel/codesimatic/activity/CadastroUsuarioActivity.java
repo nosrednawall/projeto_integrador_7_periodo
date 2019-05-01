@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import org.iel.codesimatic.Dao.UsuarioDao;
+import org.iel.codesimatic.Dao.UsuarioDatabaseHelper;
 import org.iel.codesimatic.R;
 import org.iel.codesimatic.model.SexoEnum;
 import org.iel.codesimatic.model.StatusEnum;
@@ -39,6 +40,8 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Usuario usuario = instanciaDadosTelaERetornaUsuario();
+
+//                new UsuarioDatabaseHelper(null).onCreate(db);
 
                 UsuarioDao dao = new UsuarioDao(getBaseContext());
 

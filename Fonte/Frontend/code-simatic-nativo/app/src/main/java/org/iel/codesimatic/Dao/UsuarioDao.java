@@ -5,10 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 
 import org.iel.codesimatic.model.Usuario;
 
 public class UsuarioDao {
+
     private SQLiteDatabase database;
 
     private UsuarioDatabaseHelper banco;
@@ -29,17 +31,15 @@ public class UsuarioDao {
 
     public UsuarioDao(Context context){
         banco = new UsuarioDatabaseHelper(context);
+        banco.onCreate(database);
+
     }
 
     public void open(){
         try {
-            if(banco.getDatabaseName() != null) {
-                database = banco.getWritableDatabase();
-            }else{
-                System.out.println("Database null");
-            }
+            database = banco.getWritableDatabase();
         }catch (SQLException exception){
-            System.out.println("Execeao de sql - "+exception.toString());
+            System.out.println("Execeao de sql - " + exception.toString());
         }
     }
 
@@ -53,8 +53,6 @@ public class UsuarioDao {
 
         //abrindo conexao
         open();
-
-//        database = banco.getWritableDatabase();
 
         //inserindo tabela
         valores = new ContentValues();
@@ -141,4 +139,6 @@ public class UsuarioDao {
         database.delete(UsuarioDatabaseHelper.USUARIO_NOME_TABELA,where,null);
         close();
     }
+
+
 }

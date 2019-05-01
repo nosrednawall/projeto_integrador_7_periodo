@@ -52,7 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         EditText senhaEditText = (EditText) findViewById(R.id.password);
 
         //pego a instancia do botão de login
-        Button efetuaLoginOuRegistro = (Button) findViewById(R.id.email_sign_in_button);
+        Button efetuaCadastro = (Button) findViewById(R.id.login_cadastrar);
+
+        Button efetuaLogin = (Button) findViewById(R.id.login_logar);
 
         //pego as shared preferences, no modo privado
         SharedPreferences dadosLoginSalvo = getSharedPreferences(PREFS_NAME, 0);
@@ -67,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         //crio uma função anônima para tratar os eventos do botão
-        efetuaLoginOuRegistro.setOnClickListener(new View.OnClickListener() {
+        efetuaCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -96,6 +98,27 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        efetuaLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //pego o email informado
+                setEmail(emailTextView.getText().toString());
+
+                //pego a senha informada
+                setSenha(senhaEditText.getText().toString());
+
+                Usuario usuario = getAutenticacao(getEmail(),getSenha());
+
+                //se o email não estiver vazio, salve-o no shared preferences
+                if (!getEmail().isEmpty()) {
+                    salvaEmailNoSharedPreferences(emailTextView.getText().toString());
+                }
+                Intent home = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(home);
+
+            }
+        });
 
     }
 

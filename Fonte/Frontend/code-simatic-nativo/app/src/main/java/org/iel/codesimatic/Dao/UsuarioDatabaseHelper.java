@@ -3,6 +3,7 @@ package org.iel.codesimatic.Dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import org.iel.codesimatic.model.SexoEnum;
@@ -15,33 +16,33 @@ import java.time.LocalDateTime;
  */
 public class UsuarioDatabaseHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 6;
     public static final String USUARIO_NOME_BANCO = "usuario.db";
-    public static final String USUARIO_NOME_TABELA = "usuario";
-    public static final String USUARIO_CAMPO_ID = "id";
-    public static final String USUARIO_CAMPO_VERSION = "version";
-    public static final String USUARIO_CAMPO_NOME = "nomeCompleto";
-    public static final String USUARIO_CAMPO_CPF = "cpf";
-    public static final String USUARIO_CAMPO_EMAIL = "email";
-    public static final String USUARIO_CAMPO_SENHA = "senha";
-    public static final String USUARIO_CAMPO_SEXO = "sexo";
-    public static final String USUARIO_CAMPO_SETOR = "setor";
-    public static final String USUARIO_CAMPO_RAMAL = "ramal";
-    public static final String USUARIO_CAMPO_DATA_CRIACAO = "dataCriacao";
-    public static final String USUARIO_CAMPO_STATUS = "status";
+    public static final String USUARIO_NOME_TABELA = " usuario ";
+    public static final String USUARIO_CAMPO_ID = " id ";
+    public static final String USUARIO_CAMPO_VERSION = " version ";
+    public static final String USUARIO_CAMPO_NOME = " nomeCompleto ";
+    public static final String USUARIO_CAMPO_CPF = " cpf ";
+    public static final String USUARIO_CAMPO_EMAIL = " email ";
+    public static final String USUARIO_CAMPO_SENHA = " senha ";
+    public static final String USUARIO_CAMPO_SEXO = " sexo ";
+    public static final String USUARIO_CAMPO_SETOR = " setor ";
+    public static final String USUARIO_CAMPO_RAMAL = " ramal ";
+    public static final String USUARIO_CAMPO_DATA_CRIACAO = " dataCriacao ";
+    public static final String USUARIO_CAMPO_STATUS = " status ";
 
     //Fonte https://sqlite.org/datatype3.html
     private static final String TIPO_NULL = "NULL";
-    private static final String TIPO_INTEGER = "INTEGER";
-    private static final String TIPO_REAL = "REAL";
-    private static final String TIPO_TEXT = "TEXT";
-    private static final String TIPO_BLOB = "BLOB";
-    private static final String TIPO_NUMERIC = "NUMERIC";
+    private static final String TIPO_INTEGER = " INTEGER ";
+    private static final String TIPO_REAL = " REAL ";
+    private static final String TIPO_TEXT = " TEXT ";
+    private static final String TIPO_BLOB = " BLOB ";
+    private static final String TIPO_NUMERIC = " NUMERIC ";
     private static final String VIRGULA = ",";
 
 
     //cria tabela
-    private static final String USUARIO_DAO_TABLE_CRIACAO = "CREATE TABLE " +
+    private static final String USUARIO_DAO_TABLE_CRIACAO = "CREATE TABLE IF NOT EXISTS " +
             USUARIO_NOME_TABELA + "("
             + USUARIO_CAMPO_ID + TIPO_INTEGER + " primary key autoincrement" + VIRGULA
             + USUARIO_CAMPO_NOME + TIPO_TEXT + VIRGULA
@@ -73,4 +74,31 @@ public class UsuarioDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(USUARIO_DROP_TABLE);
         onCreate(db);
     }
+
+//    public boolean checkDataBase(){
+//        SQLiteDatabase db = null;
+//
+//        try {
+//            String path = dbpath+dbname;
+//            db = SQLiteDatabase.openDatabase(path,null,SQLiteDatabase.OPEN_READONLY);
+//            db.close();
+//        }catch (SQLiteException e){
+//            //banco não existe
+//            db.close();
+//        }
+//
+//        return db != null;
+//    }
+//
+//    private void createDataBase() throws Exception{
+//        boolean exists = checkDataBase();
+//
+//        if(!exists){
+//            this.getReadableDatabase();
+//
+//            try{
+//                onCreate(db);
+//            }
+//        }
+//    }
 }
