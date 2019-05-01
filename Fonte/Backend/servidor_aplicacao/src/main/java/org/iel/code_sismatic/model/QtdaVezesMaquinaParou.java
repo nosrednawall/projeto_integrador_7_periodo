@@ -15,6 +15,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+// "   date_part('dow', created_on) = " +
+// "   date_part('dow', cast(:datetime AS date))
 @NamedQueries({
 	@NamedQuery(name = "QtdaVezesMaquinaParou.listarTodos", query = "SELECT DISTINCT q FROM tb_qtda_maquina_parou q"),
 	@NamedQuery(name = "QtdaVezesMaquinaParou.find", query = "SELECT DISTINCT q FROM tb_qtda_maquina_parou q WHERE q.id = :pId"),
@@ -58,12 +60,27 @@ public class QtdaVezesMaquinaParou implements Serializable {
 		this.dateTime = data;
 	}
 	
+	//construtor para listar os dados
+	public QtdaVezesMaquinaParou(Long id ,String data, int noRun,int power, int status) {
+		this.id = id;
+		this.power = power;
+		this.noRun = noRun;
+		this.status = status;
+		setStringToDateTime(data);
+	}
+	
 	public LocalDateTime getDateTime() {
 		return dateTime;
 	}
 
 	public void setDateTime(LocalDateTime dateTime) {
 		this.dateTime = dateTime;
+	}
+	
+	public void setStringToDateTime(String dateTime) {
+		LocalDateTime myDate = LocalDateTime.parse(dateTime);
+		
+		this.dateTime = myDate;
 	}
 	public int getPower() {
 		return power;

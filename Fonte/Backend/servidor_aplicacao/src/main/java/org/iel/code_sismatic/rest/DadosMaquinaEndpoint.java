@@ -20,6 +20,7 @@ import org.iel.code_sismatic.control.SalvaDadosBI;
 import org.iel.code_sismatic.dao.DadosMaquinaDao;
 import org.iel.code_sismatic.dao.QtdaVezesMaquinaParouDao;
 import org.iel.code_sismatic.model.DadosMaquina;
+import org.iel.code_sismatic.model.QtdaVezesMaquinaParou;
 
 /**
  * 
@@ -81,10 +82,11 @@ public class DadosMaquinaEndpoint {
 	@GET
 	@Path("/maquina-parou")
 	@Produces("application/json")
-	public List<DadosMaquina> listaDadosMaquinaParou(
+	public List<QtdaVezesMaquinaParou> listaDadosMaquinaParou(
 			@QueryParam("data_inicio") String dataInicio, 
 			@QueryParam("data_fim") String dataFim) {
-		final List<DadosMaquina> results = daoQtdaVezesMaquinaParou.listAll(dataInicio, dataFim);
+
+		final List<QtdaVezesMaquinaParou> results = daoQtdaVezesMaquinaParou.buscaLista(dataInicio, dataFim);
 		return results;
 	}
 }
