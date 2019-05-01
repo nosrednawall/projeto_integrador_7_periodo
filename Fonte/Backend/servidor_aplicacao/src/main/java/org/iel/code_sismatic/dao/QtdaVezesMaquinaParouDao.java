@@ -37,9 +37,9 @@ public class QtdaVezesMaquinaParouDao extends BaseDao<QtdaVezesMaquinaParou> {
 				"FROM " +
 					"tb_qtda_maquina_parou as q " +
 				"WHERE " +
-				 	"q.date_time >= cast(:pDataInicio) " +
+				 	"date_part('dow', q.date_time >= cast(:pDataInicio)) " +
 				"AND " +
-					"q.date_time <= cast(:pDataFim)", QtdaVezesMaquinaParou.class)
+					"date_part('dow', q.date_time <= cast(:pDataFim))", QtdaVezesMaquinaParou.class)
 				.setParameter("pDataInicio", dataInicio)
 				.setParameter("pDataFim", dataFim);
 		
