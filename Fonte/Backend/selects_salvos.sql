@@ -1,3 +1,42 @@
+-- select de dados da tabela dimensao quantidade de vezes maquina parou
+
+-- Primeiro funciona que uma beleza
+SELECT
+    *
+FROM 
+    tb_qtda_maquina_parou
+WHERE
+    date_time::date >= CURRENT_DATE;
+
+    
+    
+    
+--Segundo funciona bem também 
+SELECT
+    *
+FROM 
+    tb_qtda_maquina_parou
+WHERE
+    date_time::date >= '2019-05-01';
+    
+    
+    
+    
+-- Terceiro  funciona bem também
+SELECT
+    *
+FROM 
+    tb_qtda_maquina_parou
+WHERE
+    date_time::date >= '2019-04-01'
+AND
+    date_time::date < '2019-05-03';
+
+
+
+
+
+-- Selects de exemplo, não utilizar
 SELECT
     date_time AS momento_gravacao, 
     COALESCE(SUM(status),0) AS total

@@ -23,7 +23,7 @@ function gerar_dados_json(){
     
     var Speed_PV = 1500;
     var Power = 1;
-    var No_Run = 1;
+    var No_Run = getRandomInt(0,2);
     var Auto_Man = 1;
     var Run_CMD = 1; 
     var Status = getRandomInt(0,2);
@@ -62,7 +62,7 @@ function enviaJson(json){
     var rede_local = "http://192.168.0.11:8080/"
     
     // Seta tipo de requisição: Post e a URL da API
-    ajax.open("POST", rede_local+"code-simatic/rest/dados-maquina", true);
+    ajax.open("POST", localhost+"code-simatic/rest/dados-maquina", true);
     ajax.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 
     // Seta paramêtros da requisição e envia a requisição

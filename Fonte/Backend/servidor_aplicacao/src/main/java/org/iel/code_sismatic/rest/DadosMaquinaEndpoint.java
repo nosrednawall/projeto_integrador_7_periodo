@@ -16,7 +16,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
+import org.iel.code_sismatic.control.SalvaDadosBI;
 import org.iel.code_sismatic.dao.DadosMaquinaDao;
+import org.iel.code_sismatic.dao.QtdaVezesMaquinaParouDao;
 import org.iel.code_sismatic.model.DadosMaquina;
 
 /**
@@ -29,15 +31,29 @@ public class DadosMaquinaEndpoint {
 	/**
 	 * Injetado pelo CDI
 	 */
+	//dao da tabela fato
 	@Inject
 	private DadosMaquinaDao dao;
+	
+	@Inject
+	private QtdaVezesMaquinaParouDao daoQtdaVezesMaquinaParou;
+	
+	//dao das tabelas de dimensão
+	@Inject
+	private SalvaDadosBI daoBi;
 
 	@POST
 	@Consumes("application/json")
 	public Response create(DadosMaquina entity) {
+		//seto a data que chegou a informação
 		entity.setDateTime(LocalDateTime.now());
-		System.out.println(entity.toString());
+		
+		//salvo os dados na tabela fato
 		dao.save(entity);
+		
+		//salvos os dados nas tabelas de dimensão
+		daoBi.salvaDadosMaquinaEmTabelasBI(entity);
+		
 		return Response
 				.created(UriBuilder.fromResource(DadosMaquinaEndpoint.class).path(String.valueOf(entity.getId())).build())
 				.build();
@@ -59,6 +75,16 @@ public class DadosMaquinaEndpoint {
 	@Produces("application/json")
 	public List<DadosMaquina> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult) {
 		final List<DadosMaquina> results = dao.listAll(startPosition, maxResult);
+		return results;
+	}
+	
+	@GET
+	@Path("/maquina-parou")
+	@Produces("application/json")
+	public List<DadosMaquina> listaDadosMaquinaParou(
+			@QueryParam("data_inicio") String dataInicio, 
+			@QueryParam("data_fim") String dataFim) {
+		final List<DadosMaquina> results = daoQtdaVezesMaquinaParou.listAll(dataInicio, dataFim);
 		return results;
 	}
 }

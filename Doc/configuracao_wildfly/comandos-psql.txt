@@ -1,4 +1,4 @@
-https://gist.github.com/nosrednawall/91b29c4db37b00ad99c7a0aea62be7cd
+ https://gist.github.com/nosrednawall/91b29c4db37b00ad99c7a0aea62be7cd
 -- Comando para logar como admin no postgres
 $ sudo -u postgres psql postgres
 
@@ -12,3 +12,20 @@ CREATE DATABASE projeto WITH OWNER sa_projeto;
 \c projeto;
 -- atribui todos os provilegios do banco criado ao usuário criado
 GRANT ALL PRIVILEGES ON DATABASE projeto TO sa_projeto;
+
+//comandos executados em 01/05/2019
+➜  ~ sudo -u postgres psql postgres
+psql (11.2 (Debian 11.2-2))
+Digite "help" para ajuda.
+
+postgres=# \d
+Did not find any relations.
+postgres=# create user anderson with password '123' createdb;
+CREATE ROLE
+postgres=# create database code_simatic with owner anderson;
+CREATE DATABASE
+postgres=# \c code_simatic ;
+Você está conectado agora ao banco de dados "code_simatic" como usuário "postgres".
+code_simatic=# grant all privileges on database code_simatic to anderson ;
+GRANT
+code_simatic=# \q
