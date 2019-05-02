@@ -35,13 +35,7 @@ public class QtdaVezesMaquinaParouDao extends BaseDao<QtdaVezesMaquinaParou> {
 		Query q = getEntityManager().createNativeQuery(
 				"SELECT * "+ 
 				"FROM " +
-					"tb_qtda_maquina_parou as q " +
-				"WHERE " +
-				 	"date_part('dow', q.date_time >= cast(:pDataInicio)) " +
-				"AND " +
-					"date_part('dow', q.date_time <= cast(:pDataFim))", QtdaVezesMaquinaParou.class)
-				.setParameter("pDataInicio", dataInicio)
-				.setParameter("pDataFim", dataFim);
+					"tb_qtda_maquina_parou as q ");
 		
 		List<Object[]> listaQtdaVezesMaquinaProu = q.getResultList();
 		
@@ -59,4 +53,36 @@ public class QtdaVezesMaquinaParouDao extends BaseDao<QtdaVezesMaquinaParou> {
 		
 		return retorno;
 	}
+	
+//	public List<QtdaVezesMaquinaParou> buscaLista(String dataInicio, String dataFim) {
+//		
+//		List<QtdaVezesMaquinaParou> retorno = new ArrayList<QtdaVezesMaquinaParou>();
+//		
+//		Query q = getEntityManager().createNativeQuery(
+//				"SELECT * "+ 
+//				"FROM " +
+//					"tb_qtda_maquina_parou as q " +
+//				"WHERE " +
+//				 	"date_part('dow', q.date_time >= cast(:pDataInicio)) " +
+//				"AND " +
+//					"date_part('dow', q.date_time <= cast(:pDataFim))", QtdaVezesMaquinaParou.class)
+//				.setParameter("pDataInicio", dataInicio)
+//				.setParameter("pDataFim", dataFim);
+//		
+//		List<Object[]> listaQtdaVezesMaquinaProu = q.getResultList();
+//		
+//		//isso foi muito chato
+//		for(Object[] objetoArray : listaQtdaVezesMaquinaProu) {
+//			QtdaVezesMaquinaParou qtda = new QtdaVezesMaquinaParou(
+//					(Long)objetoArray[0], 
+//					(String)objetoArray[1], 
+//					(Integer)objetoArray[2],
+//					(Integer)objetoArray[3],
+//					(Integer)objetoArray[4]
+//					);
+//			retorno.add(qtda);
+//		}
+//		
+//		return retorno;
+//	}
 }
