@@ -2,6 +2,9 @@ package org.iel.code_sismatic.util;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -132,4 +135,32 @@ public class Util {
     public static boolean isNullOrEmpty(String s) {
         return (s == null || s.equals(""));
     }
+    
+	/**
+	 * Função adiciona o padrão a uma estring especifica
+	 * @param data
+	 * @return
+	 */
+	public static String adicionaPattermData(String data) {
+		return data + " 23:59";
+	}
+	
+	/**
+	 * @param data
+	 * @return
+	 */
+	public static LocalDateTime converteStringEmData(String data) {
+		try {
+			
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");	
+		LocalDateTime dataConvertida = LocalDateTime.parse(data, formatter);
+		
+		return dataConvertida;
+		
+		}catch (DateTimeParseException e) {
+            // Throw invalid date message
+            System.out.println("Exception was thrown");
+            return LocalDateTime.now();
+        }		
+	}
 }

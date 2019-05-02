@@ -86,16 +86,33 @@ public class DadosMaquinaEndpoint {
 	@Path("/maquina-parou")
 	@Produces("application/json")
 	public List<QtdaVezesMaquinaParou> listaDadosMaquinaParou(
-			@QueryParam("data_inicio") String dataInicio, 
-			@QueryParam("data_fim") String dataFim) {
+			@QueryParam("data_inicial") String dataInicial, 
+			@QueryParam("data_limite") String dataLimite) {
 		
 		//instancio a coleção
 		final List<QtdaVezesMaquinaParou> results = new ArrayList<QtdaVezesMaquinaParou>();
 		
 		//verifico se as queryparam não estão nulas
-		if(!Util.isNullOrBlank(dataInicio) && !Util.isNullOrBlank(dataFim)) {
-			results.addAll(daoQtdaVezesMaquinaParou.buscaLista(dataInicio, dataFim));
+		if(!Util.isNullOrBlank(dataInicial) && !Util.isNullOrBlank(dataLimite)) {
+			
+			//aplico o patter as datas
+			dataInicial = Util.adicionaPattermData(dataInicial);
+			dataLimite = Util.adicionaPattermData(dataLimite);
+			
+			System.out.println(dataInicial);
+			System.out.println(dataLimite);
+			
+			//faço a solicitação dos dadoss
+			results.addAll(daoQtdaVezesMaquinaParou.listarDadosComDataInicialELimite(dataInicial, dataLimite));
+					
+			//caso só tenha a data inicial
+		}else if(!Util.isNullOrBlank(dataInicial)) {
+			
+			dataInicial = Util.adicionaPattermData(dataInicial);
+			results.addAll(daoQtdaVezesMaquinaParou.listarDadosApartirDataInicial(dataInicial));
 		}
 		return results;
 	}
+	
+
 }
