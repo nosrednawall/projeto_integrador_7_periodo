@@ -17,7 +17,7 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity {
 
         LineChart chart = (LineChart) findViewById(R.id.grafico_qtda_vezes_maquina_parou);
 
-        
+
 
     }
 }
