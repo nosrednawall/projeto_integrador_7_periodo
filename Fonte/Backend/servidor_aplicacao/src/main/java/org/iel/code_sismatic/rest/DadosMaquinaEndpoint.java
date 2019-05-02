@@ -99,9 +99,6 @@ public class DadosMaquinaEndpoint {
 			dataInicial = Util.adicionaPattermData(dataInicial);
 			dataLimite = Util.adicionaPattermData(dataLimite);
 			
-			System.out.println(dataInicial);
-			System.out.println(dataLimite);
-			
 			//faço a solicitação dos dadoss
 			results.addAll(daoQtdaVezesMaquinaParou.listarDadosComDataInicialELimite(dataInicial, dataLimite));
 					
