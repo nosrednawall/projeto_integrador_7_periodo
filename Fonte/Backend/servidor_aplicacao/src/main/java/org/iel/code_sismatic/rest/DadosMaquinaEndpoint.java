@@ -1,6 +1,7 @@
 package org.iel.code_sismatic.rest;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -21,6 +22,8 @@ import org.iel.code_sismatic.dao.DadosMaquinaDao;
 import org.iel.code_sismatic.dao.QtdaVezesMaquinaParouDao;
 import org.iel.code_sismatic.model.DadosMaquina;
 import org.iel.code_sismatic.model.QtdaVezesMaquinaParou;
+
+import org.iel.code_sismatic.util.Util;
 
 /**
  * 
@@ -85,8 +88,14 @@ public class DadosMaquinaEndpoint {
 	public List<QtdaVezesMaquinaParou> listaDadosMaquinaParou(
 			@QueryParam("data_inicio") String dataInicio, 
 			@QueryParam("data_fim") String dataFim) {
-
-		final List<QtdaVezesMaquinaParou> results = daoQtdaVezesMaquinaParou.buscaLista(dataInicio, dataFim);
+		
+		//instancio a coleção
+		final List<QtdaVezesMaquinaParou> results = new ArrayList<QtdaVezesMaquinaParou>();
+		
+		//verifico se as queryparam não estão nulas
+		if(!Util.isNullOrBlank(dataInicio) && !Util.isNullOrBlank(dataFim)) {
+			results.addAll(daoQtdaVezesMaquinaParou.buscaLista(dataInicio, dataFim));
+		}
 		return results;
 	}
 }

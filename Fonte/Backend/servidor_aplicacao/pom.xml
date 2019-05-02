@@ -44,6 +44,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
+
 	<repositories>
 		<repository>
 			<id>jboss</id>
@@ -56,6 +57,14 @@
 	</repositories>
 
 	<dependencies>
+		
+		<!-- dependencia que possui validacoes preciosas como verificar nulo em strings -->	
+		<dependency>
+		  <groupId>com.google.guava</groupId>
+		  <artifactId>guava</artifactId>
+		  <version>27.1-jre</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.wildfly/wildfly-feature-pack -->
 		<dependency>
 		    <groupId>org.wildfly</groupId>
