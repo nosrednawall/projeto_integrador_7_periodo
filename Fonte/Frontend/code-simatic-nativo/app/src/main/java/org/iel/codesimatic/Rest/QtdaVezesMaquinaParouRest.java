@@ -55,8 +55,6 @@ public class QtdaVezesMaquinaParouRest extends AsyncTask<Void, Void, List<QtdaVe
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return lista;
     }
 }
