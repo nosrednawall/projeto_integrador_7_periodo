@@ -43,6 +43,7 @@ public class QtdaVezesMaquinaParouRest extends AsyncTask<Void, Void, List<QtdaVe
 
             //captura os dados recebidos e salva na varialvel resposta
             Scanner scanner = new Scanner(url.openStream());
+
             while (scanner.hasNext()) {
                 StringBuilder resposta = new StringBuilder();
                 resposta.append(scanner.next());
