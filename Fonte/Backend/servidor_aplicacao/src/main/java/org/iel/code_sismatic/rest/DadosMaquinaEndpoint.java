@@ -1,6 +1,7 @@
 package org.iel.code_sismatic.rest;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -21,6 +22,8 @@ import org.iel.code_sismatic.dao.DadosMaquinaDao;
 import org.iel.code_sismatic.dao.QtdaVezesMaquinaParouDao;
 import org.iel.code_sismatic.model.DadosMaquina;
 import org.iel.code_sismatic.model.QtdaVezesMaquinaParou;
+
+import org.iel.code_sismatic.util.Util;
 
 /**
  * 
@@ -83,10 +86,30 @@ public class DadosMaquinaEndpoint {
 	@Path("/maquina-parou")
 	@Produces("application/json")
 	public List<QtdaVezesMaquinaParou> listaDadosMaquinaParou(
-			@QueryParam("data_inicio") String dataInicio, 
-			@QueryParam("data_fim") String dataFim) {
-
-		final List<QtdaVezesMaquinaParou> results = daoQtdaVezesMaquinaParou.buscaLista(dataInicio, dataFim);
+			@QueryParam("data_inicial") String dataInicial, 
+			@QueryParam("data_limite") String dataLimite) {
+		
+		//instancio a coleção
+		final List<QtdaVezesMaquinaParou> results = new ArrayList<QtdaVezesMaquinaParou>();
+		
+		//verifico se as queryparam não estão nulas
+		if(!Util.isNullOrBlank(dataInicial) && !Util.isNullOrBlank(dataLimite)) {
+			
+			//aplico o patter as datas
+			dataInicial = Util.adicionaPattermData(dataInicial);
+			dataLimite = Util.adicionaPattermData(dataLimite);
+			
+			//faço a solicitação dos dadoss
+			results.addAll(daoQtdaVezesMaquinaParou.listarDadosComDataInicialELimite(dataInicial, dataLimite));
+					
+			//caso só tenha a data inicial
+		}else if(!Util.isNullOrBlank(dataInicial)) {
+			
+			dataInicial = Util.adicionaPattermData(dataInicial);
+			results.addAll(daoQtdaVezesMaquinaParou.listarDadosApartirDataInicial(dataInicial));
+		}
 		return results;
 	}
+	
+
 }

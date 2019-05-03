@@ -27,6 +27,14 @@ public class HomeActivity extends AppCompatActivity {
         CardView cardMaps = (CardView) findViewById(R.id.home_card_maps);
         CardView cardLogoff = (CardView) findViewById(R.id.home_card_logoff);
 
+        cardGraficos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent qtdaGraficoIntent = new Intent(getApplicationContext(), QtdaParadaMaquinaGraficoActivity.class);
+                startActivity(qtdaGraficoIntent);
+            }
+        });
+
         cardUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

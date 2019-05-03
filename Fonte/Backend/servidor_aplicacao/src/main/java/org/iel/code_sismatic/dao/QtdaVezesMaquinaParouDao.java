@@ -1,6 +1,5 @@
 package org.iel.code_sismatic.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,7 +8,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
+import javax.persistence.TypedQuery;
+
+
 import org.iel.code_sismatic.model.QtdaVezesMaquinaParou;
+import org.iel.code_sismatic.util.Util;
 
 /**
  * DAO for Dados Máquina
@@ -29,47 +32,31 @@ public class QtdaVezesMaquinaParouDao extends BaseDao<QtdaVezesMaquinaParou> {
 		return em;
 	}
 
+	public List<QtdaVezesMaquinaParou> listarDadosApartirDataInicial(String dataInicial) {
+		TypedQuery<QtdaVezesMaquinaParou> findAllQuery;
+		
+		findAllQuery = getEntityManager()
+				.createNamedQuery
+				("QtdaVezesMaquinaParou.listarTodosComData",QtdaVezesMaquinaParou.class);
+		
+		findAllQuery.setParameter("pDataInicial", Util.converteStringEmData(dataInicial));
+			
+		return findAllQuery.getResultList();
+	}
 	
-	public List<QtdaVezesMaquinaParou> buscaLista(String dataInicio, String dataFim) {
+	//http://0.0.0.0:8080/code-simatic/rest/dados-maquina/maquina-parou?data_inicial=2019-04-01&data_limite=2019-05-02
+	public List<QtdaVezesMaquinaParou> listarDadosComDataInicialELimite(String dataInicial, String dataLimite) {
 		
-		String query = "SELECT * "+ 
-						"FROM " +
-							"tb_qtda_maquina_parou as q " +
-						"WHERE " +
-							"q.date_time > ?1" +
-						"AND " +
-							"q.date_time < ?2" +
-						"ORDER BY q.id DESC";
+		TypedQuery<QtdaVezesMaquinaParou> retorno;
 		
-		TemporalType dataInicioTemporalType = TemporalType.valueOf(dataInicio);
-		TemporalType dataFimTemporalType = TemporalType.valueOf(dataInicio);
+		retorno = getEntityManager()
+				.createNamedQuery
+				("QtdaVezesMaquinaParou.listarComDataInicialELimite",QtdaVezesMaquinaParou.class);
 		
-		System.out.println("inicio " + dataInicioTemporalType);
-		System.out.println("fim " + dataFimTemporalType);
+		retorno.setParameter("pDataInicial", Util.converteStringEmData(dataInicial));
+		retorno.setParameter("pDataLimite", Util.converteStringEmData(dataLimite));
 		
-		List<QtdaVezesMaquinaParou> retorno = new ArrayList<QtdaVezesMaquinaParou>();
-		
-		Query q = getEntityManager().createNativeQuery(
-				query, QtdaVezesMaquinaParou.class)
-				.setParameter(1, dataInicio)
-				.setParameter(2, dataFim);
-		
-		@SuppressWarnings("unchecked")
-		List<Object[]> listaQtdaVezesMaquinaProu = q.getResultList();
-		
-		//isso foi muito chato
-		for(Object[] objetoArray : listaQtdaVezesMaquinaProu) {
-			QtdaVezesMaquinaParou qtda = new QtdaVezesMaquinaParou(
-					(Long)objetoArray[0], 
-					(String)objetoArray[1], 
-					(Integer)objetoArray[2],
-					(Integer)objetoArray[3],
-					(Integer)objetoArray[4]
-					);
-			retorno.add(qtda);
-		}
-		
-		return retorno;
+		return retorno.getResultList();
 	}
 	
 //	public List<QtdaVezesMaquinaParou> buscaLista(String dataInicio, String dataFim) {

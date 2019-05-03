@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 // "   date_part('dow', cast(:datetime AS date))
 @NamedQueries({
 	@NamedQuery(name = "QtdaVezesMaquinaParou.listarTodos", query = "SELECT DISTINCT q FROM tb_qtda_maquina_parou q"),
+	@NamedQuery(name = "QtdaVezesMaquinaParou.listarTodosComData", query = "SELECT DISTINCT q FROM tb_qtda_maquina_parou q WHERE q.dateTime >= :pDataInicial"),
+	@NamedQuery(name = "QtdaVezesMaquinaParou.listarComDataInicialELimite", query = "SELECT DISTINCT q FROM tb_qtda_maquina_parou q WHERE q.dateTime BETWEEN :pDataInicial AND :pDataLimite"),
 	@NamedQuery(name = "QtdaVezesMaquinaParou.find", query = "SELECT DISTINCT q FROM tb_qtda_maquina_parou q WHERE q.id = :pId"),
 })
 @Entity(name = "tb_qtda_maquina_parou")
