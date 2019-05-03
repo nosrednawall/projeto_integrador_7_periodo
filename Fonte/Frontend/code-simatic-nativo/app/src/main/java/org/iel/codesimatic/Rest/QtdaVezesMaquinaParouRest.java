@@ -17,7 +17,7 @@ import java.util.Scanner;
 /**
  * Classe que rodará o background
  */
-public class HttpService extends AsyncTask<Void, Void, QtdaVezesMaquinaParou> {
+public class QtdaVezesMaquinaParouRest extends AsyncTask<Void, Void, List<QtdaVezesMaquinaParou>> {
 
 
     @Override
@@ -59,12 +59,4 @@ public class HttpService extends AsyncTask<Void, Void, QtdaVezesMaquinaParou> {
 
         return lista;
     }
-
-    private List<QtdaVezesMaquinaParou> geraListaDeDados(StringBuilder resposta){
-
-
-
-        return null;
-    }
-
 }
