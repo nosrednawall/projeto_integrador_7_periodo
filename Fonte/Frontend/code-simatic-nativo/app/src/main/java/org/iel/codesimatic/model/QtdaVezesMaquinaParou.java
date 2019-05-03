@@ -40,6 +40,10 @@ public class QtdaVezesMaquinaParou implements Serializable {
         return dateTime;
     }
 
+    public int getDia() {
+        return dateTime.getDayOfMonth();
+    }
+
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }

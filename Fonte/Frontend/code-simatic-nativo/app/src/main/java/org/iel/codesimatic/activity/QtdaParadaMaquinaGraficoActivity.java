@@ -2,9 +2,12 @@ package org.iel.codesimatic.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -12,11 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.iel.codesimatic.R;
-import org.iel.codesimatic.Rest.QtdaVezesMaquinaParouRest;
 import org.iel.codesimatic.model.QtdaVezesMaquinaParou;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -44,19 +43,19 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity {
 
 //        dados.addAll((List<QtdaVezesMaquinaParou>) new QtdaVezesMaquinaParouRest());
 
-        LineChart chart = (LineChart) findViewById(R.id.grafico_qtda_vezes_maquina_parou);
+        BarChart chart = (BarChart) findViewById(R.id.grafico_qtda_vezes_maquina_parou);
 
-        List<Entry> entries = new ArrayList<Entry>();
+        List<BarEntry> entries = new ArrayList<BarEntry>();
         for (QtdaVezesMaquinaParou data : dados) {
             // turn your data into Entry objects
-            entries.add(new Entry(data.getNoRun(), data.getStatus()));
+            entries.add(new BarEntry(data.getDia(), data.getStatus(),data.getNoRun()));
         }
 
-        LineDataSet dataSet = new LineDataSet(entries, "Qtda vezes parado");
+        BarDataSet dataSet = new BarDataSet(entries,"texto");
         dataSet.setColor(1);
         dataSet.setValueTextColor(2);
 
-        LineData lineData = new LineData(dataSet);
+        BarData lineData = new BarData(dataSet);
         chart.setData(lineData);
 
         chart.invalidate(); // refresh

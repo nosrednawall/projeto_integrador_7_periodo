@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.QtdaParadaMaquinaGraficoActivity">
 
-    <com.github.mikephil.charting.charts.LineChart
+    <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/grafico_qtda_vezes_maquina_parou"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
