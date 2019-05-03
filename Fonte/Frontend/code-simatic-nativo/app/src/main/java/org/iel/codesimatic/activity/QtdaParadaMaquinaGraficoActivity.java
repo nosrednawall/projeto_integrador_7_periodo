@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import org.iel.codesimatic.R;
 import org.iel.codesimatic.Rest.QtdaVezesMaquinaParouRest;
@@ -28,8 +30,17 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity {
         List<Entry> entries = new ArrayList<Entry>();
         for (QtdaVezesMaquinaParou data : dados) {
             // turn your data into Entry objects
-            entries.add(new Entry(data.getValueX(), data.getValueY()));
+            entries.add(new Entry(data.getNoRun(), data.getStatus()));
         }
+
+        LineDataSet dataSet = new LineDataSet(entries, "Qtda vezes parado");
+        dataSet.setColor(1);
+        dataSet.setValueTextColor(2);
+
+        LineData lineData = new LineData(dataSet);
+        chart.setData(lineData);
+
+        chart.invalidate(); // refresh
 
     }
 }

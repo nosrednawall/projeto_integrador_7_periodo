@@ -24,29 +24,36 @@ android {
 }
 
 repositories {
-    maven { url 'https://jitpack.io' }
+    maven {
+        url 'https://jitpack.io'
+    }
+
+    maven {
+        url 'https://maven.google.com'
+    }
 }
 
 dependencies {
-    //material design google
-    api 'com.android.support:design:28.0.0-alpha3'
 
     //padrao android - não mexer
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+
     //layout
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:cardview-v7:28.0.0'
+
+
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
+//    implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha5'
+//    implementation 'com.android.support:recyclerview-v7:28.0.0'
+//    implementation 'com.android.support:cardview-v7:28.0.0'
 
     //funcionalidades do google play services
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
 
     //testes
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13-beta-2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
@@ -56,4 +63,15 @@ dependencies {
     //tambem gera graficos - mais nova
     implementation 'com.github.PhilJay:MPAndroidChart:3.1.0'
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+
+    //para receber objetos via rest
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'org.jetbrains:annotations:15.0'
+
+    //volley rest android
+    // https://mvnrepository.com/artifact/com.mcxiaoke.volley/library
+    implementation 'com.mcxiaoke.volley:library:1.0.19'
 }
