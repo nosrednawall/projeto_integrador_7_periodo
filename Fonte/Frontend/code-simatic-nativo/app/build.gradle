@@ -56,16 +56,4 @@ dependencies {
     //tambem gera graficos - mais nova
     implementation 'com.github.PhilJay:MPAndroidChart:3.1.0'
     implementation 'com.google.code.gson:gson:2.8.5'
-
-    //retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-
-    //para receber objetos via rest
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'org.jetbrains:annotations:15.0'
-
-    //volley rest android
-    // https://mvnrepository.com/artifact/com.mcxiaoke.volley/library
-    implementation 'com.mcxiaoke.volley:library:1.0.19'
-
 }
