@@ -5,11 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TemporalType;
-
 import javax.persistence.TypedQuery;
-
 
 import org.iel.code_sismatic.model.QtdaVezesMaquinaParou;
 import org.iel.code_sismatic.util.Util;
