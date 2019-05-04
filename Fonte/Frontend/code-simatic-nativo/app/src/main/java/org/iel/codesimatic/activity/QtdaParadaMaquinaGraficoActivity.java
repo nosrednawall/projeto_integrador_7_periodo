@@ -1,6 +1,7 @@
 package org.iel.codesimatic.activity;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -33,10 +34,16 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity implemen
     private TextView tvX;
     private int count;
     private float range;
+    protected Typeface tfRegular;
+    protected Typeface tfLight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
+        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -81,7 +88,7 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity implemen
 //        xAxis.setTypeface(tfLight);
         xAxis.setTextSize(10f);
         xAxis.setTextColor(Color.WHITE);
-        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(true);
         xAxis.setTextColor(Color.rgb(255, 192, 56));
         xAxis.setCenterAxisLabels(true);
@@ -91,9 +98,9 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity implemen
             private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.getDefault());
 
             @Override
-            public String getFormattedValue(float value) {
+            public String getFormattedValue(float teste) {
 
-                long millis = TimeUnit.HOURS.toMillis((long) value);
+                long millis = TimeUnit.HOURS.toMillis((long) teste);
                 return mFormat.format(new Date(millis));
             }
 
