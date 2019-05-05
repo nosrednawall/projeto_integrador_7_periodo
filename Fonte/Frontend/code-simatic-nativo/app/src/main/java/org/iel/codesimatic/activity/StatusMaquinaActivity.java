@@ -142,20 +142,35 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
         this.count = count;
         this.range = range;
 
-        // now in hours
-        long now = TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis());
+        //essa é a ideia inicial
 
+        //instancia o array dos valores
         ArrayList<Entry> values = new ArrayList<>();
 
-        // count = hours
-        float to = now + count;
+        //pego a variavel com a data inicial
+        long dataInicial = TimeUnit.MILLISECONDS.toHours(entidade.getDataInicial);
 
-        // increment by 1 hour
-        for (float x = now; x < to; x++) {
+        long dataFinal = TimeUnit.MILLISECONDS.toHours(entidade.getDataFinal);
 
-            float y = Util.getRandom(range, 0);
-            values.add(new Entry(x, y)); // add one entry per hour
+        for( float eixoX = dataInicial; eixoX < dataFinal; eixoX++){
+            int contador = 0;
+            values.add(new Entry(entidade.getColecaoDados.getPosicao[0].getData, entidade.getColecaoDados.getPosicao[0].getStatus));
+            contador++;
         }
+
+
+
+        // now in hours
+//        long now = TimeUnit.MILLISECONDS.toHours(System.currentTimeMillis());
+//        // count = hours
+//        float to = now + count;
+//
+//        // increment by 1 hour
+//        for (float x = now; x < to; x++) {
+//
+//            float y = Util.getRandom(range, 0);
+//            values.add(new Entry(x, y)); // add one entry per hour
+//        }
 
         // create a dataset and give it a type
         LineDataSet set1 = new LineDataSet(values, "DataSet 1");
@@ -175,7 +190,7 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
         data.setValueTextColor(Color.WHITE);
         data.setValueTextSize(9f);
 
-        // set data
+        // set data - é aqui que a mágica acontece
         chart.setData(data);
     }
 

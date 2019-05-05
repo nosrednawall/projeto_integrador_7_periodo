@@ -1,9 +1,9 @@
-package org.iel.codesimatic.model;
+package org.iel.codesimatic.model.dimensao;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class QtdaVezesMaquinaParou implements Serializable {
+public class StatusMaquina implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -17,10 +17,10 @@ public class QtdaVezesMaquinaParou implements Serializable {
     private LocalDateTime dateTime;
 
     //construtor vazio
-    public QtdaVezesMaquinaParou() {}
+    public StatusMaquina() {}
 
     //construtor para salvar os dados
-    public QtdaVezesMaquinaParou(int power,int noRun, int status, LocalDateTime data) {
+    public StatusMaquina(int power,int noRun, int status, LocalDateTime data) {
         this.power = power;
         this.noRun = noRun;
         this.status = status;
@@ -28,7 +28,7 @@ public class QtdaVezesMaquinaParou implements Serializable {
     }
 
     //construtor para listar os dados
-    public QtdaVezesMaquinaParou(Long id ,String data, int noRun,int power, int status) {
+    public StatusMaquina(Long id ,String data, int noRun,int power, int status) {
         this.id = id;
         this.power = power;
         this.noRun = noRun;
@@ -90,10 +90,10 @@ public class QtdaVezesMaquinaParou implements Serializable {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof QtdaVezesMaquinaParou)) {
+        if (!(obj instanceof StatusMaquina)) {
             return false;
         }
-        QtdaVezesMaquinaParou other = (QtdaVezesMaquinaParou) obj;
+        StatusMaquina other = (StatusMaquina) obj;
         if (id != null) {
             if (!id.equals(other.id)) {
                 return false;

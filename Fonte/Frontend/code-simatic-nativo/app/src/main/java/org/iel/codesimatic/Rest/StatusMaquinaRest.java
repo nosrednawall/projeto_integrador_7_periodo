@@ -17,7 +17,7 @@ import java.util.Scanner;
 /**
  * Classe que rodará o background
  */
-public class QtdaVezesMaquinaParouRest extends AsyncTask<Void, Void, List<QtdaVezesMaquinaParou>> {
+public class StatusMaquinaRest extends AsyncTask<Void, Void, List<QtdaVezesMaquinaParou>> {
 
 
     @Override
