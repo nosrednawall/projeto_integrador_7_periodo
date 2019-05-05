@@ -141,7 +141,10 @@ public class Util {
 	 * @param data
 	 * @return
 	 */
-	public static String adicionaPattermData(String data) {
+	public static String adicionaPattermDataInicial(String data) {
+		return data + " 00:00";
+	}
+	public static String adicionaPattermDataFinal(String data) {
 		return data + " 23:59";
 	}
 	

@@ -22,6 +22,7 @@ import org.iel.code_sismatic.dao.DadosMaquinaDao;
 import org.iel.code_sismatic.dao.StatusMaquinaDao;
 import org.iel.code_sismatic.model.entidades_dimensao.StatusMaquina;
 import org.iel.code_sismatic.model.entidades_fato.DadosMaquina;
+import org.iel.code_sismatic.rest.objetos_envio.StatusMaquinaEnvio;
 import org.iel.code_sismatic.util.Util;
 
 /**
@@ -84,30 +85,35 @@ public class DadosMaquinaEndpoint {
 	@GET
 	@Path("/status")
 	@Produces("application/json")
-	public List<StatusMaquina> listaDadosMaquinaParou(
+	public StatusMaquinaEnvio listaDadosMaquinaParou(
 			@QueryParam("data_inicial") String dataInicial, 
 			@QueryParam("data_limite") String dataLimite) {
 		
 		//instancio a coleção
 		final List<StatusMaquina> results = new ArrayList<StatusMaquina>();
 		
+		//aplico o patter as datas
+		dataInicial = Util.adicionaPattermDataInicial(dataInicial);
+		dataLimite = Util.adicionaPattermDataFinal(dataLimite);
+		
 		//verifico se as queryparam não estão nulas
 		if(!Util.isNullOrBlank(dataInicial) && !Util.isNullOrBlank(dataLimite)) {
-			
-			//aplico o patter as datas
-			dataInicial = Util.adicionaPattermData(dataInicial);
-			dataLimite = Util.adicionaPattermData(dataLimite);
-			
+					
 			//faço a solicitação dos dadoss
 			results.addAll(daoStatusMaquina.listarDadosComDataInicialELimite(dataInicial, dataLimite));
 					
 			//caso só tenha a data inicial
 		}else if(!Util.isNullOrBlank(dataInicial)) {
 			
-			dataInicial = Util.adicionaPattermData(dataInicial);
 			results.addAll(daoStatusMaquina.listarDadosApartirDataInicial(dataInicial));
+			
 		}
-		return results;
+		StatusMaquinaEnvio retorno = new StatusMaquinaEnvio(
+				Util.converteStringEmData(dataInicial), 
+				Util.converteStringEmData(dataLimite), 
+				results);
+		
+		return retorno;
 	}
 	
 
