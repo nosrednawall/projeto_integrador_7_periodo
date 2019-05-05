@@ -57,7 +57,7 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
         seekBarX.setOnSeekBarChangeListener(this);
 
         //chamo o grafico
-        chart = findViewById(R.id.grafico_qtda_vezes_maquina_parou);
+        chart = findViewById(R.id.grafico_status_maquina_line);
 
         //sem texto de descrição
         chart.getDescription().setEnabled(false);
@@ -84,7 +84,7 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
 
         //consegue a legenda da data (apenas depois de definido a data)
         Legend legenda = chart.getLegend();
-        legenda.setEnabled(true);
+        legenda.setEnabled(false);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
@@ -115,6 +115,8 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
         leftAxis.setTextColor(ColorTemplate.getHoloBlue());
         leftAxis.setDrawGridLines(true);
         leftAxis.setGranularityEnabled(true);
+
+
         leftAxis.setAxisMinimum(0f);
         leftAxis.setAxisMaximum(170f);
         leftAxis.setYOffset(-9f);

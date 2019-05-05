@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.QtdaParadaMaquinaGraficoActivity">
+    tools:context=".activity_status_maquina">
 
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/grafico_qtda_vezes_maquina_parou"
+        android:id="@+id/grafico_status_maquina_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/barra_ampliacao" />
