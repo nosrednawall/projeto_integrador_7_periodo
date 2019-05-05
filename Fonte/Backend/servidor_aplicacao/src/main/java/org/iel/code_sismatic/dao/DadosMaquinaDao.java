@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.iel.code_sismatic.model.DadosMaquina;
+import org.iel.code_sismatic.model.entidades_fato.DadosMaquina;
 
 /**
  * DAO for Dados Máquina

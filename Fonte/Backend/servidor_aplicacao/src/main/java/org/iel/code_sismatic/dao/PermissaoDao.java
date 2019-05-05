@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.iel.code_sismatic.model.Permissao;
+import org.iel.code_sismatic.model.entidades_fato.Permissao;
 
 /**
  * DAO for Perfil

@@ -1,4 +1,4 @@
-package org.iel.code_sismatic.model;
+package org.iel.code_sismatic.model.entidades_fato;
 
 import java.io.Serializable;
 

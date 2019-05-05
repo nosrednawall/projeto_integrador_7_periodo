@@ -11,10 +11,10 @@
         android:id="@+id/grafico_qtda_vezes_maquina_parou"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/seekBar1" />
+        android:layout_above="@+id/barra_ampliacao" />
 
     <SeekBar
-        android:id="@+id/seekBar1"
+        android:id="@+id/barra_ampliacao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -22,10 +22,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_toLeftOf="@+id/tvXMax"/>
+        android:layout_toLeftOf="@+id/valor_barra_ampliacao"/>
 
     <TextView
-        android:id="@+id/tvXMax"
+        android:id="@+id/valor_barra_ampliacao"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

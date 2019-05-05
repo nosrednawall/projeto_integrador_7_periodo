@@ -19,10 +19,9 @@ import javax.ws.rs.core.UriBuilder;
 
 import org.iel.code_sismatic.control.SalvaDadosBI;
 import org.iel.code_sismatic.dao.DadosMaquinaDao;
-import org.iel.code_sismatic.dao.QtdaVezesMaquinaParouDao;
-import org.iel.code_sismatic.model.DadosMaquina;
-import org.iel.code_sismatic.model.QtdaVezesMaquinaParou;
-
+import org.iel.code_sismatic.dao.StatusMaquinaDao;
+import org.iel.code_sismatic.model.entidades_dimensao.StatusMaquina;
+import org.iel.code_sismatic.model.entidades_fato.DadosMaquina;
 import org.iel.code_sismatic.util.Util;
 
 /**
@@ -40,7 +39,7 @@ public class DadosMaquinaEndpoint {
 	private DadosMaquinaDao dao;
 	
 	@Inject
-	private QtdaVezesMaquinaParouDao daoQtdaVezesMaquinaParou;
+	private StatusMaquinaDao daoStatusMaquina;
 	
 	//dao das tabelas de dimensão
 	@Inject
@@ -83,14 +82,14 @@ public class DadosMaquinaEndpoint {
 	}
 	
 	@GET
-	@Path("/maquina-parou")
+	@Path("/status")
 	@Produces("application/json")
-	public List<QtdaVezesMaquinaParou> listaDadosMaquinaParou(
+	public List<StatusMaquina> listaDadosMaquinaParou(
 			@QueryParam("data_inicial") String dataInicial, 
 			@QueryParam("data_limite") String dataLimite) {
 		
 		//instancio a coleção
-		final List<QtdaVezesMaquinaParou> results = new ArrayList<QtdaVezesMaquinaParou>();
+		final List<StatusMaquina> results = new ArrayList<StatusMaquina>();
 		
 		//verifico se as queryparam não estão nulas
 		if(!Util.isNullOrBlank(dataInicial) && !Util.isNullOrBlank(dataLimite)) {
@@ -100,13 +99,13 @@ public class DadosMaquinaEndpoint {
 			dataLimite = Util.adicionaPattermData(dataLimite);
 			
 			//faço a solicitação dos dadoss
-			results.addAll(daoQtdaVezesMaquinaParou.listarDadosComDataInicialELimite(dataInicial, dataLimite));
+			results.addAll(daoStatusMaquina.listarDadosComDataInicialELimite(dataInicial, dataLimite));
 					
 			//caso só tenha a data inicial
 		}else if(!Util.isNullOrBlank(dataInicial)) {
 			
 			dataInicial = Util.adicionaPattermData(dataInicial);
-			results.addAll(daoQtdaVezesMaquinaParou.listarDadosApartirDataInicial(dataInicial));
+			results.addAll(daoStatusMaquina.listarDadosApartirDataInicial(dataInicial));
 		}
 		return results;
 	}

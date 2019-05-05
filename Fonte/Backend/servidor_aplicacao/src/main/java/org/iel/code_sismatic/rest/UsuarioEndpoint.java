@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import org.iel.code_sismatic.dao.UsuarioDao;
-import org.iel.code_sismatic.model.Usuario;
+import org.iel.code_sismatic.model.entidades_fato.Usuario;
 
 /**
  * 

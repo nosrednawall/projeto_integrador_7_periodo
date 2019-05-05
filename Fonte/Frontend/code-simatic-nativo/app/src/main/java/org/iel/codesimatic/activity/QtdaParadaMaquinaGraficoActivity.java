@@ -39,26 +39,29 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity implemen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //criação e configuração do layout do gráfico
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_qtda_parada_maquina_grafico);
 
-
+        //fonts
         tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        setContentView(R.layout.activity_qtda_parada_maquina_grafico);
-
+        //titulo do gráfico
         setTitle("Gráfico de Linhas");
 
-        tvX = findViewById(R.id.tvXMax);
-        seekBarX = findViewById(R.id.seekBar1);
+        //barra de ampliacao e o label dela
+        tvX = findViewById(R.id.valor_barra_ampliacao);
+        seekBarX = findViewById(R.id.barra_ampliacao);
         seekBarX.setOnSeekBarChangeListener(this);
 
+        //chamo o grafico
         chart = findViewById(R.id.grafico_qtda_vezes_maquina_parou);
 
         //sem texto de descrição
         chart.getDescription().setEnabled(false);
+        chart.getDescription().setText("Descricao do gráfico");
 
         //abilita o toque
         chart.setTouchEnabled(true);
@@ -85,7 +88,7 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity implemen
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
-//        xAxis.setTypeface(tfLight);
+        xAxis.setTypeface(tfLight);
         xAxis.setTextSize(10f);
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawAxisLine(true);
@@ -108,7 +111,7 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity implemen
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-//        leftAxis.setTypeface(tfLight);
+        leftAxis.setTypeface(tfLight);
         leftAxis.setTextColor(ColorTemplate.getHoloBlue());
         leftAxis.setDrawGridLines(true);
         leftAxis.setGranularityEnabled(true);

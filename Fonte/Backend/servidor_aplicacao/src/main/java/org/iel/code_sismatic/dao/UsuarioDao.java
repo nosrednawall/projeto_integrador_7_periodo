@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.iel.code_sismatic.model.Usuario;
+import org.iel.code_sismatic.model.entidades_fato.Usuario;
 
 /**
  * DAO for Usuario
