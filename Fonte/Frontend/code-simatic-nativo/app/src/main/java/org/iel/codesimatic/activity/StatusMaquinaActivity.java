@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
     private LineChart chart;
     private SeekBar seekBarX;
@@ -42,7 +42,7 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity implemen
         //criação e configuração do layout do gráfico
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_qtda_parada_maquina_grafico);
+        setContentView(R.layout.activity_status_maquina);
 
         //fonts
         tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
@@ -84,7 +84,7 @@ public class QtdaParadaMaquinaGraficoActivity extends AppCompatActivity implemen
 
         //consegue a legenda da data (apenas depois de definido a data)
         Legend legenda = chart.getLegend();
-        legenda.setEnabled(false);
+        legenda.setEnabled(true);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
