@@ -86,16 +86,26 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
         Legend legenda = chart.getLegend();
         legenda.setEnabled(false);
 
+        //pega o eixo do gráfico
         XAxis xAxis = chart.getXAxis();
+
+        //seta a posicao da legenda
         xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
-        xAxis.setTypeface(tfLight);
-        xAxis.setTextSize(10f);
-        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTypeface(tfLight); //font
+        xAxis.setTextSize(10f); //tamanho
+        xAxis.setTextColor(Color.WHITE); //cor
+
+        //desenha as grades e centraliza a legenda dentro das grades
         xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(true);
         xAxis.setTextColor(Color.rgb(255, 192, 56));
         xAxis.setCenterAxisLabels(true);
-        xAxis.setGranularity(1f); // one hour
+
+        //a granualidade do gráfico
+        xAxis.setGranularityEnabled(true);
+        xAxis.setGranularity(1f);// one hour
+
+        //formata a data que irá aparecer na legenda
         xAxis.setValueFormatter(new ValueFormatter() {
 
             private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.getDefault());
@@ -117,9 +127,9 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
         leftAxis.setGranularityEnabled(true);
 
 
-        leftAxis.setAxisMinimum(0f);
-        leftAxis.setAxisMaximum(170f);
-        leftAxis.setYOffset(-9f);
+        leftAxis.setAxisMinimum(-1f);
+        leftAxis.setAxisMaximum(2f);
+        leftAxis.setYOffset(0f);
         leftAxis.setTextColor(Color.rgb(255, 192, 56));
 
         YAxis rightAxis = chart.getAxisRight();
@@ -143,7 +153,7 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
         // increment by 1 hour
         for (float x = now; x < to; x++) {
 
-            float y = Util.getRandom(range, 50);
+            float y = Util.getRandom(range, 0);
             values.add(new Entry(x, y)); // add one entry per hour
         }
 
@@ -152,7 +162,7 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
         set1.setAxisDependency(YAxis.AxisDependency.LEFT);
         set1.setColor(ColorTemplate.getHoloBlue());
         set1.setValueTextColor(ColorTemplate.getHoloBlue());
-        set1.setLineWidth(1.5f);
+        set1.setLineWidth(1f);
         set1.setDrawCircles(false);
         set1.setDrawValues(false);
         set1.setFillAlpha(65);
@@ -175,7 +185,7 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
 
         tvX.setText(String.valueOf(seekBarX.getProgress()));
 
-        setData(seekBarX.getProgress(), 50);
+        setData(seekBarX.getProgress(), 1  );
 
         // redraw
         chart.invalidate();
