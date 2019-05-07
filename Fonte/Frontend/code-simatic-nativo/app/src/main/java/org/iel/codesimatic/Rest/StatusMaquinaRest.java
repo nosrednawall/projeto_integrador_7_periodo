@@ -18,13 +18,9 @@ import java.util.Scanner;
  */
 public class StatusMaquinaRest extends AsyncTask<Void, Void, StatusMaquinaRecebimento> {
 
-    private final String dataInicial;
-    private final String dataLimite;
-
     //construtor
-    public StatusMaquinaRest(String inicialData, String limiteData){
-        this.dataInicial = inicialData;
-        this.dataLimite = limiteData;
+    public StatusMaquinaRest(){
+
     }
 
     @Override

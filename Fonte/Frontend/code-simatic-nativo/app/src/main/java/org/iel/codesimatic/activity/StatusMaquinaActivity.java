@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
@@ -45,19 +44,14 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
     private TextView tvX;
     private int count;
     private float range;
-    protected Typeface tfRegular;
-    protected Typeface tfLight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         //criação e configuração do layout do gráfico
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_status_maquina);
-
-        //fonts
-        tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
-        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 
         //titulo do gráfico
         setTitle("Gráfico de Linhas");
@@ -102,7 +96,6 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
 
         //seta a posicao da legenda
         xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
-        xAxis.setTypeface(tfLight); //font
         xAxis.setTextSize(10f); //tamanho
         xAxis.setTextColor(Color.WHITE); //cor
 
@@ -118,12 +111,9 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
 
         //formata a data que irá aparecer na legenda
         xAxis.setValueFormatter(new ValueFormatter() {
-
             private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.getDefault());
-
             @Override
             public String getFormattedValue(float teste) {
-
                 long millis = TimeUnit.HOURS.toMillis((long) teste);
                 return mFormat.format(new Date(millis));
             }
@@ -132,11 +122,9 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-        leftAxis.setTypeface(tfLight);
         leftAxis.setTextColor(ColorTemplate.getHoloBlue());
         leftAxis.setDrawGridLines(true);
         leftAxis.setGranularityEnabled(true);
-
 
         leftAxis.setAxisMinimum(-1f);
         leftAxis.setAxisMaximum(2f);
@@ -186,6 +174,8 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
 
         // set data - é aqui que a mágica acontece
         chart.setData(data);
+
+        setEntidadeDados(new StatusMaquinaRest().execute().get());
     }
 
 
