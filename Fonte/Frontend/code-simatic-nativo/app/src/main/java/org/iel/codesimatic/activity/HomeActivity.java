@@ -30,8 +30,8 @@ public class HomeActivity extends AppCompatActivity {
         cardGraficos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent statusMaquinaIntent = new Intent(getApplicationContext(), StatusMaquinaActivity.class);
-                startActivity(statusMaquinaIntent);
+                Intent listaGraficosIntent = new Intent(getApplicationContext(), ListaGraficosActivity.class);
+                startActivity(listaGraficosIntent);
             }
         });
 

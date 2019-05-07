@@ -54,4 +54,9 @@
 
     <!-- Strings graficos -->
     <string name="dash">-</string>
+    <string name="nome_grafico_linha_status_maquina">Status máquina Linha</string>
+    <string name="descricao_grafico_linha_status_maquina"></string>
+    <string name="nome_grafico_torta_status_maquina">Status máquina Torta</string>
+    <string name="descricao_grafico_torta_status_maquina"></string>
+
 </resources>
