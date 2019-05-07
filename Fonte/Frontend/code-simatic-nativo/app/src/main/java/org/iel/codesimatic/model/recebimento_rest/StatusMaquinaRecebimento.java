@@ -14,7 +14,7 @@ public class StatusMaquinaRecebimento implements Serializable {
 
     private LocalDateTime dataFinal;
 
-    private List<StatusMaquina> dados = new ArrayList<StatusMaquina>();
+    private List<StatusMaquina> dados;
 
 
     //construtor
@@ -24,6 +24,8 @@ public class StatusMaquinaRecebimento implements Serializable {
         this.dataInicial = dataInicialRecebida;
         this.dataFinal = dataFinalRecebida;
     }
+
+    public StatusMaquinaRecebimento(){}
 
     public LocalDateTime getDataInicial() { return dataInicial; }
 

@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 
 import org.iel.codesimatic.R;
 
+import org.iel.codesimatic.Rest.BuscaStatusMaquinaAsyncTask;
 import org.iel.codesimatic.Rest.StatusMaquinaRest;
 import org.iel.codesimatic.model.dimensao.StatusMaquina;
 import org.iel.codesimatic.model.recebimento_rest.StatusMaquinaRecebimento;
@@ -175,7 +176,8 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
         // set data - é aqui que a mágica acontece
         chart.setData(data);
 
-        setEntidadeDados(new StatusMaquinaRest().execute().get());
+
+        StringBuilder json = new BuscaStatusMaquinaAsyncTask("2019-05-01","2019-05-09");
     }
 
 
