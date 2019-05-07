@@ -30,6 +30,8 @@ import org.iel.code_sismatic.util.Util;
  */
 @Stateless
 @Path("/dados-maquina")
+@Consumes("application/json")
+@Produces("application/json")
 public class DadosMaquinaEndpoint {
 
 	/**
@@ -47,7 +49,6 @@ public class DadosMaquinaEndpoint {
 	private SalvaDadosBI daoBi;
 
 	@POST
-	@Consumes("application/json")
 	public Response create(DadosMaquina entity) {
 		//seto a data que chegou a informação
 		entity.setDateTime(LocalDateTime.now());
@@ -65,7 +66,6 @@ public class DadosMaquinaEndpoint {
 
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
-	@Produces("application/json")
 	public Response findById(@PathParam("id") Long id) {
 		DadosMaquina entity = dao.find(DadosMaquina.class, id);
 		if (entity == null) {
@@ -76,7 +76,6 @@ public class DadosMaquinaEndpoint {
 	}
 
 	@GET
-	@Produces("application/json")
 	public List<DadosMaquina> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult) {
 		final List<DadosMaquina> results = dao.listAll(startPosition, maxResult);
 		return results;
@@ -84,7 +83,6 @@ public class DadosMaquinaEndpoint {
 	
 	@GET
 	@Path("/status")
-	@Produces("application/json")
 	public StatusMaquinaEnvio listaDadosMaquinaParou(
 			@QueryParam("data_inicial") String dataInicial, 
 			@QueryParam("data_limite") String dataLimite) {
