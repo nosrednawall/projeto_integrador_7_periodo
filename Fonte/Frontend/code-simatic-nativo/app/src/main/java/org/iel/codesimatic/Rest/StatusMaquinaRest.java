@@ -32,6 +32,7 @@ public class StatusMaquinaRest extends AsyncTask<Void, Void, StatusMaquinaRecebi
 
         Gson gson = new Gson();
         StringBuilder resposta = new StringBuilder();
+        StatusMaquinaRecebimento status;
 
         try{
             //url
@@ -57,11 +58,17 @@ public class StatusMaquinaRest extends AsyncTask<Void, Void, StatusMaquinaRecebi
                 resposta.append(scanner.next());
             }
 
+
+
+
         }catch (MalformedURLException e){
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return gson.fromJson(resposta.toString(), StatusMaquinaRecebimento.class);
+        status = gson.fromJson(resposta.toString(), StatusMaquinaRecebimento.class);
+        System.out.println(status);
+
+        return status;
     }
 }
