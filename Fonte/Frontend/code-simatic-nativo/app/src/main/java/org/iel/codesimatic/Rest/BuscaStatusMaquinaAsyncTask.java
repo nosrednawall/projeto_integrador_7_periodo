@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import org.iel.codesimatic.model.dimensao.StatusMaquina;
 import org.iel.codesimatic.model.recebimento_rest.StatusMaquinaRecebimento;
 import org.iel.codesimatic.util.ConexaoUtil;
+import org.iel.codesimatic.util.ConversorJsonUtil;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -78,7 +79,8 @@ public class BuscaStatusMaquinaAsyncTask extends AsyncTask<String, String, Strin
                 while ((linha = reader.readLine()) != null) {
                     construtor_resposta.append(linha);
                 }
-                return (construtor_resposta.toString());
+                String resposta = (construtor_resposta.toString());
+                return resposta;
             } else {
                 return "erro";
             }

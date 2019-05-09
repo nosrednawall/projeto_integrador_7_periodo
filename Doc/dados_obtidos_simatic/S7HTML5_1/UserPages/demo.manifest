@@ -1,0 +1,33 @@
+CACHE MANIFEST
+# Generated: 6/22/2013 3:49:49 PM
+
+# Deploy so that URLs are relative to the user pages folder
+
+
+CACHE:
+css/main.css
+css/style.css
+css/switch.css
+index.htm
+IOCounter.htm
+IOtriangleWave.htm
+livecounter.htm
+livedata.htm
+logo-DMC.png
+recipes.htm
+scrollinggraph.htm
+stringdata.htm
+triangleWaveAutoRefresh.htm
+auto-adjust.htm
+dmc.png
+
+js/jquery-2.0.2.min.js
+js/smoothie2.js
+js/plugins.js
+js/main.js
+js/raphael.2.1.0.min.js
+js/justgage.1.0.1.min.js
+~/FormLogin
+
+NETWORK:
+*

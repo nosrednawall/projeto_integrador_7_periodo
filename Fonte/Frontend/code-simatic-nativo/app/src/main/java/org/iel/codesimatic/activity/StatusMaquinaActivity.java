@@ -1,7 +1,6 @@
 package org.iel.codesimatic.activity;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -17,13 +16,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.gson.Gson;
 
 import org.iel.codesimatic.R;
 
 import org.iel.codesimatic.Rest.BuscaStatusMaquinaAsyncTask;
-import org.iel.codesimatic.Rest.StatusMaquinaRest;
-import org.iel.codesimatic.model.dimensao.StatusMaquina;
 import org.iel.codesimatic.model.recebimento_rest.StatusMaquinaRecebimento;
 import org.iel.codesimatic.util.Util;
 
@@ -177,7 +173,7 @@ public class StatusMaquinaActivity extends AppCompatActivity implements SeekBar.
         chart.setData(data);
 
 
-        StringBuilder json = new BuscaStatusMaquinaAsyncTask("2019-05-01","2019-05-09");
+//        StringBuilder json = new BuscaStatusMaquinaAsyncTask("2019-05-01","2019-05-09").execute().get();
     }
 
 

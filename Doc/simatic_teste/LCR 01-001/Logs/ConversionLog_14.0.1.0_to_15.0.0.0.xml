@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type='text/xsl' href='ConversionLogFile.xsl'?>
+<LogFile projectName="LCR 01-001" typeText="Type" messageText="Message" timeText="Time">
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:32:39 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="Upgrade started" />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:32:40 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="Reading information from previous project/library." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:32:40 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="Importing data into the new project/library." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:32:45 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="Updating new project/library." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:32:48 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="Updating new project/library." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:33:14 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="Updating new project/library." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:33:14 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="The cross-reference information is being converted." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:33:15 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="The cross-reference information was created successfully." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:33:15 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="Conversion of the cross-reference information is finished." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:33:16 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="Cleaning up outdated metadata." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <Details ServiceId="80" MessageId="30" Timestamp="11/14/2018 3:33:16 PM" Debug="false">
+    <Text>Package container 'Siemens.Simatic.Lang.S7BSW.V14.0.1.0.NonMandatory' was deleted</Text>
+  </Details>
+  <Details ServiceId="80" MessageId="30" Timestamp="11/14/2018 3:33:16 PM" Debug="false">
+    <Text>Package container 'HW.S71200.CPU.V4.CPU_1212C.MDD_6ES7212-1AE40-0XB0_4.1_14.0.0' was deleted</Text>
+  </Details>
+  <Details ServiceId="80" MessageId="30" Timestamp="11/14/2018 3:33:16 PM" Debug="false">
+    <Text>Product version 'Siemens.Simatic.STEP7.Basic:14.00.01.00' was deleted</Text>
+  </Details>
+  <Details ServiceId="80" MessageId="30" Timestamp="11/14/2018 3:33:16 PM" Debug="false">
+    <Text>Product version 'Siemens.Simatic.Portal:14.00.01.00' was deleted</Text>
+  </Details>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:33:16 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="Saving the upgraded project/library." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="80" MessageId="30" MessageClass="Information" Timestamp="11/14/2018 3:33:17 PM">
+    <Number ServiceNumber="80" MessageNumber="30" />
+    <Text FeedbackText="Saving the upgraded project/library." />
+    <Help HelpId="-1" />
+  </MessageCell>
+  <MessageCell ServiceId="Automation-ObjectFrame-Feedbacks" MessageId="ConversionInfoTabProjectSucceeded" MessageClass="Success" Timestamp="11/14/2018 3:33:17 PM">
+    <Number ServiceNumber="80" MessageNumber="34" />
+    <Text FeedbackText="Project 'D:\MK-16  LCR 01-001\programa projeto\PLC\Atualização de hardware\LCR 01-001\System\PEData.plf' was successfully upgraded and saved as project 'D:\MK-16  LCR 01-001\programa projeto\PLC\Atualização de hardware\LCR 01-001_V15\System\PEData.plf'." />
+    <Help HelpId="-1" HelpFile="" />
+  </MessageCell>
+</LogFile>

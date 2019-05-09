@@ -16,12 +16,23 @@ public class ListaGraficosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_graficos);
 
         CardView cardGraficos = (CardView) findViewById(R.id.lista_graficos_status_maquina);
+        CardView cardGraficoPie = (CardView) findViewById(R.id.lista_graficos_torta);
+
 
         cardGraficos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent statusMaquinaIntent = new Intent(getApplicationContext(), StatusMaquinaActivity.class);
                 startActivity(statusMaquinaIntent);
+            }
+        });
+
+        cardGraficoPie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent PieChaIntent = new Intent(getApplicationContext(), PieChartActivity.class);
+                startActivity(PieChaIntent);
             }
         });
 

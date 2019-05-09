@@ -1,0 +1,94 @@
+<!-- AWP_Start_Fragment Name="Control" Type="manual" ID="2" -->
+<!-- AWP_In_Variable Name='"OUT1"' -->
+<!-- AWP_In_Variable Name='"recipes".bSaveRecipe' -->
+<!-- AWP_In_Variable Name='"recipes".iSelectedRecipe' -->
+<!-- AWP_In_Variable Name='"recipes".ActiveRecipe.intValue1' -->
+<!-- AWP_In_Variable Name='"recipes".ActiveRecipe.intValue2' -->
+<!-- AWP_In_Variable Name='"recipes".ActiveRecipe.floatValue' -->
+<!-- AWP_In_Variable Name='"recipes".ActiveRecipe.boolValue' -->
+<!-- AWP_In_Variable Name='"recipes".ActiveRecipe.stringValue' -->
+
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>DMC Recipe Demo</title>
+    <link rel="stylesheet" href="css/recipe.css">
+	<!--	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+	<script src="js/jquery-2.0.2.min.js"></script>
+</head>
+<body>
+
+
+<div id="stylized" class="myform">
+    <form id="form" name="form" method="post">
+        <h1>Recipe Editor</h1>
+
+        <select id="recipeSelect" name='"recipes".iSelectedRecipe' onchange="this.form.submit()">
+            <option value="0">Recipe 1</option>
+            <option value="1">Recipe 2</option>
+            <option value="2">Recipe 3</option>
+            <option value="3">Recipe 4</option>
+            <option value="4">Recipe 5</option>
+            <option value="5">Recipe 6</option>
+            <option value="6">Recipe 7</option>
+            <option value="7">Recipe 8</option>
+            <option value="8">Recipe 9</option>
+            <option value="9">Recipe 10</option>
+            <option value="10">Recipe 11</option>
+
+        </select>
+        <p>Select a recipe to edit</p>
+</form>
+
+ <form id="recipe" method="post">
+
+        <label>intValue1</label>
+        <input name='"recipes".ActiveRecipe.intValue1' value=':="recipes".ActiveRecipe.intValue1:' type="text" />
+
+        <label>intValue2</label>
+        <input name='"recipes".ActiveRecipe.intValue2' value=':="recipes".ActiveRecipe.intValue2:' type="text" />
+
+        <label>floatValue1</label>
+        <input name='"recipes".ActiveRecipe.floatValue' value=':="recipes".ActiveRecipe.floatValue:' type="text" />
+
+        <label>boolValue</label>
+        <input name='"recipes".ActiveRecipe.boolValue' value=':="recipes".ActiveRecipe.boolValue:' type="text" />
+        
+	<label>stringValue1</label>
+        <input name='"recipes".ActiveRecipe.stringValue' value=':="recipes".ActiveRecipe.stringValue:' type="text" />
+
+       
+        <input type="hidden" name='"recipes".bSaveRecipe' value="1"/>
+        <input type="hidden" name='"OUT1"' value="1"/>
+        <!--<input type="submit" value="save"/>-->
+        <button type="submit">Save</button>
+        <div class="spacer"></div>
+    </form>
+</div>
+
+</body>
+
+<script>
+    function setSelectedIndex(s, i)
+    {
+        s.options[i-0].selected = true;
+        return;
+    }
+    
+</script>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		//Auto login
+		var spost = 'Login=admin&Password=';
+	    	$.post("/FormLogin",spost,function(result){});
+		
+		//set the selected index
+		setSelectedIndex(document.getElementById("recipeSelect"),:="recipes".iSelectedRecipe:);
+
+	});
+	</script>
+
+</html>

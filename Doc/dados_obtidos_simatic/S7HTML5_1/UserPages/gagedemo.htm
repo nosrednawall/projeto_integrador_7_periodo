@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>DMC Gage Demo</title>
+    <script src="js/jquery-2.0.2.min.js"></script>
+    <script src="js/raphael.2.1.0.min.js"></script>
+    <script src="js/justgage.1.0.1.min.js"></script>
+</head>
+
+<body>
+<div id="g1"></div>
+<div id="g2"></div>
+    
+<script type="text/javascript">
+    $(document).ready(function(){
+        var g1, g2;
+        var g1 = new JustGage({
+          id: "g1", 
+          value: getRandomInt(-100, 100), 
+          min: -100,
+          max: 100,
+          title: "Triangle Wave",
+          label: "Value"
+        });
+        
+        var g2 = new JustGage({
+          id: "g2", 
+          value: getRandomInt(0, 100), 
+          min: 0,
+          max: 100,
+          title: "random data",
+          label: ""
+        });
+
+        $.ajaxSetup({ cache: false }); 
+            setInterval(function() {
+                g2.refresh(getRandomInt(50, 100));
+                $.get("IOtriangleWave.htm", function(result){
+	           g1.refresh(parseInt(result));
+	           g2.refresh(getRandomInt(50, 100));
+                });
+            },1500);
+    });
+</script>
+
+</body>
+</html>
