@@ -1,0 +1,303 @@
+﻿<!-- Variable declaration: necessary only for the variables to be written on the PLC -->
+<!-- AWP_In_Variable Name='"OUT1"' -->
+<!-- AWP_In_Variable Name='"OUT2"' -->
+<!-- AWP_In_Variable Name='"OUT3' -->
+
+<!DOCTYPE html>
+<html manifest="demo.manifest">
+	
+	
+<head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>DMC Web Demo</title>
+    <meta name="description" content="">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	
+	
+	<link href="dmc.png" rel="apple-touch-startup-image">
+
+      <!-- Mobile viewport optimized: h5bp.com/viewport -->
+      <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+ 
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory: -->
+	<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/switch.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/toastr.css"/>
+    <link rel="stylesheet" href="css/toastr-responsive.css" />
+
+    <style>
+      body {
+        text-align: center;
+      }
+      
+      #g1,#g2, #g3, #g4 {
+        width:200px; height:160px;
+        display: inline-block;
+        margin: 1em;
+      }
+
+      #logo {
+        float:right;
+        margin: 1em;
+      }
+      
+      
+      
+      p {
+        display: block;
+        width: 450px;
+        margin: 2em auto;
+        text-align: left;
+      }
+    </style>
+    
+
+</head>
+<body onload="resizeGraph()">
+
+    
+<div id="main">
+	<h1>DMC Web Demo</h1>
+
+   
+<div class="content" id="smoothie-div">
+	<div class="content-div">
+		<canvas class="smoothie" id="smoothie" height="300" width="680" > </canvas>
+	</div>
+<div class="content-write">
+			Set the max value:
+			<select onchange="smoothie.options.maxValue=this.value;">
+			<option value="200">200</option>
+			<option value="100" selected="true">100</option>
+			<option value="80">80</option>
+			<option value="70">70</option>
+			</select>
+			Set the min value:
+			<select onchange="smoothie.options.minValue=this.value;">
+			<option value="40">40</option>
+			<option value="20">20</option>
+			<option value="10">10</option>
+			<option value="0" selected="true">0</option>
+			</select>
+			Set the time scale:
+			<select onchange="changeTimeScale(this.value,smoothie,'smoothie');">
+			<option value="30">30</option>
+			<option value="20">20</option>
+			<option value="10">10</option>
+			<option value="5">5</option>
+			<option value="2">2</option>
+			<option value="1" selected="true">1</option>
+			</select>
+		</div>
+</div>
+
+
+<div class="content">
+	<div class="content-div">
+		<ul>
+		  <li>LED 1<div class="switch"><span class="thumb"> </span><input type="checkbox" id="OUT1"/></div></li>
+		</ul>
+	</div>
+	
+	<div class="content-div">
+		<ul>
+		  <li>LED 2 <div class="switch"><span class="thumb"></span><input type="checkbox" id="OUT2"/></div></li>
+		</ul>
+	</div>
+</div>
+<div id="logo"><img src="logo-DMC.png" alt="DMC Logo"></div> 
+<div id="g1"></div>
+<div id="g2"></div>
+
+</div>
+
+
+
+
+ ​
+   <script src="js/jquery-2.0.2.min.js"></script>
+     <script type="text/javascript" src="js/smoothie2.js"></script>
+     <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/raphael.2.1.0.min.js"></script>
+    <script src="js/justgage.1.0.1.min.js"></script>
+    <script src="js/toastr.js"></script>
+    
+
+ 
+
+    
+<script type="text/javascript">
+$(document).ready(function(){
+
+	//Auto Login
+	var spost = 'Login=admin&Password=';
+	$.post("/FormLogin",spost,function(result){});
+
+
+changeTimeScale(1,smoothie,'smoothie');
+
+var stringValue;
+
+var g1, g2, g3, g4;
+
+var g1 = new JustGage({
+          id: "g1", 
+          value: getRandomInt(-100, 100), 
+          min: -100,
+          max: 100,
+          title: "Triangle Wave",
+          label: "Value"
+        });
+        
+        var g2 = new JustGage({
+          id: "g2", 
+          value: getRandomInt(0, 100), 
+          min: 0,
+          max: 100,
+          title: "random data",
+          label: ""
+        });
+
+$.ajaxSetup({ cache: false }); 
+setInterval(function() {
+$.get("IOtriangleWave.htm", function(result){
+
+
+        x=x+0.25;
+        //line1.append(new Date().getTime(), 100.0*Mat.Abs(Math.sin(x)));
+        line1.append(new Date().getTime(), result);
+        //line2.append(new Date().getTime(), 100.0*Math.cos(x*Math.PI/180)+10*Math.random());
+	g1.refresh(parseInt(result));
+	g2.refresh(getRandomInt(50, 100));
+
+});
+
+$.get("IOtoastvalue.htm", function(result){
+	if (stringValue !='' && stringValue != result && result.trim() !=''){
+
+		//toastr.options.positionClass = "toast-top-full-width";
+		toastr.options.timeOut = 20000;
+		toastr.options.extendedTimeOut = 0;
+		toastr.error(result.trim());
+	}
+	stringValue = result;
+
+});
+
+},1500);
+});
+</script>
+
+
+    
+    
+     <script type="text/javascript">
+
+      // Random data
+      var line1 = new TimeSeries();
+      var line2 = new TimeSeries();
+      var x=0.0;
+      
+    
+    var smoothie = new SmoothieChart({minValue: -100, maxValue: 100, labels: "#000000", millisPerPixel: 441, timeStamps: true, maxStorageTime: 1800000, interpolation: "line", grid: ({strokeStyle:"#708090", fillStyle:"#ffffff", lineWidth:1, millisPerLine:30000, verticalSections:5})});
+    smoothie.addTimeSeries(line1, ({strokeStyle:"rgb(255, 0, 0)", lineWidth:2}));
+    smoothie.addTimeSeries(line2, ({strokeStyle:"rgb(0, 255, 0)", lineWidth:2}));
+
+
+
+      smoothie.streamTo(document.getElementById("smoothie"), 1000);
+      
+       function changeTimeScale(val, smooth, canvas) {
+var c = document.getElementById(canvas);
+var w = c.width;
+var mspl = smooth.options.grid.millisPerLine;
+var mspp = smooth.options.millisPerPixel;
+var lpc = w * mspp / mspl;
+var x = val * 60;
+x = Math.ceil(x);
+smooth.options.millisPerPixel = x / w * 1000;
+smooth.options.grid.millisPerLine = w * smooth.options.millisPerPixel / lpc;
+}
+
+
+      
+    </script>
+    
+<script>
+		(function() {
+			var $$ = function(selector) {
+				return Array.prototype.slice.call(document.querySelectorAll(selector));
+			}
+			document.addEventListener("DOMContentLoaded", function() {
+				var checkbox;
+				$$(".switch").forEach(function(switchControl) {
+					if (switchControl.className === ("switch on")) {
+						switchControl.lastElementChild.checked = true;
+					}
+					switchControl.addEventListener("click", function toggleSwitch() {
+						if (switchControl.className === "switch on") {
+							switchControl.className = 'switch off';
+						} else {
+							switchControl.className = ("switch on");
+						}
+						checkbox = switchControl.lastElementChild;
+		
+						checkbox.checked = !checkbox.checked;
+						var url = "/" + window.location.pathname.substr(1);
+						var ival = +checkbox.checked;
+						var sdata = '"' + checkbox.id + '"';
+						sdata=escape(sdata)+'='+ival;
+						//alert(sdata);
+	
+	    				$.post(url,sdata,function(result){});
+						
+					}, false);
+				});
+			}, false);
+		})()
+	</script>
+
+
+<script type="text/javascript">
+function resizeGraph() {
+    var gameArea = document.getElementById('smoothie-div');
+    var widthToHeight = 4 / 3;
+    var newWidth = window.innerWidth;
+    var newHeight = window.innerHeight;
+    
+    var gameCanvas = document.getElementById('smoothie');
+    gameCanvas.width = newWidth*0.9;
+    //gameCanvas.height = newHeight*0.9;
+}
+window.addEventListener('resize', resizeGraph, false);
+window.addEventListener('orientationchange', resizeGraph, false);
+
+</script>
+
+
+
+
+  
+    <script>
+    //this stops the iPad offline app from being stretchable, movable, or bouncable.
+    document.ontouchmove = function(e) {e.preventDefault()};
+	
+    //scrollableDiv.ontouchmove = function(e) {e.stopPropagation()};
+	
+	</script>
+    
+
+   
+    
+
+</body>
+</html>

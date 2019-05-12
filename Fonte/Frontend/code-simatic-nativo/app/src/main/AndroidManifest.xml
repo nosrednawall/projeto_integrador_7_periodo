@@ -26,7 +26,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.StatusMaquinaActivity"></activity>
+        <activity android:name=".activity.PieChartActivity"></activity>
+        <activity android:name=".activity.ListaGraficosActivity" />
+        <activity android:name=".activity.StatusMaquinaActivity" />
         <activity android:name=".activity.ListaUsuariosActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity

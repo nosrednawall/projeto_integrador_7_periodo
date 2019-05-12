@@ -1,0 +1,38 @@
+<!-- AWP_In_Variable Name='"webdata".toast' -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>My Title</title>
+   <style type="text/css">      
+	input[type="text"] {
+     	width: 100%; 
+     	box-sizing: border-box;
+     	-webkit-box-sizing:border-box;
+     	-moz-box-sizing: border-box;
+	}
+   </style>    
+	<script src="js/jquery-2.0.2.min.js"></script>
+    </head>
+    <body>
+	
+	
+        <form method="post">
+       		<input name='"webdata".toast' type="text" />
+		<button type="submit">Save</button>
+    	</form>
+</br>
+:="webdata".toast:
+
+    </body>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			//Auto login
+			var spost = 'Login=admin&Password=';
+	    		$.post("/FormLogin",spost,function(result){});
+	});
+	</script>
+
+</html>
