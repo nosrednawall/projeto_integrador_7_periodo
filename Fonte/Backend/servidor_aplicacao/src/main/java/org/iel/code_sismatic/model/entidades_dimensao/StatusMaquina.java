@@ -17,8 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @NamedQueries({
 	@NamedQuery(name = "StatusMaquina.listarTodos", query = "SELECT DISTINCT q FROM tb_status_maquina q"),
-	@NamedQuery(name = "StatusMaquina.listarTodosComData", query = "SELECT DISTINCT q FROM tb_status_maquina q WHERE q.dateTime >= :pDataInicial"),
-	@NamedQuery(name = "StatusMaquina.listarComDataInicialELimite", query = "SELECT DISTINCT q FROM tb_status_maquina q WHERE q.dateTime BETWEEN :pDataInicial AND :pDataLimite"),
+	@NamedQuery(name = "StatusMaquina.listarTodosComData", query = "SELECT DISTINCT q FROM tb_status_maquina q WHERE q.data >= :pDataInicial"),
+	@NamedQuery(name = "StatusMaquina.listarComDataInicialELimite", query = "SELECT DISTINCT q FROM tb_status_maquina q WHERE q.data BETWEEN :pDataInicial AND :pDataLimite"),
 	@NamedQuery(name = "StatusMaquina.find", query = "SELECT DISTINCT q FROM tb_status_maquina q WHERE q.id = :pId"),
 })
 @Entity(name = "tb_status_maquina")
@@ -31,11 +31,6 @@ public class StatusMaquina implements Serializable {
 	private Long id;
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "power",updatable = false)
-	@Min(0) @Max(1)
-	@NotNull
-	private int power;
-
 	@Column(name = "no_run",updatable = false)
 	@NotNull
 	@Min(0) @Max(1)
@@ -46,48 +41,39 @@ public class StatusMaquina implements Serializable {
 	@Min(0) @Max(1)
 	private int status;
 	
-	@Column(name = "date_time",updatable = false)
-	private LocalDateTime dateTime;
+	@Column(name = "data",updatable = false)
+	private LocalDateTime data;
 	
 	//construtor vazio
 	public StatusMaquina() {}
 
 	//construtor para salvar os dados
 	public StatusMaquina(int power,int noRun, int status, LocalDateTime data) {
-		this.power = power;
 		this.noRun = noRun;
 		this.status = status;
-		this.dateTime = data;
+		this.data = data;
 	}
 	
 	//construtor para listar os dados
 	public StatusMaquina(Long id ,String data, int noRun,int power, int status) {
 		this.id = id;
-		this.power = power;
 		this.noRun = noRun;
 		this.status = status;
 		setStringToDateTime(data);
 	}
 	
 	public LocalDateTime getDateTime() {
-		return dateTime;
+		return data;
 	}
 
 	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
+		this.data = dateTime;
 	}
 	
 	public void setStringToDateTime(String dateTime) {
 		LocalDateTime myDate = LocalDateTime.parse(dateTime);
 		
-		this.dateTime = myDate;
-	}
-	public int getPower() {
-		return power;
-	}
-
-	public void setPower(int power) {
-		this.power = power;
+		this.data = myDate;
 	}
 
 	public int getNoRun() {
@@ -142,8 +128,7 @@ public class StatusMaquina implements Serializable {
 	@Override
 	public String toString() {
 		String texto = 
-				" o status de Power é de: "+this.getPower()+"\n"
-				+" o status de NoRun é de: "+this.getNoRun()+"\n"
+				" o status de NoRun é de: "+this.getNoRun()+"\n"
 				+" o status de Status é de: "+this.getStatus()+"\n"
 				+" a hora em que ocorreu é: "+this.getDateTime()+"\n";
 		
