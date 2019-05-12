@@ -26,7 +26,7 @@ import org.iel.code_sismatic.rest.objetos_envio.StatusMaquinaEnvio;
 import org.iel.code_sismatic.util.Util;
 
 /**
- * 
+ * @author Anderson
  */
 @Stateless
 @Path("/dados-maquina")
@@ -51,7 +51,7 @@ public class DadosMaquinaEndpoint {
 	@POST
 	public Response create(DadosMaquina entity) {
 		//seto a data que chegou a informação
-		entity.setDateTime(LocalDateTime.now());
+		entity.setData(LocalDateTime.now());
 		
 		//salvo os dados na tabela fato
 		dao.save(entity);

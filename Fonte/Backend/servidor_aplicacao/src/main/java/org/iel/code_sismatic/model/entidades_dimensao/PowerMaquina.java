@@ -43,6 +43,14 @@ public class PowerMaquina implements Serializable {
 	private LocalDateTime data;
 	
 
+	public PowerMaquina() {}
+	
+	public PowerMaquina(int speedPV,int power,LocalDateTime data) {
+		this.speedPV = speedPV;
+		this.power = power;
+		this.data = data;
+	}
+	
 	public LocalDateTime getData() {
 		return data;
 	}

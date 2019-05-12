@@ -22,11 +22,11 @@ function gerar_dados_json(){
 //     var Status = getRandomInt(0,2);
     
     var Speed_PV = 1500;
-    var Power = 1;
-    var No_Run = getRandomInt(0,2);
+    var Power = 100;
+    var No_Run = 0;
     var Auto_Man = 1;
-    var Run_CMD = 1; 
-    var Status = getRandomInt(0,2);
+    var Run_CMD = 0; 
+    var Status = 1;
 
     // var dados = {
     //     "Speed_PV":Speed_PV,

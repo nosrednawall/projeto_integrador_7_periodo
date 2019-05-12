@@ -52,6 +52,14 @@ public class FuncionamentoMaquina implements Serializable {
 	@Column(name = "data",updatable = false)
 	private LocalDateTime data;
 	
+	public FuncionamentoMaquina() {}
+	
+	public FuncionamentoMaquina(int speedPV,int power,int autoMan, int runCmd, LocalDateTime data) {
+		this.speedPV = speedPV;
+		this.power = power;
+		this.autoMan = autoMan;
+	}
+	
 
 	public LocalDateTime getData() {
 		return data;
