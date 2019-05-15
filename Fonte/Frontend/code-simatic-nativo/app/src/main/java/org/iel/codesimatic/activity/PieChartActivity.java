@@ -67,7 +67,7 @@ public class PieChartActivity extends AppCompatActivity implements SeekBar.OnSee
 //        chart.setCenterTextTypeface(tfLight);
         chart.setCenterText(generateCenterSpannableText());
 
-        chart.setDrawHoleEnabled(true);
+        chart.setDrawHoleEnabled(false);
         chart.setHoleColor(Color.WHITE);
 
         chart.setTransparentCircleColor(Color.WHITE);
@@ -105,8 +105,7 @@ public class PieChartActivity extends AppCompatActivity implements SeekBar.OnSee
         l.setYOffset(0f);
 
         // entry label styling
-        chart.setEntryLabelColor(Color.WHITE);
-//        chart.setEntryLabelTypeface(tfRegular);
+        chart.setEntryLabelColor(Color.BLACK);
         chart.setEntryLabelTextSize(12f);
     }
 
@@ -115,11 +114,18 @@ public class PieChartActivity extends AppCompatActivity implements SeekBar.OnSee
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
-        for (int i = 0; i < count ; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
 
-                    getResources().getDrawable(R.drawable.ic_star_black_24dp)));
-        }
+        PieEntry valor1 = new PieEntry((float)60.0,"dia tal");
+        PieEntry valor2 = new PieEntry((float)40.0,"outro dia tal");
+
+        entries.add(valor1);
+        entries.add(valor2);
+
+//        for (int i = 0; i < count ; i++) {
+//            entries.add(new PieEntry
+//
+//
+//        }
 
         PieDataSet dataSet = new PieDataSet(entries, "Election Results");
 
@@ -156,7 +162,7 @@ public class PieChartActivity extends AppCompatActivity implements SeekBar.OnSee
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(chart));
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(Color.BLACK);
 //        data.setValueTypeface(tfLight);
         chart.setData(data);
 
@@ -165,111 +171,6 @@ public class PieChartActivity extends AppCompatActivity implements SeekBar.OnSee
 
         chart.invalidate();
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.pie, menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        switch (item.getItemId()) {
-//            case R.id.viewGithub: {
-//                Intent i = new Intent(Intent.ACTION_VIEW);
-//                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/PieChartActivity.java"));
-//                startActivity(i);
-//                break;
-//            }
-//            case R.id.actionToggleValues: {
-//                for (IDataSet<?> set : chart.getData().getDataSets())
-//                    set.setDrawValues(!set.isDrawValuesEnabled());
-//
-//                chart.invalidate();
-//                break;
-//            }
-//            case R.id.actionToggleIcons: {
-//                for (IDataSet<?> set : chart.getData().getDataSets())
-//                    set.setDrawIcons(!set.isDrawIconsEnabled());
-//
-//                chart.invalidate();
-//                break;
-//            }
-//            case R.id.actionToggleHole: {
-//                if (chart.isDrawHoleEnabled())
-//                    chart.setDrawHoleEnabled(false);
-//                else
-//                    chart.setDrawHoleEnabled(true);
-//                chart.invalidate();
-//                break;
-//            }
-//            case R.id.actionToggleMinAngles: {
-//                if (chart.getMinAngleForSlices() == 0f)
-//                    chart.setMinAngleForSlices(36f);
-//                else
-//                    chart.setMinAngleForSlices(0f);
-//                chart.notifyDataSetChanged();
-//                chart.invalidate();
-//                break;
-//            }
-//            case R.id.actionToggleCurvedSlices: {
-//                boolean toSet = !chart.isDrawRoundedSlicesEnabled() || !chart.isDrawHoleEnabled();
-//                chart.setDrawRoundedSlices(toSet);
-//                if (toSet && !chart.isDrawHoleEnabled()) {
-//                    chart.setDrawHoleEnabled(true);
-//                }
-//                if (toSet && chart.isDrawSlicesUnderHoleEnabled()) {
-//                    chart.setDrawSlicesUnderHole(false);
-//                }
-//                chart.invalidate();
-//                break;
-//            }
-//            case R.id.actionDrawCenter: {
-//                if (chart.isDrawCenterTextEnabled())
-//                    chart.setDrawCenterText(false);
-//                else
-//                    chart.setDrawCenterText(true);
-//                chart.invalidate();
-//                break;
-//            }
-//            case R.id.actionToggleXValues: {
-//
-//                chart.setDrawEntryLabels(!chart.isDrawEntryLabelsEnabled());
-//                chart.invalidate();
-//                break;
-//            }
-//            case R.id.actionTogglePercent:
-//                chart.setUsePercentValues(!chart.isUsePercentValuesEnabled());
-//                chart.invalidate();
-//                break;
-//            case R.id.animateX: {
-//                chart.animateX(1400);
-//                break;
-//            }
-//            case R.id.animateY: {
-//                chart.animateY(1400);
-//                break;
-//            }
-//            case R.id.animateXY: {
-//                chart.animateXY(1400, 1400);
-//                break;
-//            }
-//            case R.id.actionToggleSpin: {
-//                chart.spin(1000, chart.getRotationAngle(), chart.getRotationAngle() + 360, Easing.EaseInOutCubic);
-//                break;
-//            }
-//            case R.id.actionSave: {
-//                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-//                    saveToGallery();
-//                } else {
-//                    requestStoragePermission(chart);
-//                }
-//                break;
-//            }
-//        }
-//        return true;
-//    }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
