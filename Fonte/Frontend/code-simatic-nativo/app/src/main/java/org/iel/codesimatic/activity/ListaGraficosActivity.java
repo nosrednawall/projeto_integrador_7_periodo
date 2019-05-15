@@ -26,51 +26,10 @@ public class ListaGraficosActivity extends AppCompatActivity{
     EditText dataLimite;
     Boolean dataInicialOuFinal;
 
-    public static class SelectDateFragment  extends DialogFragment implements DatePickerDialog.OnDateSetListener{
-
-        EditText data;
-
-        public SelectDateFragment(EditText data) {
-            this.data = data;
-        }
-        
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-            final Calendar calendario = Calendar.getInstance();
-
-            int yy = calendario.get(Calendar.YEAR);
-            int mm =  calendario.get(Calendar.MONTH);
-            int dd = calendario.get(Calendar.DAY_OF_MONTH);
-
-            return new DatePickerDialog(getActivity(), this, yy, mm, dd);
-        }
-
-        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
-            populateSetDate(data, yy, mm, dd);
-        }
-    }
-
-
-    public void selectDate() {
-        DialogFragment newFragment;
-        if(dataInicialOuFinal) {
-            newFragment = new SelectDateFragment(dataInicial);
-        }else{
-            newFragment = new SelectDateFragment(dataLimite);
-        }
-        newFragment.show(getSupportFragmentManager(), "DatePicker");
-    }
-    public static void populateSetDate(EditText mEditText, int year, int month, int day) {
-        mEditText.setText(day+"/"+month+"/"+year);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_graficos);
-
-//        final Calendar calendarioDataInicial = Calendar.getInstance();
 
         CardView cardGraficos = (CardView) findViewById(R.id.lista_graficos_status_maquina);
         CardView cardGraficoPie = (CardView) findViewById(R.id.lista_graficos_torta);
@@ -111,5 +70,57 @@ public class ListaGraficosActivity extends AppCompatActivity{
                 startActivity(PieChaIntent);
             }
         });
+    }
+
+    /**
+     * Classe responsável por instanciar o datapicker e pegar a data selecionado pelo usuário
+     */
+    public static class SelectDateFragment  extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+
+        EditText data;
+
+        public SelectDateFragment(EditText data) {
+            this.data = data;
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            final Calendar calendario = Calendar.getInstance();
+
+            int yy = calendario.get(Calendar.YEAR);
+            int mm =  calendario.get(Calendar.MONTH);
+            int dd = calendario.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), this, yy, mm, dd);
+        }
+
+        public void onDateSet(DatePicker view, int yy, int mm, int dd) {
+            populateSetDate(data, yy, mm+1, dd);
+        }
+    }
+
+    /**
+     * funcao que instancia o fragmento e seleciona o label???
+     */
+    public void selectDate() {
+        DialogFragment newFragment;
+        if(dataInicialOuFinal) {
+            newFragment = new SelectDateFragment(dataInicial);
+        }else{
+            newFragment = new SelectDateFragment(dataLimite);
+        }
+        newFragment.show(getSupportFragmentManager(), "DatePicker");
+    }
+
+    /**
+     * Funcao que atualiza o label
+     * @param mEditText
+     * @param year
+     * @param month
+     * @param day
+     */
+    public static void populateSetDate(EditText mEditText, int year, int month, int day) {
+        mEditText.setText(day+"/"+month+"/"+year);
     }
 }
