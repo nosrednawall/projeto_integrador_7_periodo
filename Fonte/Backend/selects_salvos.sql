@@ -1,3 +1,13 @@
+SELECT
+    SUM(func.run_cmd)
+FROM
+    tb_funcionamento_maquina as func
+WHERE
+    data::date >= '2019-04-01'
+AND
+    data::date < '2019-05-03';
+
+
 -- select de dados da tabela dimensao quantidade de vezes maquina parou
 
 -- Primeiro funciona que uma beleza
