@@ -1,30 +1,19 @@
 package org.iel.codesimatic.activity;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.WindowManager;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
@@ -37,8 +26,6 @@ public class PieChartActivity
         extends AppCompatActivity {
 
     private PieChart chart;
-//    private SeekBar seekBarX, seekBarY;
-//    private TextView tvX, tvY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +36,7 @@ public class PieChartActivity
 
         setTitle("Gráfico de Torta");
 
-//        tvX = findViewById(R.id.tvXMax);
-//        tvY = findViewById(R.id.tvYMax);
-
-//        seekBarX = findViewById(R.id.seekBar1);
-//        seekBarY = findViewById(R.id.seekBar2);
-//
-//        seekBarX.setOnSeekBarChangeListener(this);
-//        seekBarY.setOnSeekBarChangeListener(this);
-
-        chart = findViewById(R.id.chart1);
+        chart = findViewById(R.id.grafico_pizza);
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
         chart.setExtraOffsets(5, 10, 5, 5);
@@ -83,12 +61,6 @@ public class PieChartActivity
         // enable rotation of the chart by touch
         chart.setRotationEnabled(true);
         chart.setHighlightPerTapEnabled(true);
-
-        // add a selection listener
-//        chart.setOnChartValueSelectedListener(this);
-
-//        seekBarX.setProgress(4);
-//        seekBarY.setProgress(10);
 
         chart.animateY(1400, Easing.EaseInOutQuad);
 
@@ -146,15 +118,6 @@ public class PieChartActivity
         chart.highlightValues(null);
         chart.invalidate();
     }
-//
-//    @Override
-//    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//
-////        tvX.setText(String.valueOf(seekBarX.getProgress()));
-////        tvY.setText(String.valueOf(seekBarY.getProgress()));
-//
-////        setData();
-//    }
 
     /**
      * Essa função adiciona o texto no centro do gráfico, e estiliza ele também
@@ -167,25 +130,4 @@ public class PieChartActivity
         s.setSpan(new RelativeSizeSpan(1.7f), 0, 12, 0);
         return s;
     }
-
-//    @Override
-//    public void onValueSelected(Entry e, Highlight h) {
-//
-//        if (e == null)
-//            return;
-//        Log.i("VAL SELECTED",
-//                "Value: " + e.getY() + ", index: " + h.getX()
-//                        + ", DataSet index: " + h.getDataSetIndex());
-//    }
-//
-//    @Override
-//    public void onNothingSelected() {
-//        Log.i("PieChart", "nothing selected");
-//    }
-//
-//    @Override
-//    public void onStartTrackingTouch(SeekBar seekBar) {}
-//
-//    @Override
-//    public void onStopTrackingTouch(SeekBar seekBar) {}
 }
