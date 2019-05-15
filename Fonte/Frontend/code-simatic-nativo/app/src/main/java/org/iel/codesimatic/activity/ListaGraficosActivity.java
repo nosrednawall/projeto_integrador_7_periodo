@@ -37,6 +37,9 @@ public class ListaGraficosActivity extends AppCompatActivity{
         dataInicial = (EditText) findViewById(R.id.data_inicial);
         dataLimite = (EditText) findViewById(R.id.data_limite);
 
+        dataInicial.setText(getDataAtual(false));
+        dataLimite.setText(getDataAtual(true));
+
 
         dataInicial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +60,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
         cardGraficos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent statusMaquinaIntent = new Intent(getApplicationContext(), StatusMaquinaActivity.class);
                 startActivity(statusMaquinaIntent);
             }
@@ -123,4 +127,27 @@ public class ListaGraficosActivity extends AppCompatActivity{
     public static void populateSetDate(EditText mEditText, int year, int month, int day) {
         mEditText.setText(day+"/"+month+"/"+year);
     }
+
+    /**
+     * funcao retorna a data atual
+     * @param dataFinal
+     * @return
+     */
+    public static String getDataAtual(boolean dataFinal){
+
+        final Calendar calendario = Calendar.getInstance();
+
+        int yy = calendario.get(Calendar.YEAR);
+        int mm =  calendario.get(Calendar.MONTH);
+        int dd = calendario.get(Calendar.DAY_OF_MONTH);
+        mm++;
+
+        if(dataFinal) {
+            return dd + "/" + mm + "/" + yy;
+        }else{
+            dd--;
+            return dd + "/" + mm + "/" + yy;
+        }
+    }
+
 }
