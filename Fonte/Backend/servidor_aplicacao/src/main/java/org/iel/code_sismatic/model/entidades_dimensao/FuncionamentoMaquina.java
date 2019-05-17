@@ -61,8 +61,8 @@ public class FuncionamentoMaquina implements Serializable {
 		this.speedPV = speedPV;
 		this.power = power;
 		this.autoMan = autoMan;
-	}
-	
+		this.data = data;
+	}	
 
 	public LocalDateTime getData() {
 		return data;

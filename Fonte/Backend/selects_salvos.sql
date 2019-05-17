@@ -1,11 +1,14 @@
+SELECT f, SUM(f.autoMan) FROM tb_funcionamento_maquina f WHERE f.data BETWEEN :pDataInicial AND :pDataLimite
+
 SELECT
-    SUM(func.run_cmd)
+    data::date, SUM(auto_man) as soma
 FROM
-    tb_funcionamento_maquina as func
+    tb_funcionamento_maquina 
 WHERE
-    data::date >= '2019-04-01'
+    data::date BETWEEN '2019-04-01'
 AND
-    data::date < '2019-05-03';
+    '2019-06-03'
+GROUP BY data::date;
 
 
 -- select de dados da tabela dimensao quantidade de vezes maquina parou
