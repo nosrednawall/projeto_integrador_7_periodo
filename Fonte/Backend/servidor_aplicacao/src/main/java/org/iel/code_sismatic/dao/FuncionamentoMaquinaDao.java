@@ -1,5 +1,6 @@
 package org.iel.code_sismatic.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -40,48 +41,25 @@ public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 	public String somaFuncionamentoAutomaticoPorPeriodo(String dataInicial, String dataLimite) {
 			
 		Query autoManQuery = getEntityManager().createNativeQuery(""
-				+ "SELECT" + 
-				"    data::date, SUM(auto_man) as soma" + 
-				"FROM" + 
-				"    tb_funcionamento_maquina" + 
+				+ "SELECT " + 
+				"    CAST (data AS date), SUM(auto_man) as soma " + 
+				"FROM " + 
+				"    tb_funcionamento_maquina " + 
 				"WHERE" + 
-				"    data::date BETWEEN '2019-04-01'" + 
+				"    CAST (data AS date) BETWEEN '2019-04-01' " + 
 				"AND" + 
-				"    '2019-06-03'" + 
-				"GROUP BY data::date;");
+				"    '2019-06-03' " + 
+				"GROUP BY CAST (data AS date);");
 		
 		@SuppressWarnings("unchecked")
 		List<Object[]>listagemAutoMan = autoManQuery.getResultList();
 		
-		String retorno="vazio";
-		
-		int contador = 0;
+		Long valor = Long.valueOf("0");
+		BigInteger valor2 = BigInteger.valueOf(valor);
 		for(Object[] a : listagemAutoMan) {
-			System.out.println(a[contador]);
-			contador++;
-			retorno = (String) a[contador];
+			System.out.println(a[1]);
+			valor2 = (BigInteger) a[1];
 		}
-	
-		return retorno;
-	}
-//	public String somaFuncionamentoAutomaticoPorPeriodo(String dataInicial, String dataLimite) {
-//		TypedQuery<FuncionamentoMaquina> findAllQuery;
-//		
-//		findAllQuery = getEntityManager()
-//				.createNamedQuery
-//				("FuncionamentoMaquina.somaAutoManPorPeriodo",FuncionamentoMaquina.class);
-//		
-//		findAllQuery.setParameter("pDataInicial", Util.converteStringEmData(dataInicial));
-//		findAllQuery.setParameter("pDataLimite", Util.converteStringEmData(dataLimite));
-//		
-//		List<Long> retorno = new ArrayList<>();
-//		retorno = findAllQuery.getResultList();
-//		
-//		for(Long valor : retorno) {
-//			System.out.println(valor);
-//		}
-//		
-//		return "retorno padrao";
-//	}
-	
+		return valor2.toString();
+	}	
 }

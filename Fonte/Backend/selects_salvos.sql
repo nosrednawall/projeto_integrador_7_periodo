@@ -1,5 +1,22 @@
 SELECT f, SUM(f.autoMan) FROM tb_funcionamento_maquina f WHERE f.data BETWEEN :pDataInicial AND :pDataLimite
 
+
+
+select p from Persons p where (cast(:createdAt as timestamp) is null or p.createdAt > :createdAt)
+
+
+SELECT
+    CAST (data AS date), SUM(auto_man) as soma
+FROM
+    tb_funcionamento_maquina 
+WHERE
+    CAST (data AS date) BETWEEN '2019-04-01'
+AND
+    '2019-06-03'
+GROUP BY CAST (data AS date);
+
+
+
 SELECT
     data::date, SUM(auto_man) as soma
 FROM
