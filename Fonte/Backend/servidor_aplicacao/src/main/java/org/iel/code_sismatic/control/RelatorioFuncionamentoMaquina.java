@@ -15,7 +15,7 @@ public class RelatorioFuncionamentoMaquina {
 		
 		RelatorioFuncionamentoMaquinaEnvio envio = new RelatorioFuncionamentoMaquinaEnvio();
 		
-//		envio.setSomaAutoMan(daoFuncionamentoMaquina.somaFuncionamentoAutomaticoPorPeriodo(dataInicial, dataLimite));
+		envio.setSomaAutoMan(daoFuncionamentoMaquina.somaFuncionamentoAutomaticoPorPeriodo(dataInicial, dataLimite));
 		
 		return envio;
 	}

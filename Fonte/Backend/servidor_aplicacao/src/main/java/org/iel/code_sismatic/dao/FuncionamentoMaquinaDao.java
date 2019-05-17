@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.iel.code_sismatic.model.entidades_dimensao.FuncionamentoMaquina;
@@ -36,6 +37,33 @@ public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 	
 	//todo implementar o resto dos métodos
 
+	public String somaFuncionamentoAutomaticoPorPeriodo(String dataInicial, String dataLimite) {
+			
+		Query autoManQuery = getEntityManager().createNativeQuery(""
+				+ "SELECT" + 
+				"    data::date, SUM(auto_man) as soma" + 
+				"FROM" + 
+				"    tb_funcionamento_maquina" + 
+				"WHERE" + 
+				"    data::date BETWEEN '2019-04-01'" + 
+				"AND" + 
+				"    '2019-06-03'" + 
+				"GROUP BY data::date;");
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]>listagemAutoMan = autoManQuery.getResultList();
+		
+		String retorno="vazio";
+		
+		int contador = 0;
+		for(Object[] a : listagemAutoMan) {
+			System.out.println(a[contador]);
+			contador++;
+			retorno = (String) a[contador];
+		}
+	
+		return retorno;
+	}
 //	public String somaFuncionamentoAutomaticoPorPeriodo(String dataInicial, String dataLimite) {
 //		TypedQuery<FuncionamentoMaquina> findAllQuery;
 //		
@@ -53,9 +81,7 @@ public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 //			System.out.println(valor);
 //		}
 //		
-//		
-//		
 //		return "retorno padrao";
 //	}
-//	
+	
 }
