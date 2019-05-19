@@ -84,8 +84,8 @@ public class PieChartActivity
     private void setData() {
         ArrayList<PieEntry> entries = new ArrayList<>();
 
-        PieEntry valor1 = new PieEntry((float)60.0,"dia tal");
-        PieEntry valor2 = new PieEntry((float)40.0,"outro dia tal");
+        PieEntry valor1 = new PieEntry((float)49.0,"dia tal");
+        PieEntry valor2 = new PieEntry((float)51.0,"outro dia tal");
 
         entries.add(valor1);
         entries.add(valor2);
