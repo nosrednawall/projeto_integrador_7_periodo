@@ -12,12 +12,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import org.iel.codesimatic.R;
+import org.iel.codesimatic.Rest.BuscaRelatoriosMaquinaAsyncTask;
+import org.iel.codesimatic.Rest.RelatorioFuncionamentoMaquinaRetorno;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -82,6 +85,24 @@ public class ListaGraficosActivity extends AppCompatActivity{
 
     private void exibirProgress(boolean exibir) {
         mProgressBar.setVisibility(exibir ? View.VISIBLE : View.GONE);
+    }
+
+    private void buscaRelatorioFuncionamentoPorcentagemMaquina(){
+        loggerAsyncTask("Iniciando metodo busca relatorio Funcionamento Maquina");
+        String retornoJson = new BuscaRelatoriosMaquinaAsyncTask();
+
+        System.out.println(retornoJson);
+
+    }
+
+    private String getDataInicialToString(){
+        dataInicial = (EditText) findViewById(R.id.data_inicial);
+        return dataInicial.toString();
+    }
+
+    private String getDataLimiteToString(){
+        dataLimite = (EditText) findViewById(R.id.data_limite);
+        return dataLimite.toString();
     }
 //
 //    class BuscaNoServidor extends AsyncTask<Location, Void, Location>{
@@ -178,6 +199,10 @@ public class ListaGraficosActivity extends AppCompatActivity{
             dd--;
             return dd + "/" + mm + "/" + yy;
         }
+    }
+
+    private static void loggerAsyncTask(String mensagem){
+        Log.i("AsyncTask",mensagem+" Thread: " + Thread.currentThread().getName());
     }
 
 

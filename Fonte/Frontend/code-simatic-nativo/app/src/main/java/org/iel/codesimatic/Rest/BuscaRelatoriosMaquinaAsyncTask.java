@@ -26,7 +26,7 @@ import java.util.Scanner;
  * Classe que rodará o background
  */
 
-public class BuscaRelatoriosMaquinaAsyncTask extends AsyncTask<String, String, String> {
+public class BuscaRelatoriosMaquinaAsyncTask extends AsyncTask<String, Integer, String> {
 
     private String tipoRelatorio;
     private String dataInicio;
@@ -35,7 +35,9 @@ public class BuscaRelatoriosMaquinaAsyncTask extends AsyncTask<String, String, S
     private URL url = null;
     private int cod_resposta;
 
-    public BuscaRelatoriosMaquinaAsyncTask(String dataInicio, String dataLimite, int tipoRelatorio) {
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
         this.dataInicio = dataInicio;
         this.dataLimite = dataLimite;
         this.tipoRelatorio = switchTipoRelatorio(tipoRelatorio);
@@ -94,6 +96,16 @@ public class BuscaRelatoriosMaquinaAsyncTask extends AsyncTask<String, String, S
         } finally {
             conexao.disconnect();
         }
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
     }
 
     private String switchTipoRelatorio(int tipoRelatorio){
