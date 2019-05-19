@@ -41,36 +41,36 @@ public class DadosMaquinaEndpoint {
 	/**
 	 * Injetado pelo CDI
 	 */
-	//dao da tabela fato
+	// dao da tabela fato
 	@Inject
 	private DadosMaquinaDao dao;
-	
+
 	@Inject
 	private StatusMaquinaDao daoStatusMaquina;
-	
-	//dao das tabelas de dimensão
+
+	// dao das tabelas de dimensão
 	@Inject
 	private SalvaDadosBI daoBi;
-	
+
 	@Inject
 	private RelatorioFuncionamentoMaquina relatorioFuncionamento;
-	
+
 	@Inject
 	private FuncionamentoMaquinaDao daoFuncionamentoMaquina;
 
 	@POST
 	public Response create(DadosMaquina entity) {
-		//seto a data que chegou a informação
+		// seto a data que chegou a informação
 		entity.setData(LocalDateTime.now());
-		
-		//salvo os dados na tabela fato
+
+		// salvo os dados na tabela fato
 		dao.save(entity);
-		
-		//salvos os dados nas tabelas de dimensão
+
+		// salvos os dados nas tabelas de dimensão
 		daoBi.salvaDadosMaquinaEmTabelasBI(entity);
-		
-		return Response
-				.created(UriBuilder.fromResource(DadosMaquinaEndpoint.class).path(String.valueOf(entity.getId())).build())
+
+		return Response.created(
+				UriBuilder.fromResource(DadosMaquinaEndpoint.class).path(String.valueOf(entity.getId())).build())
 				.build();
 	}
 
@@ -86,68 +86,75 @@ public class DadosMaquinaEndpoint {
 	}
 
 	@GET
-	public List<DadosMaquina> listAll(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult) {
+	public List<DadosMaquina> listAll(@QueryParam("start") Integer startPosition,
+			@QueryParam("max") Integer maxResult) {
 		final List<DadosMaquina> results = dao.listAll(startPosition, maxResult);
 		return results;
 	}
-	
+
 	@GET
 	@Path("/status")
-	public StatusMaquinaEnvio listaDadosMaquinaParou(
-			@QueryParam("data_inicial") String dataInicial, 
+	public StatusMaquinaEnvio listaDadosMaquinaParou(@QueryParam("data_inicial") String dataInicial,
 			@QueryParam("data_limite") String dataLimite) {
-		
-		//instancio a coleção
+
+		// instancio a coleção
 		final List<StatusMaquina> results = new ArrayList<StatusMaquina>();
-		
-		//aplico o patter as datas
+
+		// aplico o patter as datas
 		dataInicial = Util.adicionaPattermDataInicial(dataInicial);
 		dataLimite = Util.adicionaPattermDataFinal(dataLimite);
-		
-		//verifico se as queryparam não estão nulas
-		if(!Util.isNullOrBlank(dataInicial) && !Util.isNullOrBlank(dataLimite)) {
-					
-			//faço a solicitação dos dadoss
+
+		// verifico se as queryparam não estão nulas
+		if (!Util.isNullOrBlank(dataInicial) && !Util.isNullOrBlank(dataLimite)) {
+
+			// faço a solicitação dos dadoss
 			results.addAll(daoStatusMaquina.listarDadosComDataInicialELimite(dataInicial, dataLimite));
-					
-			//caso só tenha a data inicial
-		}else if(!Util.isNullOrBlank(dataInicial)) {
-			
+
+			// caso só tenha a data inicial
+		} else if (!Util.isNullOrBlank(dataInicial)) {
+
 			results.addAll(daoStatusMaquina.listarDadosApartirDataInicial(dataInicial));
-			
+
 		}
-		StatusMaquinaEnvio retorno = new StatusMaquinaEnvio(
-				Util.converteStringEmData(dataInicial), 
-				Util.converteStringEmData(dataLimite), 
-				results);
-		
+		StatusMaquinaEnvio retorno = new StatusMaquinaEnvio(Util.converteStringEmData(dataInicial),
+				Util.converteStringEmData(dataLimite), results);
+
 		return retorno;
 	}
 
+	/**
+	 * Método retorna a porcentagem de vezes que a maquina ficou ligada no
+	 * automático e no manual dentro do escopo de tempo soliciatado, caso não
+	 * forneça as datas será efetuado o relatório com a data do dia
+	 * 
+	 * @param dataInicial
+	 * @param dataLimite
+	 * @return
+	 */
 	@GET
-	@Path("/funcionamento-teste")
+	@Path("/funcionamento/porcentagem")
 	public RelatorioFuncionamentoMaquinaEnvio retornaRelatorioFuncionamentoMaquina(
-			@QueryParam("data_inicial") String dataInicial, 
-			@QueryParam("data_limite") String dataLimite) {
-		
-		//instancio a coleção
+			@QueryParam("data_inicial") String dataInicial, @QueryParam("data_limite") String dataLimite) {
+//		para fazer um teste rápido
+//		http://localhost:8080/code-simatic/rest/dados-maquina/funcionamento/porcentagem?data_inicial=2019-01-01&&data_limite=2019-12-31
+
+		// instancio a coleção
 		final RelatorioFuncionamentoMaquinaEnvio results;
-			
-		//verifico se as queryparam não estão nulas
-		if(Util.isNullOrBlank(dataInicial) && Util.isNullOrBlank(dataLimite)) {
+
+		// verifico se as queryparam não estão nulas
+		if (Util.isNullOrBlank(dataInicial) && Util.isNullOrBlank(dataLimite)) {
 			dataInicial = Util.dataHojeFormatoAmericano();
 			dataLimite = Util.dataHojeFormatoAmericano();
 		}
 		results = relatorioFuncionamento.getRelatorio(dataInicial, dataLimite);
 		return results;
 	}
-	
+
 	@GET
 	@Path("/funcionamento")
-	public List<FuncionamentoMaquina> listAllFuncionamento(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult) {
+	public List<FuncionamentoMaquina> listAllFuncionamento(@QueryParam("start") Integer startPosition,
+			@QueryParam("max") Integer maxResult) {
 		final List<FuncionamentoMaquina> results = daoFuncionamentoMaquina.listAll(startPosition, maxResult);
 		return results;
 	}
-	
-
 }

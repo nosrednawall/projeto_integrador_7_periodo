@@ -211,8 +211,13 @@ public class Util {
 		return df.format(valor);
 	}
 	
+	/**
+	 * arredonta os valores melhor ainda que o metodo acima
+	 * @param media
+	 * @return
+	 */
 	public static float arredondar(float media) {
-		   return (float) (Math.round(media * 100.0)/100.0);
+		return (float) (Math.round(media * 100.0)/100.0);
 	}
 	
 }
