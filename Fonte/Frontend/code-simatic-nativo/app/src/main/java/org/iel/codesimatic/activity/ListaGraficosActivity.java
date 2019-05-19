@@ -3,6 +3,8 @@ package org.iel.codesimatic.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -13,6 +15,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import org.iel.codesimatic.R;
 
@@ -25,6 +28,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
     EditText dataInicial;
     EditText dataLimite;
     Boolean dataInicialOuFinal;
+    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,32 @@ public class ListaGraficosActivity extends AppCompatActivity{
             }
         });
     }
+
+    private void exibirProgress(boolean exibir) {
+        mProgressBar.setVisibility(exibir ? View.VISIBLE : View.GONE);
+    }
+//
+//    class BuscaNoServidor extends AsyncTask<Location, Void, Location>{
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            exibirProgress(true);
+//        }
+//
+//        @Override
+//        protected Location doInBackground(Location... params) {
+//            return medotodoRetornaLocation();
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Location location) {
+//            super.onPostExecute(location);
+//            exibirProgress(false);
+//            metodoAtualizaAInterfaceGrafica(location);
+//        }
+//    }
+
+
 
     /**
      * Classe responsável por instanciar o datapicker e pegar a data selecionado pelo usuário
@@ -149,5 +179,6 @@ public class ListaGraficosActivity extends AppCompatActivity{
             return dd + "/" + mm + "/" + yy;
         }
     }
+
 
 }

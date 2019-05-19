@@ -26,17 +26,19 @@ import java.util.Scanner;
  * Classe que rodará o background
  */
 
-public class BuscaStatusMaquinaAsyncTask extends AsyncTask<String, String, String> {
+public class BuscaRelatoriosMaquinaAsyncTask extends AsyncTask<String, String, String> {
 
+    private String tipoRelatorio;
     private String dataInicio;
     private String dataLimite;
     private HttpURLConnection conexao;
     private URL url = null;
     private int cod_resposta;
 
-    public BuscaStatusMaquinaAsyncTask(String dataInicio, String dataLimite) {
+    public BuscaRelatoriosMaquinaAsyncTask(String dataInicio, String dataLimite, int tipoRelatorio) {
         this.dataInicio = dataInicio;
         this.dataLimite = dataLimite;
+        this.tipoRelatorio = switchTipoRelatorio(tipoRelatorio);
     }
 
     @Override
@@ -44,9 +46,10 @@ public class BuscaStatusMaquinaAsyncTask extends AsyncTask<String, String, Strin
         //Monta a URL
         try {
             url = new URL(
-                    ConexaoUtil.CONEXAO_LOCAL+
+                    ConexaoUtil.CONEXAO_LOCAL+tipoRelatorio+
                     "?data_inicio="+dataInicio+
                     "&data_limite="+dataLimite);
+
         } catch (MalformedURLException e) {
             Log.e("GET_status_maquina", "Erro  - " + e.getMessage());
         } catch (Exception e) {
@@ -91,6 +94,22 @@ public class BuscaStatusMaquinaAsyncTask extends AsyncTask<String, String, Strin
         } finally {
             conexao.disconnect();
         }
+    }
+
+    private String switchTipoRelatorio(int tipoRelatorio){
+
+        String relatorio = "";
+
+        switch (tipoRelatorio){
+
+            case 0:
+                relatorio = "funcionamento/porcentagem";
+                break;
+
+            default:
+                relatorio = "funcionamento/porcentagem";
+        }
+        return relatorio;
     }
 }
 
