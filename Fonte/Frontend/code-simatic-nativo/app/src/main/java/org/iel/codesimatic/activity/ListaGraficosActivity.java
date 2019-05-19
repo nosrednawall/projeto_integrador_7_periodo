@@ -205,7 +205,6 @@ public class ListaGraficosActivity extends AppCompatActivity{
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
             loggerAsyncTask("Iniciando a classe asyncrona");
 
         }
@@ -283,19 +282,17 @@ public class ListaGraficosActivity extends AppCompatActivity{
 
         @Override
         protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            RelatorioFuncionamentoMaquinaRetorno dados = DeserializarJsonUtil.getRelatorioFuncionamentoMaquina(s);
-
-            Intent graficoPizzaFuncionamento = new Intent(getApplicationContext(), FuncionamentoMaquinaPizzaActivity.class);
-            graficoPizzaFuncionamento.putExtra("RelatorioFuncionamentoMaquinaRetorno",dados);
-
-            startActivity(graficoPizzaFuncionamento);
+            loggerAsyncTask("O que será isso? "+s);
+//            RelatorioFuncionamentoMaquinaRetorno dados = DeserializarJsonUtil.getRelatorioFuncionamentoMaquina(s);
+//
+//            Intent graficoPizzaFuncionamento = new Intent(getApplicationContext(), FuncionamentoMaquinaPizzaActivity.class);
+//            graficoPizzaFuncionamento.putExtra("RelatorioFuncionamentoMaquinaRetorno",dados);
+//
+//            startActivity(graficoPizzaFuncionamento);
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-
         }
 
         private String switchTipoRelatorio(String tipoRelatorio){
