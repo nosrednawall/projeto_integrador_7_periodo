@@ -54,33 +54,32 @@ public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 	 */
 	public RetornoSomaFuncionamentoMaquina somaFuncionamentoPorPeriodo(String dataInicial, String dataLimite) {
 		
+		RetornoSomaFuncionamentoMaquina retorno = new RetornoSomaFuncionamentoMaquina();
+		
 		//select nativo
-		Query autoManQuery = getEntityManager().createNativeQuery(""
+		Query somaDadosFuncionamentoMaquinaPorPeriodoQuery = getEntityManager().createNativeQuery(""
 				+ "SELECT " + 
 				"    CAST (data AS date), SUM(auto_man) as soma_auto_man , SUM(run_cmd) as soma_run_cmd " + 
 				"FROM " + 
 				"    tb_funcionamento_maquina " + 
 				"WHERE" + 
-				"    CAST (data AS date) BETWEEN '2019-04-01' " + 
+				"    CAST (data AS date) BETWEEN CAST(:pDataInicial AS date) " + 
 				"AND" + 
-				"    '2019-06-03' " + 
+				"    CAST(:pDataLimite AS date) " + 
 				"GROUP BY CAST (data AS date);");
+		
+		//adiciona os parametros da query
+		somaDadosFuncionamentoMaquinaPorPeriodoQuery.setParameter("pDataInicial", dataInicial.toString());
+		somaDadosFuncionamentoMaquinaPorPeriodoQuery.setParameter("pDataLimite", dataLimite.toString());
 		
 		//efetua o select aqui
 		@SuppressWarnings("unchecked")
-		List<Object[]>listagemAutoMan = autoManQuery.getResultList();
+		List<Object[]>retornoSelect = somaDadosFuncionamentoMaquinaPorPeriodoQuery.getResultList();
 		
-		//instancia as variáveils que receberao os valores do select
-		Long valor = Long.valueOf("0");
-		BigInteger total_auto_man = BigInteger.valueOf(valor);
-		BigInteger total_run_cmd = BigInteger.valueOf(valor);
-		
-		for(Object[] a : listagemAutoMan) {
-			total_auto_man = (BigInteger) a[1];
-			total_run_cmd = (BigInteger) a[2];
-			System.out.println("auto_man: "+total_auto_man);
-			System.out.println("run_cmd: "+total_run_cmd);
+		for(Object[] a : retornoSelect) {
+			retorno.setTotalAutoMan((BigInteger) a[1]);
+			retorno.setTotalRunCmd((BigInteger) a[2]);
 		}
-		return new RetornoSomaFuncionamentoMaquina(total_auto_man, total_run_cmd);
+		return retorno;
 	}	
 }

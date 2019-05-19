@@ -2,6 +2,7 @@ package org.iel.code_sismatic.util;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -164,6 +165,16 @@ public class Util {
             // Throw invalid date message
             System.out.println("Exception was thrown");
             return LocalDateTime.now();
-        }		
+        }	
+	}
+	
+	/**
+	 * Retorna a data de hoje no formato americano
+	 * @return
+	 */
+	public static String dataHojeFormatoAmericano() {
+		LocalDate hoje = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		return hoje.format(formatter);
 	}
 }

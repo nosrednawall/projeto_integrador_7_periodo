@@ -17,6 +17,11 @@ public class RetornoSomaFuncionamentoMaquina {
 		this.totalRunCmd = totalRunCmd;
 	}
 	
+	public RetornoSomaFuncionamentoMaquina() {
+		this.totalAutoMan = BigInteger.valueOf(0);
+		this.totalRunCmd = BigInteger.valueOf(0);
+	}
+	
 	public BigInteger getTotalAutoMan() {
 		return totalAutoMan;
 	}

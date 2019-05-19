@@ -132,21 +132,12 @@ public class DadosMaquinaEndpoint {
 		
 		//instancio a coleção
 		final RelatorioFuncionamentoMaquinaEnvio results;
-		
-		//aplico o patter as datas
-		dataInicial = Util.adicionaPattermDataInicial(dataInicial);
-		dataLimite = Util.adicionaPattermDataFinal(dataLimite);
-		
+			
 		//verifico se as queryparam não estão nulas
-//		if(!Util.isNullOrBlank(dataInicial) && !Util.isNullOrBlank(dataLimite)) {
-//					
-//			//faço a solicitação dos dadoss
-//
-//					
-//			//caso só tenha a data inicial
-//		}
-//		
-		
+		if(Util.isNullOrBlank(dataInicial) && Util.isNullOrBlank(dataLimite)) {
+			dataInicial = Util.dataHojeFormatoAmericano();
+			dataLimite = Util.dataHojeFormatoAmericano();
+		}
 		results = relatorioFuncionamento.getRelatorio(dataInicial, dataLimite);
 		return results;
 	}
