@@ -61,6 +61,7 @@ public class FuncionamentoMaquina implements Serializable {
 		this.speedPV = speedPV;
 		this.power = power;
 		this.autoMan = autoMan;
+		this.runCmd = runCmd;
 		this.data = data;
 	}	
 

@@ -4,6 +4,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.iel.code_sismatic.dao.FuncionamentoMaquinaDao;
+import org.iel.code_sismatic.dao.RetornoSomaFuncionamentoMaquina;
 import org.iel.code_sismatic.rest.objetos_envio.RelatorioFuncionamentoMaquinaEnvio;
 
 @Stateless
@@ -15,7 +16,10 @@ public class RelatorioFuncionamentoMaquina {
 		
 		RelatorioFuncionamentoMaquinaEnvio envio = new RelatorioFuncionamentoMaquinaEnvio();
 		
-		envio.setSomaAutoMan(daoFuncionamentoMaquina.somaFuncionamentoAutomaticoPorPeriodo(dataInicial, dataLimite));
+		RetornoSomaFuncionamentoMaquina soma = daoFuncionamentoMaquina.somaFuncionamentoPorPeriodo(dataInicial, dataLimite);
+		
+		envio.setSomaAutoMan(soma.getTotalAutoManToString());
+		envio.setSomaRunCmd(soma.getTotalRunCmdToString());
 		
 		return envio;
 	}

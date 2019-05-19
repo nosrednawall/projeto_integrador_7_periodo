@@ -10,6 +10,11 @@ import javax.persistence.TypedQuery;
 
 import org.iel.code_sismatic.model.entidades_dimensao.FuncionamentoMaquina;
 
+/**
+ * Classe responsável por prover os dados dos relatórios referentes ao funcionamento da máquina
+ * @author anderson
+ *
+ */
 public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 
 	private static final long serialVersionUID = 1L;
@@ -19,10 +24,15 @@ public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 	
 	@Override
 	protected EntityManager getEntityManager() {
-		// TODO Auto-generated method stub
 		return em;
 	}
 	
+	/**
+	 * Método lista todos os dados de funcionamento da máquina salvos
+	 * @param startPosition
+	 * @param maxResult
+	 * @return
+	 */
 	public List<FuncionamentoMaquina> listAll(Integer startPosition, Integer maxResult) {
 		TypedQuery<FuncionamentoMaquina> findAllQuery = getEntityManager().createNamedQuery("FuncionamentoMaquina.listarTodos",
 				FuncionamentoMaquina.class);
@@ -35,14 +45,19 @@ public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 		}
 		return findAllQuery.getResultList();
 	}
-	
-	//todo implementar o resto dos métodos
 
-	public String somaFuncionamentoAutomaticoPorPeriodo(String dataInicial, String dataLimite) {
-			
+	/**
+	 * Método retorna a soma de funcionamento da máquina
+	 * @param dataInicial
+	 * @param dataLimite
+	 * @return
+	 */
+	public RetornoSomaFuncionamentoMaquina somaFuncionamentoPorPeriodo(String dataInicial, String dataLimite) {
+		
+		//select nativo
 		Query autoManQuery = getEntityManager().createNativeQuery(""
 				+ "SELECT " + 
-				"    CAST (data AS date), SUM(auto_man) as soma " + 
+				"    CAST (data AS date), SUM(auto_man) as soma_auto_man , SUM(run_cmd) as soma_run_cmd " + 
 				"FROM " + 
 				"    tb_funcionamento_maquina " + 
 				"WHERE" + 
@@ -51,15 +66,21 @@ public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 				"    '2019-06-03' " + 
 				"GROUP BY CAST (data AS date);");
 		
+		//efetua o select aqui
 		@SuppressWarnings("unchecked")
 		List<Object[]>listagemAutoMan = autoManQuery.getResultList();
 		
+		//instancia as variáveils que receberao os valores do select
 		Long valor = Long.valueOf("0");
-		BigInteger valor2 = BigInteger.valueOf(valor);
+		BigInteger total_auto_man = BigInteger.valueOf(valor);
+		BigInteger total_run_cmd = BigInteger.valueOf(valor);
+		
 		for(Object[] a : listagemAutoMan) {
-			System.out.println(a[1]);
-			valor2 = (BigInteger) a[1];
+			total_auto_man = (BigInteger) a[1];
+			total_run_cmd = (BigInteger) a[2];
+			System.out.println("auto_man: "+total_auto_man);
+			System.out.println("run_cmd: "+total_run_cmd);
 		}
-		return valor2.toString();
+		return new RetornoSomaFuncionamentoMaquina(total_auto_man, total_run_cmd);
 	}	
 }
