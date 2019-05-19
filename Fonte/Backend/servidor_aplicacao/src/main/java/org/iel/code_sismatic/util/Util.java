@@ -1,6 +1,9 @@
 package org.iel.code_sismatic.util;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -177,4 +180,39 @@ public class Util {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		return hoje.format(formatter);
 	}
+	
+	/**
+	 * Calculo simples de regra de 3
+	 * @param valorCemPorcento
+	 * @param valorXPorcento
+	 * @return resultado
+	 */
+	public static float retornaPorcentagemRegradeTres(float valorCemPorcento, float valorXPorcento) {
+		return (valorXPorcento*100)/valorCemPorcento;
+	}
+	
+	/**simples soma de valores biginteger
+	 * @param valor1
+	 * @param valor2
+	 * @return
+	 */
+	public static float somaBigIntegersRetornaFloat(BigInteger valor1, BigInteger valor2) {
+		return valor1.add(valor2).floatValue();
+	}
+	
+	/**
+	 * Retorna uma porcentagem formatada
+	 * @param valor
+	 * @return
+	 */
+	public static String retornaPorcentagemFormatada(float valor) {
+		DecimalFormat df = new DecimalFormat("###.##");
+		df.setRoundingMode(RoundingMode.UP);
+		return df.format(valor);
+	}
+	
+	public static float arredondar(float media) {
+		   return (float) (Math.round(media * 100.0)/100.0);
+	}
+	
 }
