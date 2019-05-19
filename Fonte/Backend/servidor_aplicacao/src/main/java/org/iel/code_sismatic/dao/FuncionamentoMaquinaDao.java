@@ -1,14 +1,14 @@
 package org.iel.code_sismatic.dao;
 
-import java.util.ArrayList;
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.iel.code_sismatic.model.entidades_dimensao.FuncionamentoMaquina;
-import org.iel.code_sismatic.util.Util;
 
 public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 
@@ -23,28 +23,43 @@ public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 		return em;
 	}
 	
+	public List<FuncionamentoMaquina> listAll(Integer startPosition, Integer maxResult) {
+		TypedQuery<FuncionamentoMaquina> findAllQuery = getEntityManager().createNamedQuery("FuncionamentoMaquina.listarTodos",
+				FuncionamentoMaquina.class);
+
+		if (startPosition != null) {
+			findAllQuery.setFirstResult(startPosition);
+		}
+		if (maxResult != null) {
+			findAllQuery.setMaxResults(maxResult);
+		}
+		return findAllQuery.getResultList();
+	}
+	
 	//todo implementar o resto dos métodos
 
 	public String somaFuncionamentoAutomaticoPorPeriodo(String dataInicial, String dataLimite) {
-		TypedQuery<FuncionamentoMaquina> findAllQuery;
+			
+		Query autoManQuery = getEntityManager().createNativeQuery(""
+				+ "SELECT " + 
+				"    CAST (data AS date), SUM(auto_man) as soma " + 
+				"FROM " + 
+				"    tb_funcionamento_maquina " + 
+				"WHERE" + 
+				"    CAST (data AS date) BETWEEN '2019-04-01' " + 
+				"AND" + 
+				"    '2019-06-03' " + 
+				"GROUP BY CAST (data AS date);");
 		
-		findAllQuery = getEntityManager()
-				.createNamedQuery
-				("FuncionamentoMaquina.somaAutoManPorPeriodo",FuncionamentoMaquina.class);
+		@SuppressWarnings("unchecked")
+		List<Object[]>listagemAutoMan = autoManQuery.getResultList();
 		
-		findAllQuery.setParameter("pDataInicial", Util.converteStringEmData(dataInicial));
-		findAllQuery.setParameter("pDataLimite", Util.converteStringEmData(dataLimite));
-		
-		List<Long> retorno = new ArrayList<>();
-		retorno = findAllQuery.getResultList();
-		
-		for(Long valor : retorno) {
-			System.out.println(valor);
+		Long valor = Long.valueOf("0");
+		BigInteger valor2 = BigInteger.valueOf(valor);
+		for(Object[] a : listagemAutoMan) {
+			System.out.println(a[1]);
+			valor2 = (BigInteger) a[1];
 		}
-		
-		
-		
-		return "retorno padrao";
-	}
-	
+		return valor2.toString();
+	}	
 }

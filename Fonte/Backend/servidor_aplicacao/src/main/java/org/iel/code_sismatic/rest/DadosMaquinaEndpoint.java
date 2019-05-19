@@ -20,7 +20,9 @@ import javax.ws.rs.core.UriBuilder;
 import org.iel.code_sismatic.control.RelatorioFuncionamentoMaquina;
 import org.iel.code_sismatic.control.SalvaDadosBI;
 import org.iel.code_sismatic.dao.DadosMaquinaDao;
+import org.iel.code_sismatic.dao.FuncionamentoMaquinaDao;
 import org.iel.code_sismatic.dao.StatusMaquinaDao;
+import org.iel.code_sismatic.model.entidades_dimensao.FuncionamentoMaquina;
 import org.iel.code_sismatic.model.entidades_dimensao.StatusMaquina;
 import org.iel.code_sismatic.model.entidades_fato.DadosMaquina;
 import org.iel.code_sismatic.rest.objetos_envio.RelatorioFuncionamentoMaquinaEnvio;
@@ -52,6 +54,9 @@ public class DadosMaquinaEndpoint {
 	
 	@Inject
 	private RelatorioFuncionamentoMaquina relatorioFuncionamento;
+	
+	@Inject
+	private FuncionamentoMaquinaDao daoFuncionamentoMaquina;
 
 	@POST
 	public Response create(DadosMaquina entity) {
@@ -120,7 +125,7 @@ public class DadosMaquinaEndpoint {
 	}
 
 	@GET
-	@Path("/teste")
+	@Path("/funcionamento-teste")
 	public RelatorioFuncionamentoMaquinaEnvio retornaRelatorioFuncionamentoMaquina(
 			@QueryParam("data_inicial") String dataInicial, 
 			@QueryParam("data_limite") String dataLimite) {
@@ -145,5 +150,13 @@ public class DadosMaquinaEndpoint {
 		results = relatorioFuncionamento.getRelatorio(dataInicial, dataLimite);
 		return results;
 	}
+	
+	@GET
+	@Path("/funcionamento")
+	public List<FuncionamentoMaquina> listAllFuncionamento(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult) {
+		final List<FuncionamentoMaquina> results = daoFuncionamentoMaquina.listAll(startPosition, maxResult);
+		return results;
+	}
+	
 
 }
