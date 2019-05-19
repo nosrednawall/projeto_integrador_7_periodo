@@ -17,11 +17,15 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
+import org.iel.code_sismatic.control.RelatorioFuncionamentoMaquina;
 import org.iel.code_sismatic.control.SalvaDadosBI;
 import org.iel.code_sismatic.dao.DadosMaquinaDao;
+import org.iel.code_sismatic.dao.FuncionamentoMaquinaDao;
 import org.iel.code_sismatic.dao.StatusMaquinaDao;
+import org.iel.code_sismatic.model.entidades_dimensao.FuncionamentoMaquina;
 import org.iel.code_sismatic.model.entidades_dimensao.StatusMaquina;
 import org.iel.code_sismatic.model.entidades_fato.DadosMaquina;
+import org.iel.code_sismatic.rest.objetos_envio.RelatorioFuncionamentoMaquinaEnvio;
 import org.iel.code_sismatic.rest.objetos_envio.StatusMaquinaEnvio;
 import org.iel.code_sismatic.util.Util;
 
@@ -47,6 +51,12 @@ public class DadosMaquinaEndpoint {
 	//dao das tabelas de dimensão
 	@Inject
 	private SalvaDadosBI daoBi;
+	
+	@Inject
+	private RelatorioFuncionamentoMaquina relatorioFuncionamento;
+	
+	@Inject
+	private FuncionamentoMaquinaDao daoFuncionamentoMaquina;
 
 	@POST
 	public Response create(DadosMaquina entity) {
@@ -112,6 +122,40 @@ public class DadosMaquinaEndpoint {
 				results);
 		
 		return retorno;
+	}
+
+	@GET
+	@Path("/funcionamento-teste")
+	public RelatorioFuncionamentoMaquinaEnvio retornaRelatorioFuncionamentoMaquina(
+			@QueryParam("data_inicial") String dataInicial, 
+			@QueryParam("data_limite") String dataLimite) {
+		
+		//instancio a coleção
+		final RelatorioFuncionamentoMaquinaEnvio results;
+		
+		//aplico o patter as datas
+		dataInicial = Util.adicionaPattermDataInicial(dataInicial);
+		dataLimite = Util.adicionaPattermDataFinal(dataLimite);
+		
+		//verifico se as queryparam não estão nulas
+//		if(!Util.isNullOrBlank(dataInicial) && !Util.isNullOrBlank(dataLimite)) {
+//					
+//			//faço a solicitação dos dadoss
+//
+//					
+//			//caso só tenha a data inicial
+//		}
+//		
+		
+		results = relatorioFuncionamento.getRelatorio(dataInicial, dataLimite);
+		return results;
+	}
+	
+	@GET
+	@Path("/funcionamento")
+	public List<FuncionamentoMaquina> listAllFuncionamento(@QueryParam("start") Integer startPosition, @QueryParam("max") Integer maxResult) {
+		final List<FuncionamentoMaquina> results = daoFuncionamentoMaquina.listAll(startPosition, maxResult);
+		return results;
 	}
 	
 

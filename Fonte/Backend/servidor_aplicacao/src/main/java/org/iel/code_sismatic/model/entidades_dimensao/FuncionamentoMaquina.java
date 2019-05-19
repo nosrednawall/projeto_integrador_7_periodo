@@ -18,6 +18,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
 	@NamedQuery(name = "FuncionamentoMaquina.listarTodos", query = "SELECT DISTINCT d FROM tb_funcionamento_maquina d"),
 	@NamedQuery(name = "FuncionamentoMaquina.find", query = "SELECT DISTINCT d FROM tb_funcionamento_maquina d WHERE d.id = :pId"),
+	@NamedQuery(name = "FuncionamentoMaquina.somaAutoManPorPeriodo", query = 
+	"SELECT f, SUM(f.autoMan) FROM tb_funcionamento_maquina f WHERE f.data BETWEEN :pDataInicial AND :pDataLimite")
+
 })
 @Entity(name = "tb_funcionamento_maquina")
 @XmlRootElement
@@ -58,8 +61,8 @@ public class FuncionamentoMaquina implements Serializable {
 		this.speedPV = speedPV;
 		this.power = power;
 		this.autoMan = autoMan;
-	}
-	
+		this.data = data;
+	}	
 
 	public LocalDateTime getData() {
 		return data;
