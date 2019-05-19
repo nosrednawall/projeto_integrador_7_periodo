@@ -18,14 +18,19 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import org.iel.codesimatic.R;
+import org.iel.codesimatic.Rest.RelatorioFuncionamentoMaquinaRetorno;
 
 import java.util.ArrayList;
 
 
-public class PieChartActivity
+public class FuncionamentoMaquinaPizzaActivity
         extends AppCompatActivity {
 
     private PieChart chart;
+    private RelatorioFuncionamentoMaquinaRetorno dados;
+    public FuncionamentoMaquinaPizzaActivity(RelatorioFuncionamentoMaquinaRetorno dados){
+        this.dados = dados;
+    }
 
 
     @Override
@@ -84,8 +89,8 @@ public class PieChartActivity
     private void setData() {
         ArrayList<PieEntry> entries = new ArrayList<>();
 
-        PieEntry valor1 = new PieEntry((float)49.0,"dia tal");
-        PieEntry valor2 = new PieEntry((float)51.0,"outro dia tal");
+        PieEntry valor1 = new PieEntry(dados.getSomaAutoMan(),"Auto_Man");
+        PieEntry valor2 = new PieEntry(dados.getSomaRunCmd(),"Run_CMD");
 
         entries.add(valor1);
         entries.add(valor2);

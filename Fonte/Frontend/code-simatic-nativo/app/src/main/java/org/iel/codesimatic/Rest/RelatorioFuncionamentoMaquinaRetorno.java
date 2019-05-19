@@ -9,19 +9,19 @@ public class RelatorioFuncionamentoMaquinaRetorno implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    private int somaAutoMan;
-    private int somaRunCmd;
+    private float somaAutoMan;
+    private float somaRunCmd;
 
-    public int getSomaAutoMan() {
+    public float getSomaAutoMan() {
         return somaAutoMan;
     }
-    public void setSomaAutoMan(int somaAutoMan) {
+    public void setSomaAutoMan(float somaAutoMan) {
         this.somaAutoMan = somaAutoMan;
     }
-    public int getSomaRunCmd() {
+    public float getSomaRunCmd() {
         return somaRunCmd;
     }
-    public void setSomaRunCmd(int somaRunCmd) {
+    public void setSomaRunCmd(float somaRunCmd) {
         this.somaRunCmd = somaRunCmd;
     }
 

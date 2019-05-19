@@ -3,12 +3,10 @@ package org.iel.codesimatic.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -19,13 +17,22 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import org.iel.codesimatic.R;
-import org.iel.codesimatic.Rest.BuscaRelatoriosMaquinaAsyncTask;
 import org.iel.codesimatic.Rest.RelatorioFuncionamentoMaquinaRetorno;
+import org.iel.codesimatic.util.ConexaoUtil;
+import org.iel.codesimatic.util.DeserializarJsonUtil;
 
-import java.text.SimpleDateFormat;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
-import java.util.Locale;
 
+/**
+ * Classe reponsalvel por instanciar os elementos da activity lista de graficos e buscar os relatorios
+ */
 public class ListaGraficosActivity extends AppCompatActivity{
 
     EditText dataInicial;
@@ -77,8 +84,8 @@ public class ListaGraficosActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                Intent PieChaIntent = new Intent(getApplicationContext(), PieChartActivity.class);
-                startActivity(PieChaIntent);
+                buscaRelatorioFuncionamentoPorcentagemMaquina("0");
+
             }
         });
     }
@@ -87,11 +94,14 @@ public class ListaGraficosActivity extends AppCompatActivity{
         mProgressBar.setVisibility(exibir ? View.VISIBLE : View.GONE);
     }
 
-    private void buscaRelatorioFuncionamentoPorcentagemMaquina(){
-        loggerAsyncTask("Iniciando metodo busca relatorio Funcionamento Maquina");
-        String retornoJson = new BuscaRelatoriosMaquinaAsyncTask();
+    private void buscaRelatorioFuncionamentoPorcentagemMaquina(String tipoRelatorio){
 
-        System.out.println(retornoJson);
+        loggerAsyncTask("Iniciando metodo busca relatorio Funcionamento Maquina");
+
+        //instancia a classe de
+        BuscaRelatoriosMaquinaAsyncTask relatoriosAsync = new BuscaRelatoriosMaquinaAsyncTask();
+
+        relatoriosAsync.execute(getDataInicialToString(),getDataLimiteToString(),tipoRelatorio);
 
     }
 
@@ -104,27 +114,6 @@ public class ListaGraficosActivity extends AppCompatActivity{
         dataLimite = (EditText) findViewById(R.id.data_limite);
         return dataLimite.toString();
     }
-//
-//    class BuscaNoServidor extends AsyncTask<Location, Void, Location>{
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            exibirProgress(true);
-//        }
-//
-//        @Override
-//        protected Location doInBackground(Location... params) {
-//            return medotodoRetornaLocation();
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Location location) {
-//            super.onPostExecute(location);
-//            exibirProgress(false);
-//            metodoAtualizaAInterfaceGrafica(location);
-//        }
-//    }
-
 
 
     /**
@@ -205,5 +194,124 @@ public class ListaGraficosActivity extends AppCompatActivity{
         Log.i("AsyncTask",mensagem+" Thread: " + Thread.currentThread().getName());
     }
 
+    class BuscaRelatoriosMaquinaAsyncTask extends AsyncTask<String, Integer, String> {
 
+        private String tipoRelatorio;
+        private String dataInicio;
+        private String dataLimite;
+        private HttpURLConnection conexao;
+        private URL url = null;
+        private int cod_resposta;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loggerAsyncTask("Iniciando a classe asyncrona");
+
+        }
+
+        @Override
+        protected String doInBackground(String... parametros) {
+
+            loggerAsyncTask("setando os parametros nas variaveis da classe");
+
+            //pego os parametros e insiro em suas variaveis
+            this.dataInicio = parametros[0];
+            this.dataLimite = parametros[1];
+            this.tipoRelatorio = switchTipoRelatorio(parametros[2]);
+
+            loggerAsyncTask("Montando a url");
+
+            //Monta a URL
+            try {
+                url = new URL(
+                        ConexaoUtil.CONEXAO_LOCAL+tipoRelatorio+
+                                "?data_inicio="+dataInicio+
+                                "&data_limite="+dataLimite);
+
+            } catch (MalformedURLException e) {
+                Log.e("GET_status_maquina", "Erro  - " + e.getMessage());
+                loggerAsyncTask("erro ao pegar o status do servidor, mensagem de erro:  " + e.getMessage());
+            } catch (Exception e) {
+                Log.e("GET_status_maquina", "Exception - " + e.getMessage());
+                loggerAsyncTask("Excessao ao pegar status da maquina antes de abrir conexao, mensagem excessao: " + e.getMessage());
+            }
+
+            //Abre a conexão
+            loggerAsyncTask("Abrindo conexao");
+            try {
+                conexao = (HttpURLConnection) url.openConnection();
+                conexao.setConnectTimeout(ConexaoUtil.CONEXAO_TIMEOUT);
+                conexao.setReadTimeout(ConexaoUtil.LEITURA_CEP_TIMEOUT);
+                conexao.setRequestMethod("GET");
+                conexao.setRequestProperty("charset", "utf-8");
+
+                conexao.setDoInput(true);
+                conexao.setRequestProperty("Accept", "application/json");
+
+                conexao.connect();
+            } catch (IOException e) {
+                Log.e("GET_status_maquina", "IOException - " + e.getMessage());
+                loggerAsyncTask("Excessao ao pegar status da maquina depois de abrir conexao, mensagem excessao: " + e.getMessage());
+            }
+            loggerAsyncTask("Abriu conexao, iniciando o download da requisicao");
+            try {
+                cod_resposta = conexao.getResponseCode();
+                if (cod_resposta == HttpURLConnection.HTTP_OK) {
+                    InputStream resposta_servidor = conexao.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(resposta_servidor));
+                    StringBuilder construtor_resposta = new StringBuilder();
+                    String linha;
+                    while ((linha = reader.readLine()) != null) {
+                        construtor_resposta.append(linha);
+                    }
+                    String resposta = (construtor_resposta.toString());
+                    return resposta;
+                } else {
+                    loggerAsyncTask("Erro ao deserializar a resposta em json");
+                    return "erro";
+                }
+
+            } catch (IOException e) {
+                Log.e("GET_status_maquina", "IOException - " + e.getMessage());
+                loggerAsyncTask("Excessao ao deserializar mensagem em json, mensagem excessao: " + e.getMessage());
+                return e.toString();
+            } finally {
+                conexao.disconnect();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            RelatorioFuncionamentoMaquinaRetorno dados = DeserializarJsonUtil.getRelatorioFuncionamentoMaquina(s);
+
+            Intent graficoPizzaFuncionamento = new Intent(getApplicationContext(), FuncionamentoMaquinaPizzaActivity.class);
+            graficoPizzaFuncionamento.putExtra("RelatorioFuncionamentoMaquinaRetorno",dados);
+
+            startActivity(graficoPizzaFuncionamento);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+        }
+
+        private String switchTipoRelatorio(String tipoRelatorio){
+
+            String relatorio = "";
+
+            switch (tipoRelatorio){
+
+                case "0":
+                    relatorio = "funcionamento/porcentagem";
+                    break;
+
+                default:
+                    relatorio = "funcionamento/porcentagem";
+            }
+            return relatorio;
+        }
+    }
 }
