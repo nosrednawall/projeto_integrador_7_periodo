@@ -16,6 +16,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.google.gson.JsonParseException;
+
 import org.iel.codesimatic.R;
 import org.iel.codesimatic.Rest.RelatorioFuncionamentoMaquinaRetorno;
 import org.iel.codesimatic.util.ConexaoUtil;
@@ -40,6 +42,11 @@ public class ListaGraficosActivity extends AppCompatActivity{
     Boolean dataInicialOuFinal;
     ProgressBar mProgressBar;
 
+    boolean jaExecutou = false;
+    boolean jaEfetuouDownloadDoRelatorio = false;
+
+    BuscaRelatoriosMaquinaAsyncTask buscadorAsync;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +54,14 @@ public class ListaGraficosActivity extends AppCompatActivity{
 
         CardView cardGraficos = (CardView) findViewById(R.id.lista_graficos_status_maquina);
         CardView cardGraficoPie = (CardView) findViewById(R.id.lista_graficos_torta);
+        mProgressBar = (ProgressBar) findViewById(R.id.lista_graficos_progress_bar);
+
 
         dataInicial = (EditText) findViewById(R.id.data_inicial);
         dataLimite = (EditText) findViewById(R.id.data_limite);
 
         dataInicial.setText(getDataAtual(false));
         dataLimite.setText(getDataAtual(true));
-
 
         dataInicial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,9 +91,10 @@ public class ListaGraficosActivity extends AppCompatActivity{
         cardGraficoPie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                buscaRelatorioFuncionamentoPorcentagemMaquina("0");
-
+                loggerAsyncTask("Iniciando metodo busca relatorio Funcionamento Maquina");
+                //instancia a classe de
+                buscadorAsync = new BuscaRelatoriosMaquinaAsyncTask();
+                buscadorAsync.execute(getDataInicialToString(),getDataLimiteToString(),"0");
             }
         });
     }
@@ -94,16 +103,6 @@ public class ListaGraficosActivity extends AppCompatActivity{
         mProgressBar.setVisibility(exibir ? View.VISIBLE : View.GONE);
     }
 
-    private void buscaRelatorioFuncionamentoPorcentagemMaquina(String tipoRelatorio){
-
-        loggerAsyncTask("Iniciando metodo busca relatorio Funcionamento Maquina");
-
-        //instancia a classe de
-        BuscaRelatoriosMaquinaAsyncTask relatoriosAsync = new BuscaRelatoriosMaquinaAsyncTask();
-
-        relatoriosAsync.execute(getDataInicialToString(),getDataLimiteToString(),tipoRelatorio);
-
-    }
 
     private String getDataInicialToString(){
         dataInicial = (EditText) findViewById(R.id.data_inicial);
@@ -113,6 +112,13 @@ public class ListaGraficosActivity extends AppCompatActivity{
     private String getDataLimiteToString(){
         dataLimite = (EditText) findViewById(R.id.data_limite);
         return dataLimite.toString();
+    }
+
+    void relatorioGraficoPizza(RelatorioFuncionamentoMaquinaRetorno dados){
+        Intent graficoPizzaFuncionamento = new Intent(getApplicationContext(), FuncionamentoMaquinaPizzaActivity.class);
+        graficoPizzaFuncionamento.putExtra("RelatorioFuncionamentoMaquinaRetorno", dados);
+
+        startActivity(graficoPizzaFuncionamento);
     }
 
 
@@ -194,19 +200,20 @@ public class ListaGraficosActivity extends AppCompatActivity{
         Log.i("AsyncTask",mensagem+" Thread: " + Thread.currentThread().getName());
     }
 
+    public void cancelarTask()
+    {
+        buscadorAsync.cancel(true);
+    }
+
     class BuscaRelatoriosMaquinaAsyncTask extends AsyncTask<String, Integer, String> {
 
-        private String tipoRelatorio;
-        private String dataInicio;
-        private String dataLimite;
         private HttpURLConnection conexao;
         private URL url = null;
-        private int cod_resposta;
+        int codigo_resposta=404;
 
         @Override
         protected void onPreExecute() {
             loggerAsyncTask("Iniciando a classe asyncrona");
-
         }
 
         @Override
@@ -215,18 +222,17 @@ public class ListaGraficosActivity extends AppCompatActivity{
             loggerAsyncTask("setando os parametros nas variaveis da classe");
 
             //pego os parametros e insiro em suas variaveis
-            this.dataInicio = parametros[0];
-            this.dataLimite = parametros[1];
-            this.tipoRelatorio = switchTipoRelatorio(parametros[2]);
+            String dataInicio = parametros[0];
+            String dataLimite = parametros[1];
+            String tipoRelatorio = switchTipoRelatorio(parametros[2]);
 
             loggerAsyncTask("Montando a url");
 
             //Monta a URL
             try {
-                url = new URL(
-                        ConexaoUtil.CONEXAO_LOCAL+tipoRelatorio+
-                                "?data_inicio="+dataInicio+
-                                "&data_limite="+dataLimite);
+//                url = new URL(ConexaoUtil.CONEXAO_LOCAL+tipoRelatorio+"?data_inicio="+dataInicio+"&&data_limite="+dataLimite);
+                url = new URL("http://192.168.0.119:8080/code-simatic/rest/dados-maquina/funcionamento/porcentagem");
+
 
             } catch (MalformedURLException e) {
                 Log.e("GET_status_maquina", "Erro  - " + e.getMessage());
@@ -255,8 +261,8 @@ public class ListaGraficosActivity extends AppCompatActivity{
             }
             loggerAsyncTask("Abriu conexao, iniciando o download da requisicao");
             try {
-                cod_resposta = conexao.getResponseCode();
-                if (cod_resposta == HttpURLConnection.HTTP_OK) {
+                codigo_resposta = conexao.getResponseCode();
+                if (codigo_resposta == HttpURLConnection.HTTP_OK) {
                     InputStream resposta_servidor = conexao.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(resposta_servidor));
                     StringBuilder construtor_resposta = new StringBuilder();
@@ -264,8 +270,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
                     while ((linha = reader.readLine()) != null) {
                         construtor_resposta.append(linha);
                     }
-                    String resposta = (construtor_resposta.toString());
-                    return resposta;
+                    return construtor_resposta.toString();
                 } else {
                     loggerAsyncTask("Erro ao deserializar a resposta em json");
                     return "erro";
@@ -281,18 +286,18 @@ public class ListaGraficosActivity extends AppCompatActivity{
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            loggerAsyncTask("O que será isso? "+s);
-//            RelatorioFuncionamentoMaquinaRetorno dados = DeserializarJsonUtil.getRelatorioFuncionamentoMaquina(s);
-//
-//            Intent graficoPizzaFuncionamento = new Intent(getApplicationContext(), FuncionamentoMaquinaPizzaActivity.class);
-//            graficoPizzaFuncionamento.putExtra("RelatorioFuncionamentoMaquinaRetorno",dados);
-//
-//            startActivity(graficoPizzaFuncionamento);
-        }
+        protected void onPostExecute(String resultado) {
+            if(codigo_resposta == HttpURLConnection.HTTP_OK) {
+                loggerAsyncTask("O que será isso? " + resultado);
+                RelatorioFuncionamentoMaquinaRetorno dados;
+                try {
+                    dados = DeserializarJsonUtil.jsonToRelatorioFuncionamento(resultado);
+                    relatorioGraficoPizza(dados);
 
-        @Override
-        protected void onProgressUpdate(Integer... values) {
+                } catch (JsonParseException e) {
+                    loggerAsyncTask("Execessao ao deserializar o java dentro de onpostexecute " + e.getMessage());
+                }
+            }
         }
 
         private String switchTipoRelatorio(String tipoRelatorio){

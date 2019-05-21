@@ -28,10 +28,11 @@ public class FuncionamentoMaquinaPizzaActivity
 
     private PieChart chart;
     private RelatorioFuncionamentoMaquinaRetorno dados;
+
     public FuncionamentoMaquinaPizzaActivity(RelatorioFuncionamentoMaquinaRetorno dados){
         this.dados = dados;
     }
-
+    public FuncionamentoMaquinaPizzaActivity(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

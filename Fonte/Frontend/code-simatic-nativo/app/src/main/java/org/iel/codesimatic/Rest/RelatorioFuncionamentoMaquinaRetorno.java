@@ -15,14 +15,16 @@ public class RelatorioFuncionamentoMaquinaRetorno implements Serializable {
     public float getSomaAutoMan() {
         return somaAutoMan;
     }
-    public void setSomaAutoMan(float somaAutoMan) {
-        this.somaAutoMan = somaAutoMan;
+
+    public void setSomaAutoMan(String somaAutoMan) {
+        this.somaAutoMan = Float.parseFloat(somaAutoMan);
     }
     public float getSomaRunCmd() {
         return somaRunCmd;
     }
-    public void setSomaRunCmd(float somaRunCmd) {
-        this.somaRunCmd = somaRunCmd;
+
+    public void setSomaRunCmd(String somaRunCmd) {
+        this.somaRunCmd = Float.parseFloat(somaRunCmd);
     }
 
 }
