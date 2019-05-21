@@ -1,7 +1,7 @@
 package org.iel.codesimatic.util;
 
 public final class ConexaoUtil {
-    public static String CONEXAO_LOCAL = "http://0.0.0.0:8080/code-simatic/rest/dados-maquina/";
+    public static String CONEXAO_LOCAL = "http://10.1.3.106:8080/code-simatic/rest/dados-maquina/";
     //Milissegundos
     public static int CONEXAO_TIMEOUT = 10000;
     public static int ENVIO_TIMEOUT = 20000;
