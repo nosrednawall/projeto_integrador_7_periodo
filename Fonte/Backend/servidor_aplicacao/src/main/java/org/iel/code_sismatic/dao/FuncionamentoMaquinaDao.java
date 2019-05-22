@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.iel.code_sismatic.model.entidades_dimensao.FuncionamentoMaquina;
+import org.iel.code_sismatic.util.Util;
 
 /**
  * Classe responsável por prover os dados dos relatórios referentes ao funcionamento da máquina
@@ -77,8 +78,8 @@ public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 		List<Object[]>retornoSelect = somaDadosFuncionamentoMaquinaPorPeriodoQuery.getResultList();
 		
 		for(Object[] a : retornoSelect) {
-			retorno.setTotalAutoMan((BigInteger) a[1]);
-			retorno.setTotalRunCmd((BigInteger) a[2]);
+			retorno.setTotalAutoMan(Util.somaBigIntegers((BigInteger) a[1],retorno.getTotalAutoMan()));
+			retorno.setTotalRunCmd(Util.somaBigIntegers((BigInteger) a[2],retorno.getTotalRunCmd()));
 		}
 		return retorno;
 	}	

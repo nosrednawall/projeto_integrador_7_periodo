@@ -6,7 +6,7 @@ select p from Persons p where (cast(:createdAt as timestamp) is null or p.create
 
 
 SELECT
-    CAST (data AS date), SUM(auto_man) as soma
+    CAST (data AS date), SUM(auto_man) as auto_man, SUM(run_cmd) as run_cmd
 FROM
     tb_funcionamento_maquina 
 WHERE

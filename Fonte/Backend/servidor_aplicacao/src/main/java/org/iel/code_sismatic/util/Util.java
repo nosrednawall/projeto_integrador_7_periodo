@@ -199,7 +199,10 @@ public class Util {
 	public static float somaBigIntegersRetornaFloat(BigInteger valor1, BigInteger valor2) {
 		return valor1.add(valor2).floatValue();
 	}
-	
+
+	public static BigInteger somaBigIntegers(BigInteger valor1, BigInteger valor2) {
+		return valor1.add(valor2);
+	}
 	/**
 	 * Retorna uma porcentagem formatada
 	 * @param valor
