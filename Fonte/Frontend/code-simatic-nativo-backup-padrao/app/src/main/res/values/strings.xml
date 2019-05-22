@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">code simatic</string>
+    <string name="app_name_Login">Code Simatic</string>
+    <string name="title_activity_login">Login</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">E-mail</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Efetue login ou registre-se</string>
+    <string name="action_sign_in_short">Login</string>
+    <string name="error_invalid_email">E-mail inválido</string>
+    <string name="error_invalid_password">Senha muito curta</string>
+    <string name="error_incorrect_password">Senha ou e-mail incorretos</string>
+    <string name="error_field_required">Campo requerido</string>
+    <string name="permission_rationale">"Permissão para verificar os seus contatos."</string>
+    <string name="login_botao_lembreme">"Lembrar-me"</string>
+    <string name="login_recuperar_senha">"Recuperar senha"</string>
+
+    <!--Strings para tela de formulário-->
+    <string name="cadastro_titulo">Cadastro Usuário</string>
+    <string name="cadastro_nome">Nome completo</string>
+    <string name="cadastro_cpf">CPF</string>
+    <string name="cadastro_ramal">Ramal</string>
+    <string name="cadastro_sexo">Sexo</string>
+    <string name="cadastro_email">E-mail</string>
+    <string name="cadastro_senha">Senha</string>
+    <string name="cadastro_salvar">Salvar</string>
+    <string name="cadastro_setor">Setor</string>
+    <string-array name="cadastro_setores">
+        <item>TI</item>
+        <item>Gerência</item>
+        <item>Testes</item>
+    </string-array>
+    <string name="cadastro_feminino">Feminino</string>
+    <string name="cadastro_masculino">Masculino</string>
+    <string name="title_activity_maps">Map</string>
+
+    <!--Strings tela home-->
+    <string name="home_graficos_nome">Gráficos</string>
+    <string name="home_graficos_descricao">Visualize os dados de BI</string>
+    <string name="home_usuarios_nome">Usuários</string>
+    <string name="home_usuarios_descricao">Edite os usuários do sistema</string>
+    <string name="home_configuracoes_nome">Configurações</string>
+    <string name="home_configuracoes_descricao">Altere seus dados pessoais</string>
+    <string name="home_maps_nome">Localização</string>
+    <string name="home_maps_desc">Veja onde você está</string>
+    <string name="home_sair_nome">logoff</string>
+    <string name="home_sair_descricao">Faça logoff da aplicação</string>
+
+    <!-- Strings lista de usuários -->
+    <string name="lista_card_editar">Editar</string>
+    <string name="lista_card_remover">Remover</string>
+    <string name="lista_card_adicionar">Adicionar</string>
+    <string name="title_activity_recycle_view_layout">RecycleViewLayoutActivity</string>
+
+    <!-- Strings graficos -->
+    <string name="dash">-</string>
+    <string name="nome_grafico_linha_status_maquina">Status máquina Linha</string>
+    <string name="descricao_grafico_linha_status_maquina"></string>
+    <string name="nome_grafico_torta_status_maquina">Status máquina Torta</string>
+    <string name="descricao_grafico_torta_status_maquina"></string>
+
+</resources>

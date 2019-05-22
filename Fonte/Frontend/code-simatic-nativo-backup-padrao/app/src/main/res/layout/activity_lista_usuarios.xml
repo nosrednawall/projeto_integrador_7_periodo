@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.iel.codesimatic.activity.ListaUsuariosActivity"
+    android:id="@+id/lista_usuarios_view">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lista_usuarios_recycler_view_layour_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/linha_lista_view"/>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/lista_usuarios_botao_adicionar"
+        android:text="+"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+</FrameLayout>
