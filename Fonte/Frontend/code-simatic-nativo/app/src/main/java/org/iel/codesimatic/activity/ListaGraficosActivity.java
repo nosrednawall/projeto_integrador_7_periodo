@@ -231,7 +231,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
             //Monta a URL
             try {
 //                url = new URL(ConexaoUtil.CONEXAO_LOCAL+tipoRelatorio+"?data_inicio="+dataInicio+"&&data_limite="+dataLimite);
-                url = new URL("http://192.168.0.119:8080/code-simatic/rest/dados-maquina/funcionamento/porcentagem");
+                url = new URL("http://192.168.9.26:8080/code-simatic/rest/dados-maquina/funcionamento/porcentagem");
 
 
             } catch (MalformedURLException e) {
