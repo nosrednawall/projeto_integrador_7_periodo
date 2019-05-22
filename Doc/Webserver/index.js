@@ -21,11 +21,11 @@ function gerar_dados_json(){
 //     var Run_CMD = getRandomInt(0,2); 
 //     var Status = getRandomInt(0,2);
     
-    var Speed_PV = 1500;
-    var Power = 100;
+    var Speed_PV = 1125;
+    var Power = 75;
     var No_Run = 0;
-    var Auto_Man = 1;
-    var Run_CMD = 0; 
+    var Auto_Man = 0;
+    var Run_CMD = 1; 
     var Status = 1;
 
     // var dados = {

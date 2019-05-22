@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 import com.google.gson.JsonParseException;
 
 import org.iel.codesimatic.R;
-import org.iel.codesimatic.Rest.RelatorioFuncionamentoMaquinaRetorno;
+import org.iel.codesimatic.model.FuncionamentoMaquinaPorcentagem;
 import org.iel.codesimatic.util.ConexaoUtil;
 import org.iel.codesimatic.util.DeserializarJsonUtil;
 
@@ -83,8 +83,6 @@ public class ListaGraficosActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-                Intent statusMaquinaIntent = new Intent(getApplicationContext(), StatusMaquinaActivity.class);
-                startActivity(statusMaquinaIntent);
             }
         });
 
@@ -114,7 +112,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
         return dataLimite.toString();
     }
 
-    void relatorioGraficoPizza(RelatorioFuncionamentoMaquinaRetorno dados){
+    void relatorioGraficoPizza(FuncionamentoMaquinaPorcentagem dados){
         cancelarTask();
         Intent graficoPizzaFuncionamento = new Intent(getApplicationContext(), FuncionamentoMaquinaPizzaActivity.class);
         graficoPizzaFuncionamento.putExtra("RelatorioFuncionamentoMaquinaRetorno", dados);
@@ -290,7 +288,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
         protected void onPostExecute(String resultado) {
             if(codigo_resposta == HttpURLConnection.HTTP_OK) {
                 loggerAsyncTask("O que será isso? " + resultado);
-                RelatorioFuncionamentoMaquinaRetorno dados;
+                FuncionamentoMaquinaPorcentagem dados;
                 try {
                     dados = DeserializarJsonUtil.jsonToRelatorioFuncionamento(resultado);
                     relatorioGraficoPizza(dados);

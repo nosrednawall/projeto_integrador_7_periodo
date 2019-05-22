@@ -18,7 +18,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import org.iel.codesimatic.R;
-import org.iel.codesimatic.Rest.RelatorioFuncionamentoMaquinaRetorno;
+import org.iel.codesimatic.model.FuncionamentoMaquinaPorcentagem;
 
 import java.util.ArrayList;
 
@@ -27,9 +27,9 @@ public class FuncionamentoMaquinaPizzaActivity
         extends AppCompatActivity {
 
     private PieChart chart;
-    private RelatorioFuncionamentoMaquinaRetorno dados;
+    private FuncionamentoMaquinaPorcentagem dados;
 
-    public FuncionamentoMaquinaPizzaActivity(RelatorioFuncionamentoMaquinaRetorno dados){
+    public FuncionamentoMaquinaPizzaActivity(FuncionamentoMaquinaPorcentagem dados){
         this.dados = dados;
     }
     public FuncionamentoMaquinaPizzaActivity(){}

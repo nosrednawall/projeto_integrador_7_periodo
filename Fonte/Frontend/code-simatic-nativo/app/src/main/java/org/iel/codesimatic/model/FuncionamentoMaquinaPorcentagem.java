@@ -1,8 +1,8 @@
-package org.iel.codesimatic.Rest;
+package org.iel.codesimatic.model;
 
 import java.io.Serializable;
 
-public class RelatorioFuncionamentoMaquinaRetorno implements Serializable {
+public class FuncionamentoMaquinaPorcentagem implements Serializable {
 
     /**
      *
@@ -26,5 +26,6 @@ public class RelatorioFuncionamentoMaquinaRetorno implements Serializable {
     public void setSomaRunCmd(float somaRunCmd) {
         this.somaRunCmd = somaRunCmd;
     }
+
 
 }
