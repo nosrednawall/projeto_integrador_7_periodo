@@ -1,5 +1,6 @@
 package org.iel.codesimatic.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ public class FuncionamentoMaquinaPizzaActivity
 
     private PieChart chart;
     private FuncionamentoMaquinaPorcentagem dados;
+    float somaAutoMan = 0;
+    float somaRunCmd = 0;
 
     public FuncionamentoMaquinaPizzaActivity(FuncionamentoMaquinaPorcentagem dados){
         this.dados = dados;
@@ -37,6 +40,15 @@ public class FuncionamentoMaquinaPizzaActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        Bundle dados = new Bundle();
+        dados = intent.getExtras();
+
+        somaRunCmd = dados.getFloat("somaRunCmd");
+        somaAutoMan = dados.getFloat("somaAutoMan");
+
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pie_chart);
@@ -90,8 +102,8 @@ public class FuncionamentoMaquinaPizzaActivity
     private void setData() {
         ArrayList<PieEntry> entries = new ArrayList<>();
 
-        PieEntry valor1 = new PieEntry(dados.getSomaAutoMan(),"Auto_Man");
-        PieEntry valor2 = new PieEntry(dados.getSomaRunCmd(),"Run_CMD");
+        PieEntry valor1 = new PieEntry(somaAutoMan,"Auto_Man");
+        PieEntry valor2 = new PieEntry(somaRunCmd,"Run_CMD");
 
         entries.add(valor1);
         entries.add(valor2);
