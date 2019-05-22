@@ -102,8 +102,8 @@ public class FuncionamentoMaquinaPizzaActivity
     private void setData() {
         ArrayList<PieEntry> entries = new ArrayList<>();
 
-        PieEntry valor1 = new PieEntry(somaAutoMan,"Auto_Man");
-        PieEntry valor2 = new PieEntry(somaRunCmd,"Run_CMD");
+        PieEntry valor1 = new PieEntry(somaAutoMan,"Automático");
+        PieEntry valor2 = new PieEntry(somaRunCmd,"Manual");
 
         entries.add(valor1);
         entries.add(valor2);
