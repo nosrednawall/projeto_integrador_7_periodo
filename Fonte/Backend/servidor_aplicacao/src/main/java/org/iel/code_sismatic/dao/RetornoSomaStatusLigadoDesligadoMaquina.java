@@ -7,17 +7,17 @@ import java.math.BigInteger;
  * @author anderson
  *
  */
-public class RetornoSomaFuncionamentoLigadoDesligadoMaquina {
+public class RetornoSomaStatusLigadoDesligadoMaquina {
 	
 	private BigInteger totalLigado;
 	private BigInteger totalDesligado;
 	
-	public RetornoSomaFuncionamentoLigadoDesligadoMaquina(BigInteger totalLigado,BigInteger totalDesligado) {
+	public RetornoSomaStatusLigadoDesligadoMaquina(BigInteger totalLigado,BigInteger totalDesligado) {
 		this.totalLigado = totalLigado;
 		this.totalDesligado = totalDesligado;
 	}
 	
-	public RetornoSomaFuncionamentoLigadoDesligadoMaquina() {
+	public RetornoSomaStatusLigadoDesligadoMaquina() {
 		this.totalLigado = BigInteger.valueOf(0);
 		this.totalDesligado = BigInteger.valueOf(0);
 	}

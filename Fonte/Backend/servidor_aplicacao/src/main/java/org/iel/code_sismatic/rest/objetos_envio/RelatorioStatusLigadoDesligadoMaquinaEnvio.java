@@ -2,7 +2,7 @@ package org.iel.code_sismatic.rest.objetos_envio;
 
 import java.io.Serializable;
 
-public class RelatorioFuncionamentoLigadoDesligadoMaquinaEnvio implements Serializable {
+public class RelatorioStatusLigadoDesligadoMaquinaEnvio implements Serializable {
 
 	/**
 	 * 

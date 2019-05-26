@@ -1,5 +1,6 @@
 package org.iel.code_sismatic.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -56,24 +57,36 @@ public class StatusMaquinaDao extends BaseDao<StatusMaquina> {
 		return retorno.getResultList();
 	}
 	
-	public RetornoSomaFuncionamentoLigadoDesligadoMaquina somaFuncionamentoLigadoDesligadoPorPeriodo(String dataInicial, String dataLimite) {
+	public RetornoSomaStatusLigadoDesligadoMaquina somaStatusLigadoDesligadoPorPeriodo(String dataInicial, String dataLimite) {
 		
-		RetornoSomaFuncionamentoLigadoDesligadoMaquina retorno = new RetornoSomaFuncionamentoLigadoDesligadoMaquina();
-		
+		RetornoSomaStatusLigadoDesligadoMaquina retorno = new RetornoSomaStatusLigadoDesligadoMaquina();
 		
 		//select nativo
-		Query somaDadosFuncionamentoMaquinaPorPeriodoQuery = getEntityManager().createNativeQuery(""
+		Query somaDadosStatusMaquinaPorPeriodoQuery = getEntityManager().createNativeQuery(""
 				+ "SELECT " + 
-				"    CAST (data AS date), SUM(auto_man) as soma_auto_man , SUM(run_cmd) as soma_run_cmd " + 
+				"    CAST (data AS date) " + 
+				"    , COALESCE(COUNT (status) FILTER(WHERE status=1),0) AS status_ligado " + 
+				"    , COALESCE(COUNT (status) FILTER(WHERE status=0),0) AS status_desligado " + 
 				"FROM " + 
-				"    tb_funcionamento_maquina " + 
+				"    tb_status_maquina " +
 				"WHERE" + 
 				"    CAST (data AS date) BETWEEN CAST(:pDataInicial AS date) " + 
 				"AND" + 
 				"    CAST(:pDataLimite AS date) " + 
 				"GROUP BY CAST (data AS date);");
+
+		somaDadosStatusMaquinaPorPeriodoQuery.setParameter("pDataInicial", dataInicial.toString());
+		somaDadosStatusMaquinaPorPeriodoQuery.setParameter("pDataLimite", dataLimite.toString());
 		
+		//efetua o select aqui
+		@SuppressWarnings("unchecked")
+		List<Object[]>retornoSelect = somaDadosStatusMaquinaPorPeriodoQuery.getResultList();
 		
-		return null;
+		for(Object[] a : retornoSelect) {
+			retorno.setTotalLigado(Util.somaBigIntegers((BigInteger) a[1],retorno.getTotalLigado()));
+			retorno.setTotalDesligado(Util.somaBigIntegers((BigInteger) a[2],retorno.getTotalDesligado()));
+		}
+		
+		return retorno;
 	}
 }
