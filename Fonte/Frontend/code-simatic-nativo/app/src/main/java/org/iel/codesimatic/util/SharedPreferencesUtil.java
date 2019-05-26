@@ -17,4 +17,24 @@ public class SharedPreferencesUtil {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.remove(KeysUtil.KEY_TOKEN).commit();
     }
+
+    public static String getUltimoServidorFromSharedPreferences(Context context){
+        SharedPreferences preferences = context.getSharedPreferences(KeysUtil.KEY_SHAREDPREFERENCES, Context.MODE_PRIVATE);
+        String servidor = preferences.getString(KeysUtil.KEY_SERVIDOR, ConexaoUtil.CONEXAO_LOCAL);
+        return servidor;
+    }
+
+    /**
+     *
+     * @param context
+     * @param servidor
+     */
+    public static void salvaEnderecoServidorNoSharedPreferences(Context context, String servidor){
+        SharedPreferences preferences = context.getSharedPreferences(KeysUtil.KEY_SHAREDPREFERENCES,0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(KeysUtil.KEY_SERVIDOR, servidor);
+
+        //salva
+        editor.commit();
+    }
 }
