@@ -3,6 +3,7 @@ package org.iel.codesimatic.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -23,6 +25,7 @@ import org.iel.codesimatic.model.FuncionamentoMaquinaPorcentagem;
 import org.iel.codesimatic.model.LigadaDesligadaMaquinaPorcentagem;
 import org.iel.codesimatic.util.ConexaoUtil;
 import org.iel.codesimatic.util.DeserializarJsonUtil;
+import org.iel.codesimatic.util.SharedPreferencesUtil;
 import org.iel.codesimatic.util.Util;
 
 import java.io.BufferedReader;
@@ -39,6 +42,7 @@ import java.util.Calendar;
  */
 public class ListaGraficosActivity extends AppCompatActivity{
 
+    String enderecoServidor = "";
     EditText dataInicial;
     EditText dataLimite;
     Boolean dataInicialOuFinal;
@@ -53,6 +57,13 @@ public class ListaGraficosActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_graficos);
 
+        //busco o ultimo endereco de servidor no shared preferences
+        EditText servidor = (EditText) findViewById(R.id.lista_graficos_servidor);
+        enderecoServidor = SharedPreferencesUtil.getUltimoServidorFromSharedPreferences(this);
+        servidor.setText(enderecoServidor);
+
+        Button salvarEndereco = (Button) findViewById(R.id.listgraficos_salvar_endereco);
+
         CardView cardGraficos = (CardView) findViewById(R.id.lista_graficos_status_maquina);
         CardView cardGraficoPie = (CardView) findViewById(R.id.lista_graficos_torta);
         mProgressBar = (ProgressBar) findViewById(R.id.lista_graficos_progress_bar);
@@ -62,6 +73,16 @@ public class ListaGraficosActivity extends AppCompatActivity{
 
         dataInicial.setText(getDataAtual(false));
         dataLimite.setText(getDataAtual(true));
+
+        salvarEndereco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!enderecoServidor.equals(servidor.getText().toString())){
+                    enderecoServidor = servidor.getText().toString();
+                    SharedPreferencesUtil.salvaEnderecoServidorNoSharedPreferences(getApplicationContext(),enderecoServidor);
+                }
+            }
+        });
 
         dataInicial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,10 +103,11 @@ public class ListaGraficosActivity extends AppCompatActivity{
         cardGraficos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LigadaDesligadaMaquinaPorcentagem ligadoDados = new LigadaDesligadaMaquinaPorcentagem();
-                ligadoDados.setSomaLigada(60);
-                ligadoDados.setSomaDesligada(40);
-                relatorioLigadoDeslgadoPizza(ligadoDados);
+                Util.loggerAsyncTask("Iniciando metodo busca relatorio Status Maquina");
+                //instancia o buscador asyncrono
+                buscadorAsync = new BuscaRelatoriosMaquinaAsyncTask();
+                //insere os dados de qual relatorio aqui
+                buscadorAsync.execute(getDataInicialToString(),getDataLimiteToString(),"1");
             }
         });
 
@@ -93,11 +115,24 @@ public class ListaGraficosActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Util.loggerAsyncTask("Iniciando metodo busca relatorio Funcionamento Maquina");
-                //instancia a classe de
                 buscadorAsync = new BuscaRelatoriosMaquinaAsyncTask();
                 buscadorAsync.execute(getDataInicialToString(),getDataLimiteToString(),"0");
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferencesUtil.salvaEnderecoServidorNoSharedPreferences(this,enderecoServidor);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        EditText servidor = (EditText) findViewById(R.id.lista_graficos_servidor);
+        enderecoServidor = SharedPreferencesUtil.getUltimoServidorFromSharedPreferences(this);
+        servidor.setText(enderecoServidor);
     }
 
     private void exibirProgress(boolean exibir) {
@@ -225,7 +260,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
         private HttpURLConnection conexao;
         private URL url = null;
         int codigo_resposta=404;
-        int tipoRelatorio = 0;
+        int numeroRelatorio = 0;
 
         @Override
         protected void onPreExecute() {
@@ -243,15 +278,15 @@ public class ListaGraficosActivity extends AppCompatActivity{
             String dataInicio = parametros[0].toString();
             String dataLimite = parametros[1].toString();
             String tipoRelatorio = switchTipoRelatorio(parametros[2]);
+            numeroRelatorio = Integer.parseInt(parametros[2]);
 
             Util.loggerAsyncTask("Montando a url");
 
             //Monta a URL
             try {
-                String relatorio = switchTipoRelatorio(tipoRelatorio);
 //                url = new URL(ConexaoUtil.CONEXAO_LOCAL+tipoRelatorio+"?data_inicio="+dataInicio+"&&data_limite="+dataLimite);
 
-                url = new URL("http://192.168.0.24:8080/code-simatic/rest/dados-maquina/"+ relatorio +"?data_inicial="+ dataInicio +"&data_limite=" + dataLimite);
+                url = new URL(enderecoServidor+ConexaoUtil.PORTA_SERVIDOR+"code-simatic/rest/dados-maquina/"+ tipoRelatorio +"?data_inicial="+ dataInicio +"&data_limite=" + dataLimite);
                 Util.loggerAsyncTask("url formada: "+url);
 
             } catch (MalformedURLException e) {
@@ -309,14 +344,25 @@ public class ListaGraficosActivity extends AppCompatActivity{
         protected void onPostExecute(String resultado) {
             exibirProgress(false);
             if(codigo_resposta == HttpURLConnection.HTTP_OK) {
-                Util.loggerAsyncTask("O que será isso? " + resultado);
-                FuncionamentoMaquinaPorcentagem dados;
-                try {
-                    dados = DeserializarJsonUtil.jsonToRelatorioFuncionamento(resultado);
-                    relatorioGraficoPizza(dados);
+                Util.loggerAsyncTask("inicia o processo de deserializacao dos dados" + resultado);
+                if(numeroRelatorio == 0) {
 
-                } catch (JsonParseException e) {
-                    Util.loggerAsyncTask("Execessao ao deserializar o java dentro de onpostexecute " + e.getMessage());
+                    FuncionamentoMaquinaPorcentagem dados;
+                    try {
+                        dados = DeserializarJsonUtil.jsonToRelatorioFuncionamento(resultado);
+                        relatorioGraficoPizza(dados);
+
+                    } catch (JsonParseException e) {
+                        Util.loggerAsyncTask("Execessao ao deserializar o java dentro de onpostexecute " + e.getMessage());
+                    }
+                }else if(numeroRelatorio == 1){
+                    LigadaDesligadaMaquinaPorcentagem dados;
+                    try {
+                        dados = DeserializarJsonUtil.jsonToRelatorioStatus(resultado);
+                        relatorioLigadoDeslgadoPizza(dados);
+                    } catch (JsonParseException e) {
+                        Util.loggerAsyncTask("Execessao ao deserializar o java dentro de onpostexecute " + e.getMessage());
+                    }
                 }
             }
         }
@@ -341,4 +387,5 @@ public class ListaGraficosActivity extends AppCompatActivity{
             return relatorio;
         }
     }
+
 }
