@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import org.iel.code_sismatic.control.RelatorioFuncionamentoMaquina;
+import org.iel.code_sismatic.control.RelatoriosStatusMaquina;
 import org.iel.code_sismatic.control.SalvaDadosBI;
 import org.iel.code_sismatic.dao.DadosMaquinaDao;
 import org.iel.code_sismatic.dao.FuncionamentoMaquinaDao;
@@ -26,6 +27,7 @@ import org.iel.code_sismatic.model.entidades_dimensao.FuncionamentoMaquina;
 import org.iel.code_sismatic.model.entidades_dimensao.StatusMaquina;
 import org.iel.code_sismatic.model.entidades_fato.DadosMaquina;
 import org.iel.code_sismatic.rest.objetos_envio.RelatorioFuncionamentoMaquinaEnvio;
+import org.iel.code_sismatic.rest.objetos_envio.RelatorioStatusLigadoDesligadoMaquinaEnvio;
 import org.iel.code_sismatic.rest.objetos_envio.StatusMaquinaEnvio;
 import org.iel.code_sismatic.util.Util;
 
@@ -58,6 +60,9 @@ public class DadosMaquinaEndpoint {
 	@Inject
 	private FuncionamentoMaquinaDao daoFuncionamentoMaquina;
 
+	@Inject
+	private RelatoriosStatusMaquina relatorioStatus;
+	
 	@POST
 	public Response create(DadosMaquina entity) {
 		// seto a data que chegou a informação
@@ -155,6 +160,23 @@ public class DadosMaquinaEndpoint {
 	public List<FuncionamentoMaquina> listAllFuncionamento(@QueryParam("start") Integer startPosition,
 			@QueryParam("max") Integer maxResult) {
 		final List<FuncionamentoMaquina> results = daoFuncionamentoMaquina.listAll(startPosition, maxResult);
+		return results;
+	}
+	
+	@GET
+	@Path("/status/porcentagem")
+	public RelatorioStatusLigadoDesligadoMaquinaEnvio retornaRelatorioStatusLigadoDesligadoMaquina(
+			@QueryParam("data_inicial") String dataInicial, @QueryParam("data_limite") String dataLimite) {
+
+		// instancio a coleção
+		final RelatorioStatusLigadoDesligadoMaquinaEnvio results;
+
+		// verifico se as queryparam não estão nulas
+		if (Util.isNullOrBlank(dataInicial) && Util.isNullOrBlank(dataLimite)) {
+			dataInicial = Util.dataHojeFormatoAmericano();
+			dataLimite = Util.dataHojeFormatoAmericano();
+		}
+		results = relatorioStatus.getRelatorioStatusLigadoDesligado(dataInicial, dataLimite);
 		return results;
 	}
 }
