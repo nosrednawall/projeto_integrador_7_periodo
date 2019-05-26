@@ -20,6 +20,7 @@ import com.google.gson.JsonParseException;
 
 import org.iel.codesimatic.R;
 import org.iel.codesimatic.model.FuncionamentoMaquinaPorcentagem;
+import org.iel.codesimatic.model.LigadaDesligadaMaquinaPorcentagem;
 import org.iel.codesimatic.util.ConexaoUtil;
 import org.iel.codesimatic.util.DeserializarJsonUtil;
 import org.iel.codesimatic.util.Util;
@@ -42,6 +43,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
     EditText dataLimite;
     Boolean dataInicialOuFinal;
     ProgressBar mProgressBar;
+    boolean funcionamentoMaquina = false;
 
 
     BuscaRelatoriosMaquinaAsyncTask buscadorAsync;
@@ -80,7 +82,10 @@ public class ListaGraficosActivity extends AppCompatActivity{
         cardGraficos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                LigadaDesligadaMaquinaPorcentagem ligadoDados = new LigadaDesligadaMaquinaPorcentagem();
+                ligadoDados.setSomaLigada(60);
+                ligadoDados.setSomaDesligada(40);
+                relatorioLigadoDeslgadoPizza(ligadoDados);
             }
         });
 
@@ -101,12 +106,12 @@ public class ListaGraficosActivity extends AppCompatActivity{
 
     private String getDataInicialToString(){
         dataInicial = (EditText) findViewById(R.id.data_inicial);
-        return dataInicial.toString();
+        return dataInicial.getText().toString();
     }
 
     private String getDataLimiteToString(){
         dataLimite = (EditText) findViewById(R.id.data_limite);
-        return dataLimite.toString();
+        return dataLimite.getText().toString();
     }
 
     void relatorioGraficoPizza(FuncionamentoMaquinaPorcentagem dados){
@@ -120,6 +125,19 @@ public class ListaGraficosActivity extends AppCompatActivity{
         graficoPizzaFuncionamento.putExtras(bundle);
 
         startActivity(graficoPizzaFuncionamento);
+    }
+
+    void relatorioLigadoDeslgadoPizza(LigadaDesligadaMaquinaPorcentagem dados){
+//        cancelarTask();
+
+        Bundle bundle = new Bundle();
+        bundle.putFloat("somaLigado", dados.getSomaLigada());
+        bundle.putFloat("somaDesligado", dados.getSomaDesligada());
+
+        Intent maquinaLigadaDesligadaActivity = new Intent(getApplicationContext(), MaquinaLigadaDesligadaActivity.class);
+        maquinaLigadaDesligadaActivity.putExtras(bundle);
+
+        startActivity(maquinaLigadaDesligadaActivity);
     }
 
     /**
@@ -207,6 +225,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
         private HttpURLConnection conexao;
         private URL url = null;
         int codigo_resposta=404;
+        int tipoRelatorio = 0;
 
         @Override
         protected void onPreExecute() {
@@ -221,17 +240,19 @@ public class ListaGraficosActivity extends AppCompatActivity{
             Util.loggerAsyncTask("setando os parametros nas variaveis da classe");
 
             //pego os parametros e insiro em suas variaveis
-            String dataInicio = parametros[0];
-            String dataLimite = parametros[1];
+            String dataInicio = parametros[0].toString();
+            String dataLimite = parametros[1].toString();
             String tipoRelatorio = switchTipoRelatorio(parametros[2]);
 
             Util.loggerAsyncTask("Montando a url");
 
             //Monta a URL
             try {
+                String relatorio = switchTipoRelatorio(tipoRelatorio);
 //                url = new URL(ConexaoUtil.CONEXAO_LOCAL+tipoRelatorio+"?data_inicio="+dataInicio+"&&data_limite="+dataLimite);
-                url = new URL("http://192.168.9.26:8080/code-simatic/rest/dados-maquina/funcionamento/porcentagem?data_inicial=2019-01-01&data_limite=2019-12-31");
 
+                url = new URL("http://192.168.0.24:8080/code-simatic/rest/dados-maquina/"+ relatorio +"?data_inicial="+ dataInicio +"&data_limite=" + dataLimite);
+                Util.loggerAsyncTask("url formada: "+url);
 
             } catch (MalformedURLException e) {
                 Log.e("GET_status_maquina", "Erro  - " + e.getMessage());
@@ -308,6 +329,10 @@ public class ListaGraficosActivity extends AppCompatActivity{
 
                 case "0":
                     relatorio = "funcionamento/porcentagem";
+                    break;
+
+                case "1":
+                    relatorio = "status/porcentagem";
                     break;
 
                 default:
