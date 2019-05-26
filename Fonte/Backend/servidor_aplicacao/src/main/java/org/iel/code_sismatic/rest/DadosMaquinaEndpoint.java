@@ -25,6 +25,7 @@ import org.iel.code_sismatic.dao.StatusMaquinaDao;
 import org.iel.code_sismatic.model.entidades_dimensao.FuncionamentoMaquina;
 import org.iel.code_sismatic.model.entidades_dimensao.StatusMaquina;
 import org.iel.code_sismatic.model.entidades_fato.DadosMaquina;
+import org.iel.code_sismatic.rest.objetos_envio.RelatorioFuncionamentoLigadoDesligadoMaquinaEnvio;
 import org.iel.code_sismatic.rest.objetos_envio.RelatorioFuncionamentoMaquinaEnvio;
 import org.iel.code_sismatic.rest.objetos_envio.StatusMaquinaEnvio;
 import org.iel.code_sismatic.util.Util;
@@ -155,6 +156,23 @@ public class DadosMaquinaEndpoint {
 	public List<FuncionamentoMaquina> listAllFuncionamento(@QueryParam("start") Integer startPosition,
 			@QueryParam("max") Integer maxResult) {
 		final List<FuncionamentoMaquina> results = daoFuncionamentoMaquina.listAll(startPosition, maxResult);
+		return results;
+	}
+	
+	@GET
+	@Path("/funcionamento/ligado-desligado/porcentagem")
+	public RelatorioFuncionamentoLigadoDesligadoMaquinaEnvio retornaRelatorioFuncionamentoLigadoDesligadoMaquina(
+			@QueryParam("data_inicial") String dataInicial, @QueryParam("data_limite") String dataLimite) {
+
+		// instancio a coleção
+		final RelatorioFuncionamentoLigadoDesligadoMaquinaEnvio results;
+
+		// verifico se as queryparam não estão nulas
+		if (Util.isNullOrBlank(dataInicial) && Util.isNullOrBlank(dataLimite)) {
+			dataInicial = Util.dataHojeFormatoAmericano();
+			dataLimite = Util.dataHojeFormatoAmericano();
+		}
+		results = relatorioFuncionamento.getRelatorioLigadoDesligado(dataInicial, dataLimite);
 		return results;
 	}
 }

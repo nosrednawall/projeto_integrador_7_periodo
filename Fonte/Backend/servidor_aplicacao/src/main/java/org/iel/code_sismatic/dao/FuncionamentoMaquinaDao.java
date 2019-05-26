@@ -82,5 +82,5 @@ public class FuncionamentoMaquinaDao extends BaseDao<FuncionamentoMaquina> {
 			retorno.setTotalRunCmd(Util.somaBigIntegers((BigInteger) a[2],retorno.getTotalRunCmd()));
 		}
 		return retorno;
-	}	
+	}
 }

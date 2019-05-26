@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.iel.code_sismatic.model.entidades_dimensao.StatusMaquina;
@@ -53,5 +54,26 @@ public class StatusMaquinaDao extends BaseDao<StatusMaquina> {
 		retorno.setParameter("pDataLimite", Util.converteStringEmData(dataLimite));
 		
 		return retorno.getResultList();
+	}
+	
+	public RetornoSomaFuncionamentoLigadoDesligadoMaquina somaFuncionamentoLigadoDesligadoPorPeriodo(String dataInicial, String dataLimite) {
+		
+		RetornoSomaFuncionamentoLigadoDesligadoMaquina retorno = new RetornoSomaFuncionamentoLigadoDesligadoMaquina();
+		
+		
+		//select nativo
+		Query somaDadosFuncionamentoMaquinaPorPeriodoQuery = getEntityManager().createNativeQuery(""
+				+ "SELECT " + 
+				"    CAST (data AS date), SUM(auto_man) as soma_auto_man , SUM(run_cmd) as soma_run_cmd " + 
+				"FROM " + 
+				"    tb_funcionamento_maquina " + 
+				"WHERE" + 
+				"    CAST (data AS date) BETWEEN CAST(:pDataInicial AS date) " + 
+				"AND" + 
+				"    CAST(:pDataLimite AS date) " + 
+				"GROUP BY CAST (data AS date);");
+		
+		
+		return null;
 	}
 }
