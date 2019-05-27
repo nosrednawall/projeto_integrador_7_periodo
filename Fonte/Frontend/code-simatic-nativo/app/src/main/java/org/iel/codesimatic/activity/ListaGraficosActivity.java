@@ -196,6 +196,8 @@ public class ListaGraficosActivity extends AppCompatActivity{
         bundle.putFloat("valor75Porcento", dados.getSoma75Porcento());
         bundle.putFloat("valor50Porcento", dados.getSoma50Porcento());
         bundle.putFloat("valor25Porcento", dados.getSoma25Porcento());
+        bundle.putString("dataInicial", getDataInicialToString());
+        bundle.putString("dataLimite", getDataLimiteToString());
 
         Intent intent = new Intent(getApplicationContext(), PowerPorcentagemMaquinaActivity.class);
         intent.putExtras(bundle);

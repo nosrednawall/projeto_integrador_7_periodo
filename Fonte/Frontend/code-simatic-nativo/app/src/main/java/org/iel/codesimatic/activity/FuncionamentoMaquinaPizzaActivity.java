@@ -53,7 +53,7 @@ public class FuncionamentoMaquinaPizzaActivity
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pie_chart);
 
-        setTitle("Gráfico de Torta");
+        setTitle("Percentual de funcionamento");
 
         chart = findViewById(R.id.grafico_pizza);
         chart.setUsePercentValues(true);
@@ -108,7 +108,7 @@ public class FuncionamentoMaquinaPizzaActivity
         entries.add(valor1);
         entries.add(valor2);
 
-        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
+        PieDataSet dataSet = new PieDataSet(entries, "Percentual");
 
         dataSet.setDrawIcons(false);
 

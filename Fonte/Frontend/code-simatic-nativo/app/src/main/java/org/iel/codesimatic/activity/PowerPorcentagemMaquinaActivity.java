@@ -53,7 +53,7 @@ public class PowerPorcentagemMaquinaActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pie_chart);
 
-        setTitle("Gráfico de Torta");
+        setTitle("Percentual da potência utilizada");
 
         chart = findViewById(R.id.grafico_pizza);
         chart.setUsePercentValues(true);
@@ -112,7 +112,7 @@ public class PowerPorcentagemMaquinaActivity extends AppCompatActivity {
         entries.add(valor50PorcentoPie);
         entries.add(valor25PorcentoPie);
 
-        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
+        PieDataSet dataSet = new PieDataSet(entries, "Percentual");
 
         dataSet.setDrawIcons(false);
 

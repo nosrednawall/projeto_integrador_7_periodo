@@ -54,7 +54,7 @@ public class MaquinaLigadaDesligadaActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_pie_chart);
 
-        setTitle("Gráfico de Torta");
+        setTitle("Percentual do estado da máquina");
 
         chart = findViewById(R.id.grafico_pizza);
         chart.setUsePercentValues(true);
@@ -109,7 +109,7 @@ public class MaquinaLigadaDesligadaActivity extends AppCompatActivity {
         entries.add(valor1);
         entries.add(valor2);
 
-        PieDataSet dataSet = new PieDataSet(entries, "");
+        PieDataSet dataSet = new PieDataSet(entries, "Percentual");
 
         dataSet.setDrawIcons(false);
 
