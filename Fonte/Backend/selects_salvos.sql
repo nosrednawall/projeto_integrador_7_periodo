@@ -1,5 +1,24 @@
 SELECT
     CAST (data AS date)
+    , COALESCE(COUNT (power) FILTER(WHERE power=100),0) AS Cem_Porcento
+    , COALESCE(COUNT (power) FILTER(WHERE power=75),0) AS Setenta_e_cinco_Porcento
+    , COALESCE(COUNT (power) FILTER(WHERE power=50),0) AS Cinquenta_Porcento
+    , COALESCE(COUNT (power) FILTER(WHERE power=25),0) AS Vinte_E_cinco_Porcento
+    , COALESCE(COUNT (power) FILTER(WHERE power=0),0) AS Zero_Porcento
+    
+FROM
+    tb_power_maquina 
+WHERE
+    CAST (data AS date) BETWEEN '2019-01-01'
+AND
+    '2019-06-03'
+GROUP BY CAST (data AS date);
+
+
+
+
+SELECT
+    CAST (data AS date)
     , COALESCE(COUNT (status) FILTER(WHERE status=1),0) AS status_ligado
     , COALESCE(COUNT (status) FILTER(WHERE status=0),0) AS status_desligado
 FROM
