@@ -19,7 +19,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import org.iel.codesimatic.R;
-import org.iel.codesimatic.model.FuncionamentoMaquinaPorcentagem;
 
 import java.util.ArrayList;
 
@@ -28,14 +27,8 @@ public class FuncionamentoMaquinaPizzaActivity
         extends AppCompatActivity {
 
     private PieChart chart;
-    private FuncionamentoMaquinaPorcentagem dados;
     float somaAutoMan = 0;
     float somaRunCmd = 0;
-
-    public FuncionamentoMaquinaPizzaActivity(FuncionamentoMaquinaPorcentagem dados){
-        this.dados = dados;
-    }
-    public FuncionamentoMaquinaPizzaActivity(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +86,7 @@ public class FuncionamentoMaquinaPizzaActivity
         l.setYOffset(0f);
 
         // entry label styling
-        chart.setEntryLabelColor(Color.BLACK);
+        chart.setEntryLabelColor(Color.WHITE);
         chart.setEntryLabelTextSize(12f);
 
         setData();
@@ -130,7 +123,7 @@ public class FuncionamentoMaquinaPizzaActivity
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(chart));
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.BLACK);
+        data.setValueTextColor(Color.WHITE);
         chart.setData(data);
 
         // undo all highlights

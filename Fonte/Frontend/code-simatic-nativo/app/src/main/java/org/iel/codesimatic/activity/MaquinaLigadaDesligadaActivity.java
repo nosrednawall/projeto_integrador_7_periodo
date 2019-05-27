@@ -19,22 +19,14 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import org.iel.codesimatic.R;
-import org.iel.codesimatic.model.FuncionamentoMaquinaPorcentagem;
-import org.iel.codesimatic.model.LigadaDesligadaMaquinaPorcentagem;
 
 import java.util.ArrayList;
 
 public class MaquinaLigadaDesligadaActivity extends AppCompatActivity {
 
     private PieChart chart;
-//    private LigadaDesligadaMaquinaPorcentagem dados;
     private float somaLigado = 0;
     private float somaDesligado = 0;
-//
-//    public MaquinaLigadaDesligadaActivity(LigadaDesligadaMaquinaPorcentagem dados){
-//        this.dados = dados;
-//    }
-    public MaquinaLigadaDesligadaActivity(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +86,7 @@ public class MaquinaLigadaDesligadaActivity extends AppCompatActivity {
         l.setYOffset(0f);
 
         // entry label styling
-        chart.setEntryLabelColor(Color.BLACK);
+        chart.setEntryLabelColor(Color.WHITE);
         chart.setEntryLabelTextSize(12f);
 
         setData();
@@ -131,7 +123,7 @@ public class MaquinaLigadaDesligadaActivity extends AppCompatActivity {
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(chart));
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.BLACK);
+        data.setValueTextColor(Color.WHITE);
         chart.setData(data);
 
         // undo all highlights

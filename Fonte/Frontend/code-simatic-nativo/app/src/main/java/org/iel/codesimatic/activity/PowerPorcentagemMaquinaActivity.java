@@ -30,9 +30,6 @@ public class PowerPorcentagemMaquinaActivity extends AppCompatActivity {
     private float valor50Porcento = 0;
     private float valor25Porcento = 0;
 
-
-    public PowerPorcentagemMaquinaActivity(){}
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -93,7 +90,7 @@ public class PowerPorcentagemMaquinaActivity extends AppCompatActivity {
         l.setYOffset(0f);
 
         // entry label styling
-        chart.setEntryLabelColor(Color.BLACK);
+        chart.setEntryLabelColor(Color.WHITE);
         chart.setEntryLabelTextSize(12f);
 
         setData();
@@ -134,7 +131,7 @@ public class PowerPorcentagemMaquinaActivity extends AppCompatActivity {
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(chart));
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.BLACK);
+        data.setValueTextColor(Color.WHITE);
         chart.setData(data);
 
         // undo all highlights
