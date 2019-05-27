@@ -71,8 +71,8 @@
             <android.support.v7.widget.CardView
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:layout_width="160dp"
-                android:layout_height="190dp"
+                android:layout_width="340dp"
+                android:layout_height="150dp"
                 android:layout_margin="10dp"
                 android:id="@+id/lista_graficos_status_maquina">
                 <LinearLayout
@@ -108,13 +108,23 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
             <android.support.v7.widget.CardView
                 android:id="@+id/lista_graficos_torta"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
-                android:layout_width="160dp"
-                android:layout_height="190dp"
-                android:layout_margin="10dp">
+                android:layout_width="340dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -149,7 +159,9 @@
 
             </android.support.v7.widget.CardView>
 
+
         </LinearLayout>
+
 
         <LinearLayout
             android:clipToPadding="false"

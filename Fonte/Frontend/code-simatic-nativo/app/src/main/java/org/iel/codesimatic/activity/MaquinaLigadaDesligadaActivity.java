@@ -109,7 +109,7 @@ public class MaquinaLigadaDesligadaActivity extends AppCompatActivity {
         entries.add(valor1);
         entries.add(valor2);
 
-        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
+        PieDataSet dataSet = new PieDataSet(entries, "");
 
         dataSet.setDrawIcons(false);
 
