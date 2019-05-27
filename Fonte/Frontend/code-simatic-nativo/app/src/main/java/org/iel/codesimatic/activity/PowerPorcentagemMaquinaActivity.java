@@ -102,10 +102,10 @@ public class PowerPorcentagemMaquinaActivity extends AppCompatActivity {
     private void setData() {
         ArrayList<PieEntry> entries = new ArrayList<>();
 
-        PieEntry valor100PorcentoPie = new PieEntry(valor100Porcento,"100 %");
-        PieEntry valor75PorcentoPie = new PieEntry(valor75Porcento,"75 %");
-        PieEntry valor50PorcentoPie = new PieEntry(valor50Porcento,"50 %");
-        PieEntry valor25PorcentoPie = new PieEntry(valor25Porcento,"25 %");
+        PieEntry valor100PorcentoPie = new PieEntry(valor100Porcento,"Funcionamento a 100 %");
+        PieEntry valor75PorcentoPie = new PieEntry(valor75Porcento,"Funcionamento a 75 %");
+        PieEntry valor50PorcentoPie = new PieEntry(valor50Porcento,"Funcionamento a 50 %");
+        PieEntry valor25PorcentoPie = new PieEntry(valor25Porcento,"Funcionamento a 25 %");
 
         entries.add(valor100PorcentoPie);
         entries.add(valor75PorcentoPie);
