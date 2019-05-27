@@ -119,7 +119,7 @@ public class FuncionamentoMaquinaPizzaActivity
         // add a lot of colors
         ArrayList<Integer> colors = new ArrayList<>();
 
-        for (int c : ColorTemplate.MATERIAL_COLORS)
+        for (int c : ColorTemplate.JOYFUL_COLORS)
             colors.add(c);
 
         colors.add(ColorTemplate.getHoloBlue());

@@ -123,8 +123,8 @@ public class PowerPorcentagemMaquinaActivity extends AppCompatActivity {
         // add a lot of colors
         ArrayList<Integer> colors = new ArrayList<>();
 
-        for (int c : ColorTemplate.MATERIAL_COLORS)
-            colors.add(c);
+        for (int c : ColorTemplate.COLORFUL_COLORS)
+            colors.add(c+2);
 
         colors.add(ColorTemplate.getHoloBlue());
 
