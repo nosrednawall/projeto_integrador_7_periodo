@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import org.iel.code_sismatic.control.RelatorioFuncionamentoMaquina;
+import org.iel.code_sismatic.control.RelatorioPowerMaquina;
 import org.iel.code_sismatic.control.RelatoriosStatusMaquina;
 import org.iel.code_sismatic.control.SalvaDadosBI;
 import org.iel.code_sismatic.dao.DadosMaquinaDao;
@@ -27,6 +28,7 @@ import org.iel.code_sismatic.model.entidades_dimensao.FuncionamentoMaquina;
 import org.iel.code_sismatic.model.entidades_dimensao.StatusMaquina;
 import org.iel.code_sismatic.model.entidades_fato.DadosMaquina;
 import org.iel.code_sismatic.rest.objetos_envio.RelatorioFuncionamentoMaquinaEnvio;
+import org.iel.code_sismatic.rest.objetos_envio.RelatorioSomaPowerMaquina;
 import org.iel.code_sismatic.rest.objetos_envio.RelatorioStatusLigadoDesligadoMaquinaEnvio;
 import org.iel.code_sismatic.rest.objetos_envio.StatusMaquinaEnvio;
 import org.iel.code_sismatic.util.Util;
@@ -62,6 +64,9 @@ public class DadosMaquinaEndpoint {
 
 	@Inject
 	private RelatoriosStatusMaquina relatorioStatus;
+	
+	@Inject
+	private RelatorioPowerMaquina relatorioPower;
 	
 	@POST
 	public Response create(DadosMaquina entity) {
@@ -177,6 +182,23 @@ public class DadosMaquinaEndpoint {
 			dataLimite = Util.dataHojeFormatoAmericano();
 		}
 		results = relatorioStatus.getRelatorioStatusLigadoDesligado(dataInicial, dataLimite);
+		return results;
+	}
+	
+	@GET
+	@Path("/power/porcentagem")
+	public RelatorioSomaPowerMaquina retornaRelatorioSomaPowerMaquina(
+			@QueryParam("data_inicial") String dataInicial, @QueryParam("data_limite") String dataLimite) {
+
+		// instancio a coleção
+		final RelatorioSomaPowerMaquina results;
+
+		// verifico se as queryparam não estão nulas
+		if (Util.isNullOrBlank(dataInicial) && Util.isNullOrBlank(dataLimite)) {
+			dataInicial = Util.dataHojeFormatoAmericano();
+			dataLimite = Util.dataHojeFormatoAmericano();
+		}
+		results = relatorioPower.getRelatorioSomaPowerMaquina(dataInicial, dataLimite);
 		return results;
 	}
 }
