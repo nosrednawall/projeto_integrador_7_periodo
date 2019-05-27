@@ -1,12 +1,26 @@
+SELECT
+    CAST (data AS date)
+    , COALESCE(COUNT (status) FILTER(WHERE status=1),0) AS status_ligado
+    , COALESCE(COUNT (status) FILTER(WHERE status=0),0) AS status_desligado
+FROM
+    tb_status_maquina 
+WHERE
+    CAST (data AS date) BETWEEN '2019-04-01'
+AND
+    '2019-06-03'
+GROUP BY CAST (data AS date);
+   
+    
 SELECT f, SUM(f.autoMan) FROM tb_funcionamento_maquina f WHERE f.data BETWEEN :pDataInicial AND :pDataLimite
-
 
 
 select p from Persons p where (cast(:createdAt as timestamp) is null or p.createdAt > :createdAt)
 
 
 SELECT
-    CAST (data AS date), SUM(auto_man) as auto_man, SUM(run_cmd) as run_cmd
+    CAST (data AS date)
+    , COALESCE(SUM(auto_man),0) as auto_man
+    , COALESCE(SUM(run_cmd),0) as run_cmd
 FROM
     tb_funcionamento_maquina 
 WHERE

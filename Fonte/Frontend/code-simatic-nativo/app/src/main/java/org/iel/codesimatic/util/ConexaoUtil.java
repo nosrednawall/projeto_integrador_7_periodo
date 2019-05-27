@@ -1,8 +1,8 @@
 package org.iel.codesimatic.util;
 
 public final class ConexaoUtil {
-//    public static String CONEXAO_LOCAL = "http://192.168.0.119:8080/code-simatic/rest/dados-maquina/";
-    public static String CONEXAO_LOCAL = "http://192.168.9.26:8080/code-simatic/rest/dados-maquina/";
+    public static String CONEXAO_LOCAL = "http://192.168.0.";
+    public static String PORTA_SERVIDOR = ":8080/";
 
     //Milissegundos
     public static int CONEXAO_TIMEOUT = 10000;

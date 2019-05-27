@@ -2,13 +2,12 @@ package org.iel.codesimatic.util;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
 import org.iel.codesimatic.model.FuncionamentoMaquinaPorcentagem;
+import org.iel.codesimatic.model.LigadaDesligadaMaquinaPorcentagem;
+import org.json.JSONObject;
 
 public class DeserializarJsonUtil {
 
@@ -16,11 +15,12 @@ public class DeserializarJsonUtil {
 
     public static FuncionamentoMaquinaPorcentagem jsonToRelatorioFuncionamento(String stringJson) {
 
-        GsonBuilder builder = new GsonBuilder();
         FuncionamentoMaquinaPorcentagem relatorio = new FuncionamentoMaquinaPorcentagem();
         try {
-            Gson gson = builder.create();
-            relatorio = gson.fromJson(stringJson, FuncionamentoMaquinaPorcentagem.class);
+            JSONObject dadoJson = new JSONObject(stringJson);
+            relatorio.setSomaAutoMan(Float.parseFloat(dadoJson.getString("somaAutoMan")));
+            relatorio.setSomaRunCmd(Float.parseFloat(dadoJson.getString("somaRunCmd")));
+
         } catch (JsonSyntaxException e) {
             Log.e(tag_jsonToRelatorioFuncionamento, "JsonSyntaxException - " + e.getMessage());
         } catch (JsonParseException e) {
@@ -32,11 +32,22 @@ public class DeserializarJsonUtil {
         return relatorio;
     }
 
-    public static String dadoToJson(String tipo_dado, String dado)
-    {
-        JsonObject dadoJson = new JsonObject();
-        dadoJson.addProperty(tipo_dado,dado);
-        return dadoJson.toString();
-    }
+    public static LigadaDesligadaMaquinaPorcentagem jsonToRelatorioStatus(String stringJson) {
+        LigadaDesligadaMaquinaPorcentagem relatorio = new LigadaDesligadaMaquinaPorcentagem();
+        try{
+            JSONObject dadoJson = new JSONObject(stringJson);
 
+            relatorio.setSomaLigada(Float.parseFloat(dadoJson.getString("somaLigado")));
+            relatorio.setSomaDesligada(Float.parseFloat(dadoJson.getString("somaDesligado")));
+
+        }catch (JsonSyntaxException e) {
+            Log.e(tag_jsonToRelatorioFuncionamento, "JsonSyntaxException - " + e.getMessage());
+        } catch (JsonParseException e) {
+            Log.e(tag_jsonToRelatorioFuncionamento, "JsonParseException - " + e.getMessage());
+        } catch (Exception e) {
+            Log.e(tag_jsonToRelatorioFuncionamento, "Exception - " + e.getMessage());
+        }
+
+        return relatorio;
+    }
 }
