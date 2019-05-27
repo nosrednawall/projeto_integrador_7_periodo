@@ -7,6 +7,7 @@ import com.google.gson.JsonSyntaxException;
 
 import org.iel.codesimatic.model.FuncionamentoMaquinaPorcentagem;
 import org.iel.codesimatic.model.LigadaDesligadaMaquinaPorcentagem;
+import org.iel.codesimatic.model.PowerMaquinaPorcentagem;
 import org.json.JSONObject;
 
 public class DeserializarJsonUtil {
@@ -49,5 +50,27 @@ public class DeserializarJsonUtil {
         }
 
         return relatorio;
+    }
+
+    public static PowerMaquinaPorcentagem jsonToRelatorioPower(String stringJson) {
+        PowerMaquinaPorcentagem relatorio = new PowerMaquinaPorcentagem();
+        try{
+            JSONObject dadoJson = new JSONObject(stringJson);
+
+            relatorio.setSoma100Porcento(Float.parseFloat(dadoJson.getString("soma100Porcento")));
+            relatorio.setSoma75Porcento(Float.parseFloat(dadoJson.getString("soma75Porcento")));
+            relatorio.setSoma50Porcento(Float.parseFloat(dadoJson.getString("soma50Porcento")));
+            relatorio.setSoma25Porcento(Float.parseFloat(dadoJson.getString("soma25Porcento")));
+
+        }catch (JsonSyntaxException e) {
+            Log.e(tag_jsonToRelatorioFuncionamento, "JsonSyntaxException - " + e.getMessage());
+        } catch (JsonParseException e) {
+            Log.e(tag_jsonToRelatorioFuncionamento, "JsonParseException - " + e.getMessage());
+        } catch (Exception e) {
+            Log.e(tag_jsonToRelatorioFuncionamento, "Exception - " + e.getMessage());
+        }
+
+        return relatorio;
+
     }
 }

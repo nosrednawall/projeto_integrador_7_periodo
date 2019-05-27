@@ -54,9 +54,11 @@
 
     <!-- Strings graficos -->
     <string name="dash">-</string>
-    <string name="nome_grafico_linha_status_maquina">Status máquina Linha</string>
+    <string name="nome_grafico_linha_status_maquina">Porcentagem ligado e desligado</string>
     <string name="descricao_grafico_linha_status_maquina"></string>
-    <string name="nome_grafico_torta_status_maquina">Status máquina Torta</string>
+    <string name="nome_grafico_torta_status_maquina">Funcionamento manual e automático</string>
     <string name="descricao_grafico_torta_status_maquina"></string>
+    <string name="nome_grafico_torta_power_maquina">Potência utilizada na máquina</string>
+    <string name="descricao_grafico_torta_power_maquina"></string>
 
 </resources>

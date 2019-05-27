@@ -23,6 +23,7 @@ import com.google.gson.JsonParseException;
 import org.iel.codesimatic.R;
 import org.iel.codesimatic.model.FuncionamentoMaquinaPorcentagem;
 import org.iel.codesimatic.model.LigadaDesligadaMaquinaPorcentagem;
+import org.iel.codesimatic.model.PowerMaquinaPorcentagem;
 import org.iel.codesimatic.util.ConexaoUtil;
 import org.iel.codesimatic.util.DeserializarJsonUtil;
 import org.iel.codesimatic.util.SharedPreferencesUtil;
@@ -64,8 +65,10 @@ public class ListaGraficosActivity extends AppCompatActivity{
 
         Button salvarEndereco = (Button) findViewById(R.id.listgraficos_salvar_endereco);
 
-        CardView cardGraficos = (CardView) findViewById(R.id.lista_graficos_status_maquina);
-        CardView cardGraficoPie = (CardView) findViewById(R.id.lista_graficos_torta);
+        CardView cardGraficosStatusLigadoDesligadoPie = (CardView) findViewById(R.id.lista_graficos_status_maquina);
+        CardView cardGraficoFuncionamentoPie = (CardView) findViewById(R.id.lista_graficos_torta);
+        CardView cardGraficoPowerPie = (CardView) findViewById(R.id.lista_graficos_power_porcentagem);
+
         mProgressBar = (ProgressBar) findViewById(R.id.lista_graficos_progress_bar);
 
         dataInicial = (EditText) findViewById(R.id.data_inicial);
@@ -100,7 +103,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
             }
         });
 
-        cardGraficos.setOnClickListener(new View.OnClickListener() {
+        cardGraficosStatusLigadoDesligadoPie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.loggerAsyncTask("Iniciando metodo busca relatorio Status Maquina");
@@ -111,12 +114,21 @@ public class ListaGraficosActivity extends AppCompatActivity{
             }
         });
 
-        cardGraficoPie.setOnClickListener(new View.OnClickListener() {
+        cardGraficoFuncionamentoPie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.loggerAsyncTask("Iniciando metodo busca relatorio Funcionamento Maquina");
                 buscadorAsync = new BuscaRelatoriosMaquinaAsyncTask();
                 buscadorAsync.execute(getDataInicialToString(),getDataLimiteToString(),"0");
+            }
+        });
+
+        cardGraficoPowerPie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.loggerAsyncTask("Iniciando metodo busca relatorio Power Maquina");
+                buscadorAsync = new BuscaRelatoriosMaquinaAsyncTask();
+                buscadorAsync.execute(getDataInicialToString(),getDataLimiteToString(),"2");
             }
         });
     }
@@ -163,7 +175,7 @@ public class ListaGraficosActivity extends AppCompatActivity{
     }
 
     void relatorioLigadoDeslgadoPizza(LigadaDesligadaMaquinaPorcentagem dados){
-//        cancelarTask();
+        cancelarTask();
 
         Bundle bundle = new Bundle();
         bundle.putFloat("somaLigado", dados.getSomaLigada());
@@ -173,6 +185,22 @@ public class ListaGraficosActivity extends AppCompatActivity{
         maquinaLigadaDesligadaActivity.putExtras(bundle);
 
         startActivity(maquinaLigadaDesligadaActivity);
+    }
+
+
+    private void relatorioPowerPorcentagem(PowerMaquinaPorcentagem dados) {
+        cancelarTask();
+
+        Bundle bundle = new Bundle();
+        bundle.putFloat("valor100Porcento", dados.getSoma100Porcento());
+        bundle.putFloat("valor75Porcento", dados.getSoma75Porcento());
+        bundle.putFloat("valor50Porcento", dados.getSoma50Porcento());
+        bundle.putFloat("valor25Porcento", dados.getSoma25Porcento());
+
+        Intent intent = new Intent(getApplicationContext(), PowerPorcentagemMaquinaActivity.class);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
     }
 
     /**
@@ -363,9 +391,19 @@ public class ListaGraficosActivity extends AppCompatActivity{
                     } catch (JsonParseException e) {
                         Util.loggerAsyncTask("Execessao ao deserializar o java dentro de onpostexecute " + e.getMessage());
                     }
+                }else if(numeroRelatorio == 2){
+
+                    PowerMaquinaPorcentagem dados;
+                    try {
+                        dados = DeserializarJsonUtil.jsonToRelatorioPower(resultado);
+                        relatorioPowerPorcentagem(dados);
+                    } catch (JsonParseException e) {
+                        Util.loggerAsyncTask("Execessao ao deserializar o java dentro de onpostexecute " + e.getMessage());
+                    }
                 }
             }
         }
+
 
         private String switchTipoRelatorio(String tipoRelatorio){
 
@@ -379,6 +417,10 @@ public class ListaGraficosActivity extends AppCompatActivity{
 
                 case "1":
                     relatorio = "status/porcentagem";
+                    break;
+
+                case "2":
+                    relatorio = "power/porcentagem";
                     break;
 
                 default:

@@ -1,6 +1,6 @@
 package org.iel.code_sismatic.rest.objetos_envio;
 
-public class RelatorioSomaPowerMaquina {
+public class RelatorioSomaPowerMaquina implements Serializable{
 
 	private String soma50Porcento;
 	private String soma100Porcento;
