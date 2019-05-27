@@ -63,9 +63,9 @@ public class PowerMaquinaDao extends BaseDao<PowerMaquina> {
 		
 		for(Object[] a : retornoSelect) {
 			retorno.setSoma100Porcento(Util.somaBigIntegers((BigInteger) a[1],retorno.getSoma100Porcento()));
-			retorno.setSoma75Porcento(Util.somaBigIntegers((BigInteger) a[1],retorno.getSoma75Porcento()));
-			retorno.setSoma50Porcento(Util.somaBigIntegers((BigInteger) a[1],retorno.getSoma50Porcento()));
-			retorno.setSoma25Porcento(Util.somaBigIntegers((BigInteger) a[1],retorno.getSoma25Porcento()));
+			retorno.setSoma75Porcento(Util.somaBigIntegers((BigInteger) a[2],retorno.getSoma75Porcento()));
+			retorno.setSoma50Porcento(Util.somaBigIntegers((BigInteger) a[3],retorno.getSoma50Porcento()));
+			retorno.setSoma25Porcento(Util.somaBigIntegers((BigInteger) a[4],retorno.getSoma25Porcento()));
 		}
 		
 		return retorno;
