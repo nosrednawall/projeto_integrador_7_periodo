@@ -1,7 +1,13 @@
 package org.iel.code_sismatic.rest.objetos_envio;
 
+import java.io.Serializable;
+
 public class RelatorioSomaPowerMaquina implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String soma50Porcento;
 	private String soma100Porcento;
 	private String soma75Porcento;

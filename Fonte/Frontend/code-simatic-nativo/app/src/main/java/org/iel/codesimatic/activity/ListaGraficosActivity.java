@@ -285,23 +285,41 @@ public class ListaGraficosActivity extends AppCompatActivity{
         buscadorAsync.cancel(true);
     }
 
+    /**
+     * Classe responsável por efetuar as requisições rest
+     */
     class BuscaRelatoriosMaquinaAsyncTask extends AsyncTask<String, Integer, String> {
 
+        //objeto conexao
         private HttpURLConnection conexao;
+        //objeto url
         private URL url = null;
+        //código de resposta da conexao
         int codigo_resposta=404;
+        //numero do relatorio selecionado
         int numeroRelatorio = 0;
 
+        /**
+         * Método que efetua as ações que devem ser feitas antes de iniciar a conexao
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            //mostra o pregress dialig na tela do usuário enquanto o processo está sendo executado
             exibirProgress(true);
+            //log
             Util.loggerAsyncTask("Iniciando a classe asyncrona");
         }
 
+        /**
+         * Função efetua a requisição Asyncrona em outro Thread
+         * @param parametros
+         * @return
+         */
         @Override
         protected String doInBackground(String... parametros) {
 
+            //log
             Util.loggerAsyncTask("setando os parametros nas variaveis da classe");
 
             //pego os parametros e insiro em suas variaveis
@@ -310,15 +328,16 @@ public class ListaGraficosActivity extends AppCompatActivity{
             String tipoRelatorio = switchTipoRelatorio(parametros[2]);
             numeroRelatorio = Integer.parseInt(parametros[2]);
 
+            //log
             Util.loggerAsyncTask("Montando a url");
 
             //Monta a URL
             try {
-//                url = new URL(ConexaoUtil.CONEXAO_LOCAL+tipoRelatorio+"?data_inicio="+dataInicio+"&&data_limite="+dataLimite);
-
                 url = new URL(enderecoServidor+ConexaoUtil.PORTA_SERVIDOR+"code-simatic/rest/dados-maquina/"+ tipoRelatorio +"?data_inicial="+ dataInicio +"&data_limite=" + dataLimite);
+                //log
                 Util.loggerAsyncTask("url formada: "+url);
 
+            //caso dê alguma excessão
             } catch (MalformedURLException e) {
                 Log.e("GET_status_maquina", "Erro  - " + e.getMessage());
                 Util.loggerAsyncTask("erro ao pegar o status do servidor, mensagem de erro:  " + e.getMessage());
@@ -330,76 +349,118 @@ public class ListaGraficosActivity extends AppCompatActivity{
             //Abre a conexão
             Util.loggerAsyncTask("Abrindo conexao");
             try {
+                //abre a conexão
                 conexao = (HttpURLConnection) url.openConnection();
+                //timeout de conexao
                 conexao.setConnectTimeout(ConexaoUtil.CONEXAO_TIMEOUT);
+                //timeout de leitura
                 conexao.setReadTimeout(ConexaoUtil.LEITURA_CEP_TIMEOUT);
+                //insere o tipo de requisição http a ser efetuada
                 conexao.setRequestMethod("GET");
+                //tipo de codificação dos dados é utf-8
                 conexao.setRequestProperty("charset", "utf-8");
-
+                //espera retorno
                 conexao.setDoInput(true);
+                //tipo do retorno é json
                 conexao.setRequestProperty("Accept", "application/json");
-
+                //efetua a conexao
                 conexao.connect();
             } catch (IOException e) {
-                Log.e("GET_status_maquina", "IOException - " + e.getMessage());
+                //log e exeção
                 Util.loggerAsyncTask("Excessao ao pegar status da maquina depois de abrir conexao, mensagem excessao: " + e.getMessage());
             }
+            //log
             Util.loggerAsyncTask("Abriu conexao, iniciando o download da requisicao");
             try {
+                //pega o retorno da conexao
                 codigo_resposta = conexao.getResponseCode();
+
+                //caso seja 200 ok inicia a deserialização do texto em objeto json
                 if (codigo_resposta == HttpURLConnection.HTTP_OK) {
+                    //pega o texto inteiro da resposta
                     InputStream resposta_servidor = conexao.getInputStream();
+                    //cria um buffer leitor
                     BufferedReader reader = new BufferedReader(new InputStreamReader(resposta_servidor));
+                    //instancia um construtor de strings
                     StringBuilder construtor_resposta = new StringBuilder();
+                    // string que recebera ca linha do while
                     String linha;
+                    //faz um loop de todas as linhas, até chegar na linha nula, e vai construindo a string com o json
                     while ((linha = reader.readLine()) != null) {
                         construtor_resposta.append(linha);
                     }
+                    //retorna a string com o json
                     return construtor_resposta.toString();
                 } else {
+                    //log ca excessão
                     Util.loggerAsyncTask("Erro ao deserializar a resposta em json");
                     return "erro";
                 }
 
             } catch (IOException e) {
-                Log.e("GET_status_maquina", "IOException - " + e.getMessage());
+                //log
                 Util.loggerAsyncTask("Excessao ao deserializar mensagem em json, mensagem excessao: " + e.getMessage());
                 return e.toString();
             } finally {
+                //depois de tudo desconecta
                 conexao.disconnect();
             }
         }
 
+        /**
+         * Função efetua a deserialização do json para objeto e instancia a classe do relatório escolhido
+         * @param resultado
+         */
         @Override
         protected void onPostExecute(String resultado) {
+            //encerra o progress dialog
             exibirProgress(false);
+            //verifica se o código recebido foi por um 200
             if(codigo_resposta == HttpURLConnection.HTTP_OK) {
+                //log
                 Util.loggerAsyncTask("inicia o processo de deserializacao dos dados" + resultado);
-                if(numeroRelatorio == 0) {
 
+                /**
+                 * Inicia os if dos relatórios
+                 */
+
+                //relatório de funcionamento automatico e manual
+                if(numeroRelatorio == 0) {
+                    //objeto que receberá os dados do json
                     FuncionamentoMaquinaPorcentagem dados;
                     try {
+                        //tenta deserializar o json
                         dados = DeserializarJsonUtil.jsonToRelatorioFuncionamento(resultado);
+                        //chama o método que instancia a Activity do relatório
                         relatorioGraficoPizza(dados);
-
                     } catch (JsonParseException e) {
+                        //log
                         Util.loggerAsyncTask("Execessao ao deserializar o java dentro de onpostexecute " + e.getMessage());
                     }
+                    //relatorio porcentagem de tempo da maquina ligada e desligada no período selecionado
                 }else if(numeroRelatorio == 1){
+                    //objeto que receberá os dados do json
                     LigadaDesligadaMaquinaPorcentagem dados;
                     try {
+                        //tenta deserializar o json
                         dados = DeserializarJsonUtil.jsonToRelatorioStatus(resultado);
+                        //chama o método que instancia a Activity do relatório
                         relatorioLigadoDeslgadoPizza(dados);
                     } catch (JsonParseException e) {
+                        //log
                         Util.loggerAsyncTask("Execessao ao deserializar o java dentro de onpostexecute " + e.getMessage());
                     }
+                    //relatorio de porcentagem da portencia utilizada na maquina
                 }else if(numeroRelatorio == 2){
-
+                    //objeto que receberá os dados do json
                     PowerMaquinaPorcentagem dados;
                     try {
+                        //tenta deserializar o json
                         dados = DeserializarJsonUtil.jsonToRelatorioPower(resultado);
+                        //chama o método que instancia a Activity do relatório
                         relatorioPowerPorcentagem(dados);
                     } catch (JsonParseException e) {
+                        //log
                         Util.loggerAsyncTask("Execessao ao deserializar o java dentro de onpostexecute " + e.getMessage());
                     }
                 }
