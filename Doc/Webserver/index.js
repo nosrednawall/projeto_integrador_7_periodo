@@ -1,5 +1,11 @@
 // super função
+
 (function() {
+
+    var enderecoServidor = '' ;
+    var isDadosFalsos = false ;
+
+
     var $$ = function(selector) {
         return Array.prototype.slice.call(document.querySelectorAll(selector));
     }
@@ -80,7 +86,7 @@
             $.post(url,sdata,function(result2){});
         }
         return false;
-    },false);	
+    },false);
 
     //atualiza os dados na tela e envia o json
     $.ajaxSetup({ cache: false });
@@ -91,7 +97,7 @@
             //caso não esteja utilize essa
             var json = gerador_dados_na_tela();
 
-            enviaJson(json);
+            // enviaJson(json);
         },1000);
             	
         function customValue(val) {				
@@ -104,6 +110,7 @@
             }
         }				
     }, false);
+
 })();
 
 
@@ -135,6 +142,17 @@ function gerar_dados_json(){
 
     return dados;
 }
+
+function funcao(e) {
+    alert('I expect this alert only when Cell_3 is clicked');
+
+    if (!e) var e = window.event; 
+    e.cancelBubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+
+    alert("oi");
+  }
+
 
 // Função envia o json para o servidor tal
 function enviaJson(json){
@@ -227,7 +245,42 @@ function request_json_arquivo(){
             $('#Status_Run').text("Running");
             }
         pos3.refresh(result["Speed_PV"].trim());
-            	});
+    });
+
+    var d = new Date();
+    var n = d.toLocaleDateString();
+    var m = d.toLocaleTimeString();
+    $('#DateNow').text(m);
+    return json_arquivo;
+}
+
+function atualizaTelaComDadosObtidos(result){
+
+    document.getElementById('Power').value = result["Power"];	
+        
+    // Enable or disable input Power					
+    if(result["Auto_Man"]==1){
+        val = 69.0;
+        document.getElementById('Power').disabled = true;
+        document.getElementById('Power').value = val;
+        sdata=escape('"IOMotor".Power')+'='+val;
+        //alert(sdata);
+        $.post(url,sdata,function(result3){});
+        $('#Power').attr("disabled", "disabled");
+    }
+    else{
+        document.getElementById('Power').disabled = false;
+        $('#Power').removeAttr('disabled');
+    }
+    
+            							
+    if(result["Status"]==0){
+        $('#Status_Run').text("Stop");
+        }
+    else{
+        $('#Status_Run').text("Running");
+        }
+    pos3.refresh(result["Speed_PV"].trim());
 
     var d = new Date();
     var n = d.toLocaleDateString();
