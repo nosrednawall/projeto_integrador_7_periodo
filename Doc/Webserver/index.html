@@ -8,81 +8,71 @@
 	<meta charset="utf-8" />
 	<title>Motor DAQ</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" />
-	<!-- <link rel="stylesheet" href="css/mystyle.css"> 
-	<link rel="stylesheet" href="css/switch.css" type="text/css" media="screen" /> -->
-
+	<link rel="stylesheet" href="css/mystyle.css"> 
+	<!-- <link rel="stylesheet" href="css/switch.css" type="text/css" media="screen" /> -->
+	
+	<!-- bibliotecas para funcionamento -->
 	<script src="js/raphael.min.js"></script>
 	<script src="js/justgage.js"></script>	
 	<script src="js/jquery-3.2.1.min.js"></script>
+
+	<!-- bibliotecas bootstrap -->
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+
 	<!-- é aqui que está todo o código que altera o html -->
 	<script src="js/index.js"></script>
  
 </head>
 <body>
-    <div id="container">
-		<div id="header">
-			<div class="title1">S7 1200 Web Server</div>
-			<div class="title2">Motor Control</div>
+    <div class="container">
+		<div class="jumbotron">
+			<h1 class="display-3">S7 1200 Web Server</h1>
+			<p class="lead">Motor Control</p>
+			<hr class="my-2">
 			<div align="right" id="DateNow">12:0:0 PM</div>
-		</div>	
-			<div id="content">
-				<div id="pos1">				
-					<h3>Setting Parameters</h3>
-					<table frame="box" cellpadding="6px" cellspacing="7px" bg-color="yellow" align="center" >					
-						<tr>
-							<th align="left" style="text-align:justify" title="ON=Auto, OFF=Man">Auto/Man 							
-							</th>
-							<th class="switch"><span class="thumb"> </span><input type="checkbox" id='"IOMotor".Auto_Man'/>
-							</th>
-						</tr>
-						<tr>
-							<th align="left" style="text-align:justify">Run							
-							</th>
-							<th  class="switch"><span class="thumb"> </span><input type="checkbox" id='"IOMotor".Run_CMD'/>
-							</th>
-						</tr>
-						<tr>
-							<th align="left" title="0 - 100">Power % 							
-							</th>						
-							<th>
-								<input size="6" type="text"  min="0.0" max="100.0" style="text-align:center" id="Power" disabled value= 0.0 />								
-							</th>				
-						</tr>					
-					</table>
-				</div>
-				<div id="pos2">				
-					<h3>Monitoring</h3>
-					<table border="3px" cellpadding="6px" cellspacing="5px" bg-color="yellow" align="center">					
-						<tr>
-							<th>Status 							
-							</th>
-							<th style="width:100px" id="Status_Run">Stop							
-							</th>	
-						</tr>
-						<tr>
-							<th>No run							
-							</th>
-							<th id="NoRun">0							
-							</th>
-						</tr>
-						<tr>
-							<th>Speed  							
-							</th>
-							<th id="Speed_PV">0RPM							
-							</th>
-							
-						</tr>					
-					</table>			
-				</div>
-				<div id="pos3">				
-				</div>
-				<!-- <input type="button" onclick="gerarJson()" value="gerar Json"/> -->
-				<div align = "center"  id="pos4">				
-					<a href="https://www.dmcinfo.com/latest-thinking/blog/id/8567/categoryid/26/siemens-s7-1200-web-server-tutorial--from-getting-started-to-html5-user-defined-pages">				
-					Reference</a>				
-				</div>
+		</div>
+
+		<article class="row">
+			<div class="col-lg-4 col-md-12">				
+				<h3>Setting Parameters</h3>
+				<table class="table" >					
+					<tr>
+						<th>Auto/Man</th>
+						<th><input type="checkbox" id='"IOMotor".Auto_Man'/></th>
+					</tr>
+					<tr>
+						<th>Run</th>
+						<th> <input type="checkbox" id='"IOMotor".Run_CMD'/></th>
+					</tr>
+					<tr>
+						<th align="left" title="0 - 100">Power %</th>						
+						<th>
+							<input size="6" type="text"  min="0.0" max="100.0" class="form-control" id="Power" disabled value= 0.0 />								
+						</th>				
+					</tr>					
+				</table>
+			</div> <!--/col-sm-4-->
+			<div class="col-lg-4 col-md-12">				
+				<h3>Monitoring</h3>
+				<table class="table">					
+					<tr>
+						<th>Status</th>
+						<th id="Status_Run">Stop</th>	
+					</tr>
+					<tr>
+						<th>No run</th>
+						<th id="NoRun">0</th>
+					</tr>
+					<tr>
+						<th>Speed</th>
+						<th id="Speed_PV">0RPM</th>				
+					</tr>					
+				</table>			
+			</div> <!--/col-sm-4-->
+			<div class="col-lg-4 col-md-12" id="pos3">
+			</div>
+			
 
 			<div class="row">
 				<div class="col-6 form-group">
@@ -91,11 +81,13 @@
 				</div>
 				<div class="col-6 form-group">
 					<label>Endereço do servidor</label>
-					<input type="text" id="endereco_servidor" style="width: 600px;" />
+					<input type="text" id="endereco_servidor" class="form-control" />
 				</div>
 			</div>
-        </div>		
-		<div id="footer">&copy;2017 NDH</div>
-		</div>
+		</article>		
+		<footer >
+			<div>&copy;2017 NDH</div>
+		</footer>
+	</div><!--/container-->
 </body>
 </html>
