@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>Motor DAQ</title>
+	<title>Status motor máquina</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/mystyle.css"> 
 	<!-- <link rel="stylesheet" href="css/switch.css" type="text/css" media="screen" /> -->
@@ -26,27 +26,54 @@
 </head>
 <body>
     <div class="container">
-		<div class="jumbotron">
-			<h1 class="display-3">S7 1200 Web Server</h1>
-			<p class="lead">Motor Control</p>
-			<hr class="my-2">
+		<div class="jumbotron text-center">
+			<h1 class="display-3 text-center">S7 1200 Web Server</h1>
+			<p class="lead text-center">Controle do motor</p>
 			<div align="right" id="DateNow">12:0:0 PM</div>
+			<hr class="my-2">
+			<div class="text-center">
+				<h4>Configuração inicial</h4>
+			</div>
+			<div class="row">
+				<div class="col-6 form-group">
+					<label>Ativar envio de dados fictícios?</label>
+					<!-- <input type="checkbox" id="myCheck" onclick="myFunction()" class="form-check-label"/> -->
+					<select class="custom-select" id="escolhaDados" onchange="myFunction()">
+						<option value="0">Desativar</option>
+						<option value="1" selected>Ativar</option>
+					</select>
+				</div>
+				<div class="col-6 form-group">
+					<label>Endereço do servidor</label>
+					<input type="text" id="endereco_servidor" class="form-control" />
+				</div>
+			</div>
 		</div>
 
 		<article class="row">
 			<div class="col-lg-4 col-md-12">				
-				<h3>Setting Parameters</h3>
+				<h3>Parametros de execução</h3>
 				<table class="table" >					
 					<tr>
-						<th>Auto/Man</th>
-						<th><input type="checkbox" id='"IOMotor".Auto_Man'/></th>
+						<th>Funcionamento automático</th>
+						<th>
+							<select class="custom-select" id='"IOMotor".Auto_Man'>
+								<option value="0">Desativar</option>
+								<option value="1" selected>Ativar</option>
+							</select>
+						</th>
 					</tr>
 					<tr>
-						<th>Run</th>
-						<th> <input type="checkbox" id='"IOMotor".Run_CMD'/></th>
+						<th>Funcionamento manual</th>
+						<th> 
+							<select class="custom-select" id='"IOMotor".Run_CMD'>
+								<option value="0" selected >Desativar</option>
+								<option value="1">Ativar</option>
+							</select>
+						</th>
 					</tr>
 					<tr>
-						<th align="left" title="0 - 100">Power %</th>						
+						<th title="0 - 100">Potência motor em %</th>						
 						<th>
 							<input size="6" type="text"  min="0.0" max="100.0" class="form-control" id="Power" disabled value= 0.0 />								
 						</th>				
@@ -54,38 +81,25 @@
 				</table>
 			</div> <!--/col-sm-4-->
 			<div class="col-lg-4 col-md-12">				
-				<h3>Monitoring</h3>
+				<h3>Monitoração</h3>
 				<table class="table">					
 					<tr>
-						<th>Status</th>
-						<th id="Status_Run">Stop</th>	
+						<th>Status de funcionamento</th>
+						<th id="Status_Run">Parado</th>	
 					</tr>
 					<tr>
-						<th>No run</th>
+						<th>Contador de paradas</th>
 						<th id="NoRun">0</th>
 					</tr>
 					<tr>
-						<th>Speed</th>
+						<th>Velocidade motor em RPM</th>
 						<th id="Speed_PV">0RPM</th>				
 					</tr>					
 				</table>			
 			</div> <!--/col-sm-4-->
-			<div class="col-lg-4 col-md-12" id="pos3">
-			</div>
-			
-
-			<div class="row">
-				<div class="col-6 form-group">
-					<label>Gerar dados fictícios?</label>
-					<input type="checkbox" id="myCheck" onclick="myFunction()" class="form-check-label"/>
-				</div>
-				<div class="col-6 form-group">
-					<label>Endereço do servidor</label>
-					<input type="text" id="endereco_servidor" class="form-control" />
-				</div>
-			</div>
+			<div class="col-lg-4 col-md-12" id="pos3"></div>
 		</article>		
-		<footer >
+		<footer class="text-center" >
 			<div>&copy;2017 NDH</div>
 		</footer>
 	</div><!--/container-->
