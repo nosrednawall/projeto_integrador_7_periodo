@@ -7,8 +7,17 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Motor DAQ</title>
-	<link rel="stylesheet" href="mystyle.css"> 
-  <link rel="stylesheet" href="switch.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="screen" />
+	<!-- <link rel="stylesheet" href="css/mystyle.css"> 
+	<link rel="stylesheet" href="css/switch.css" type="text/css" media="screen" /> -->
+
+	<script src="js/raphael.min.js"></script>
+	<script src="js/justgage.js"></script>	
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<!-- é aqui que está todo o código que altera o html -->
+	<script src="js/index.js"></script>
  
 </head>
 <body>
@@ -75,48 +84,18 @@
 					Reference</a>				
 				</div>
 
-				<form>
-					<table frame="box" cellpadding="6px" cellspacing="7px" bg-color="yellow" align="center" >
-						<tr>	
-							<th>Usar dados fictícios?</th>
-							<th  class="switch"><span class="thumb"> </span><input type="checkbox" id="dadosFalsos"/></th>
-						</tr>
-						<tr>
-							<th>Endereço servidor</th>
-							<th>
-								<input type="text" id="endereco_servidor" style="width: 600px;" />
-							</th>
-						</tr>
-						<tr>
-							<th>
-								<input type="button" id="salvarEnderecoServidor" value="Salvar endereço" 
-								style="
-									background-color: #4CAF50; /* Green */
-									border: none;
-									color: white;
-									padding: 15px 32px;
-									text-align: center;
-									text-decoration: none;
-									display: inline-block;
-									font-size: 16px;
-								"/>
-							</th>
-						</tr>
-					</table>
-				</form>
-				
+			<div class="row">
+				<div class="col-6 form-group">
+					<label>Gerar dados fictícios?</label>
+					<input type="checkbox" id="myCheck" onclick="myFunction()" class="form-check-label"/>
 				</div>
-				<div class="json">
-
+				<div class="col-6 form-group">
+					<label>Endereço do servidor</label>
+					<input type="text" id="endereco_servidor" style="width: 600px;" />
 				</div>
+			</div>
         </div>		
 		<div id="footer">&copy;2017 NDH</div>
 		</div>
-
-	<script src="raphael.min.js"></script>
-	<script src="justgage.js"></script>	
-	<script src="jquery-3.2.1.min.js"></script>
-	<!-- é aqui que está todo o código que altera o html -->
-	<script src="index.js"></script>
 </body>
 </html>

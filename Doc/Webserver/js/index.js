@@ -1,9 +1,27 @@
 // super função
+var enderecoServidor = '' ;
+var isDadosFalsos = false ;
+
+function salvaInformacoesServidor(){
+    isDadosFalsos = chckDadosFalsos.checked ? true : false;
+
+
+    console.log("isDadosFalsos é: " + isDadosFalsos);
+}
+
+
+function myFunction() {
+    // Get the checkbox
+    var checkBox = document.getElementById("myCheck");
+    // Get the output text
+    var text = document.getElementById("text");
+  
+    // If the checkbox is checked, display the output text
+    isDadosFalsos = checkBox.checked == true ? true : false;
+    console.log("isDadosFalsos recebeu um: " + isDadosFalsos);
+  }
 
 (function() {
-
-    var enderecoServidor = '' ;
-    var isDadosFalsos = false ;
 
 
     var $$ = function(selector) {
