@@ -63,7 +63,7 @@
 					<tr>
 						<th>Funcionamento automático</th>
 						<th>
-							<select class="custom-select" id="autoMan" onchange="alteraFuncionamento(this.id)">
+							<select class="custom-select" id="autoMan" onchange="alteraFuncionamento(this.id)" disabled>
 								<option value="0">Desativar</option>
 								<option value="1" selected>Ativar</option>
 							</select>
@@ -72,7 +72,7 @@
 					<tr>
 						<th>Funcionamento manual</th>
 						<th> 
-							<select class="custom-select" id="runCmd" onchange="alteraFuncionamento(this.id)">
+							<select class="custom-select" id="runCmd" onchange="alteraFuncionamento(this.id)" disabled>
 								<option value="0" selected >Desativar</option>
 								<option value="1">Ativar</option>
 							</select>
@@ -81,7 +81,7 @@
 					<tr>
 						<th title="0 - 100">Potência motor em %</th>						
 						<th>
-							<input size="6" type="text"  min="0.0" max="100.0" class="form-control" id="Power" value= 0.0 />								
+							<input size="6" type="text"  min="0.0" max="100.0" class="form-control" id="idPower" value= 0.0 disabled="true" />								
 						</th>				
 					</tr>					
 				</table>

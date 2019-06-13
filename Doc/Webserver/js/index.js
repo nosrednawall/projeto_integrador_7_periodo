@@ -1,8 +1,8 @@
 
-// var enderecoServidor = window.localStorage.getItem('enderecoServidor');
-var enderecoServidor = '';
+var enderecoServidor = 'http://0.0.0.0';
 var isLigado = false;
 var isDadosFalsos = true ;
+var contadorNoRun = 0;
 
 var jsonDados = {
     "speedPV":'',
@@ -15,6 +15,18 @@ var jsonDados = {
 
 function alteraLigaDesliga(){
     isLigado = document.getElementById('ligarDesligar').value == 0 ? false : true;
+    if(isLigado){
+        document.getElementById('autoMan').disabled = false;
+        document.getElementById('runCmd').disabled = false;
+        document.getElementById('idPower').disabled = false;
+    } else {
+        document.getElementById('autoMan').disabled = true;
+        document.getElementById('runCmd').disabled = true;
+        document.getElementById('idPower').disabled = true;
+        this.contadorNoRun++;
+        console.log("a maquina foi parada " + this.contadorNoRun);
+    }
+    
 }
 
 function salvaEnderecoServidor(){
@@ -33,10 +45,10 @@ function alteraFuncionamento(id){
 
     if(id == 'autoMan'){
         document.getElementById("runCmd").selectedIndex = autoMan == 1 ? 0 : 1;
-        document.getElementById("Power").disabled = autoMan == 1 ? false : true;
+        document.getElementById("idPower").disabled = autoMan == 1 ? false : true;
     }else{
         document.getElementById("autoMan").selectedIndex = runCmd == 1 ? 0 : 1;
-        document.getElementById("Power").disabled = autoMan == 1 ? true : false;
+        document.getElementById("idPower").disabled = autoMan == 1 ? true : false;
     }
     // jsonDados[] = ;
 }
@@ -100,23 +112,23 @@ function myFunction() {
         labelFontColor: "black"				
     });
                         
-    document.getElementById('Power').addEventListener('keypress', function(event1) {				
+    document.getElementById('idPower').addEventListener('keypress', function(event1) {				
         if(event1.key=="Enter"){
-            var val = document.getElementById('Power').value;
+            var val = document.getElementById('idPower').value;
   
             $('#NoRun').text(x);					
             var tmp = $('#Power').val();
-            var max_val = document.getElementById('Power').max;
-            var min_val = document.getElementById('Power').min;						
+            var max_val = document.getElementById('idPower').max;
+            var min_val = document.getElementById('idPower').min;						
             if(val>100.0){
                 val = 100.0;
                 alert("Value must be between 0.0 and 100.0");
-                document.getElementById('Power').value = val;
+                document.getElementById('idPower').value = val;
             }
             else if(val<0.0){
                 val = 0.0;
                 alert("Value must be between 0.0 and 100.0");
-                document.getElementById('Power').value = val;							
+                document.getElementById('idPower').value = val;							
             }
                        			
             url="IOServer.htm";
@@ -241,10 +253,10 @@ function gerador_dados_na_tela(){
 
     if(json_gerado.Auto_Man==1){
         val = 69.0;
-        document.getElementById('Power').disabled = true;
+        document.getElementById('idPower').disabled = true;
         document.getElementById('Power').value = val;
     }else{
-        document.getElementById('Power').disabled = false;
+        document.getElementById('idPower').disabled = false;
     }						
     
     if(json_gerado.Status ==0){
