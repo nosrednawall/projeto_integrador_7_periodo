@@ -35,17 +35,23 @@
 				<h4>Configuração inicial</h4>
 			</div>
 			<div class="row">
-				<div class="col-6 form-group">
+				<div class="col-lg-4 col-md-12 form-group">
+					<label>Ligar o motor?</label>
+					<select class="custom-select" id="ligarDesligar" onchange="alteraLigaDesliga()">
+						<option value="0" selected>Desligar</option>
+						<option value="1">Ligar</option>
+					</select>
+				</div>
+				<div class="col-lg-4 col-md-12 form-group">
 					<label>Ativar envio de dados fictícios?</label>
-					<!-- <input type="checkbox" id="myCheck" onclick="myFunction()" class="form-check-label"/> -->
-					<select class="custom-select" id="escolhaDados" onchange="myFunction()">
+					<select class="custom-select" id="escolhaDados" onchange="alteraEscolhaDados()">
 						<option value="0">Desativar</option>
 						<option value="1" selected>Ativar</option>
 					</select>
 				</div>
-				<div class="col-6 form-group">
+				<div class="col-lg-4 col-md-12 form-group">
 					<label>Endereço do servidor</label>
-					<input type="text" id="endereco_servidor" class="form-control" />
+					<input type="text" id="endereco_servidor" class="form-control" onblur="salvaEnderecoServidor()" />
 				</div>
 			</div>
 		</div>
@@ -57,7 +63,7 @@
 					<tr>
 						<th>Funcionamento automático</th>
 						<th>
-							<select class="custom-select" id='"IOMotor".Auto_Man'>
+							<select class="custom-select" id="autoMan" onchange="alteraFuncionamento(this.id)">
 								<option value="0">Desativar</option>
 								<option value="1" selected>Ativar</option>
 							</select>
@@ -66,7 +72,7 @@
 					<tr>
 						<th>Funcionamento manual</th>
 						<th> 
-							<select class="custom-select" id='"IOMotor".Run_CMD'>
+							<select class="custom-select" id="runCmd" onchange="alteraFuncionamento(this.id)">
 								<option value="0" selected >Desativar</option>
 								<option value="1">Ativar</option>
 							</select>
@@ -75,7 +81,7 @@
 					<tr>
 						<th title="0 - 100">Potência motor em %</th>						
 						<th>
-							<input size="6" type="text"  min="0.0" max="100.0" class="form-control" id="Power" disabled value= 0.0 />								
+							<input size="6" type="text"  min="0.0" max="100.0" class="form-control" id="Power" value= 0.0 />								
 						</th>				
 					</tr>					
 				</table>

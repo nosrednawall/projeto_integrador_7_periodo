@@ -1,14 +1,45 @@
-// super função
-var enderecoServidor = '' ;
-var isDadosFalsos = false ;
 
-function salvaInformacoesServidor(){
-    isDadosFalsos = chckDadosFalsos.checked ? true : false;
+// var enderecoServidor = window.localStorage.getItem('enderecoServidor');
+var enderecoServidor = '';
+var isLigado = false;
+var isDadosFalsos = true ;
 
+var jsonDados = {
+    "speedPV":'',
+    "power":'',
+    "noRun":'',
+    "autoMan":'',
+    "runCmd":'',
+    "status":''
+};
 
-    console.log("isDadosFalsos é: " + isDadosFalsos);
+function alteraLigaDesliga(){
+    isLigado = document.getElementById('ligarDesligar').value == 0 ? false : true;
 }
 
+function salvaEnderecoServidor(){
+    enderecoServidor = document.getElementById('endereco_servidor').value;
+    // window.localStorage.setItem("enderecoServidor", enderecoServidor);
+}
+
+function alteraEscolhaDados(){
+    isDadosFalsos = document.getElementById('escolhaDados').value == 0 ? false : true;
+}
+
+/**Função altera o funcionamento de automático para manual e vice versa */
+function alteraFuncionamento(id){
+    var runCmd = document.getElementById('runCmd').value;
+    var autoMan = document.getElementById('autoMan').value;
+
+    if(id == 'autoMan'){
+        document.getElementById("runCmd").selectedIndex = autoMan == 1 ? 0 : 1;
+        document.getElementById("Power").disabled = autoMan == 1 ? false : true;
+    }else{
+        document.getElementById("autoMan").selectedIndex = runCmd == 1 ? 0 : 1;
+        document.getElementById("Power").disabled = autoMan == 1 ? true : false;
+    }
+    // jsonDados[] = ;
+}
 
 function myFunction() {
     // Get the checkbox
@@ -22,7 +53,6 @@ function myFunction() {
   }
 
 (function() {
-
 
     var $$ = function(selector) {
         return Array.prototype.slice.call(document.querySelectorAll(selector));
@@ -82,7 +112,7 @@ function myFunction() {
                 val = 100.0;
                 alert("Value must be between 0.0 and 100.0");
                 document.getElementById('Power').value = val;
-                }
+            }
             else if(val<0.0){
                 val = 0.0;
                 alert("Value must be between 0.0 and 100.0");
@@ -91,9 +121,9 @@ function myFunction() {
                        			
             url="IOServer.htm";
             name='"IOMotor".Power';
-            //val=$('input[id=Power]').val();
+            val=$('input[id=Power]').val();
             sdata=escape(name)+'='+val;
-            //alert(sdata);
+            alert(sdata);
             $.post(url,sdata,function(result2){});
          			                			
             url2="IOServer.htm";
