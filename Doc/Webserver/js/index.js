@@ -1,37 +1,160 @@
+/**Variáveis globais */
+let enderecoServidor = 'http://0.0.0.0';
+let isLigado = false;
+let isDadosFalsos = true ;
+let contadorNoRun = 0;
+let isInicializado = false;
 
-var enderecoServidor = 'http://0.0.0.0';
-var isLigado = false;
-var isDadosFalsos = true ;
-var contadorNoRun = 0;
+/**Variáveis dos campos do html */
+let contadorHtml = document.getElementById('idNoRun');
 
-var jsonDados = {
-    "speedPV":'',
-    "power":'',
-    "noRun":'',
-    "autoMan":'',
-    "runCmd":'',
-    "status":''
+/**json com os dados da maquina */
+let jsonDados = {
+    "speedPV":'0',
+    "power":'0',
+    "noRun":'0',
+    "autoMan":'0',
+    "runCmd":'0',
+    "status":'0'
 };
 
+var gg1 = new JustGage({
+    id: "gg1",
+    formatNumber: true,
+    counter: true,
+    title: "Velocidade",	
+    label: "RPM",	
+    levelColors: ["#00fff6","#ff00fc","#1200ff"],				
+    // textRenderer: textoValor,
+    titleFontColor: "red",				
+    valueFontColor: "blue",
+    labelFontColor: "black"	
+    });
+
+function atualizaGrafico(valor){
+    gg1.refresh(valor);
+}
+/**Referente ao gráfico da tela */
+document.addEventListener("DOMContentLoaded", function(event) {
+
+    gg1 = new JustGage({
+        id: "gg1",
+        formatNumber: true,
+        counter: true,
+        title: "Velocidade",	
+        label: "RPM",	
+        levelColors: ["#00fff6","#ff00fc","#1200ff"],				
+        // textRenderer: textoValor,
+        titleFontColor: "red",				
+        valueFontColor: "blue",
+        labelFontColor: "black"	
+        });
+    
+    document.getElementById('gg1_refresh').addEventListener('click', function() {
+        let valor = parseInt(document.getElementById('idPower').value);
+        if( valor > -1 && valor < 101){
+            document.getElementById('alerta').hidden = true;
+            jsonDados.power = valor;
+            jsonDados.speedPV = (valor * 1500.0 ) / 100.0;
+            document.getElementById('Speed_PV').innerHTML = jsonDados.speedPV+"RPM";
+            gg1.refresh(parseInt(jsonDados.speedPV));
+            document.getElementById('idPower').value = jsonDados.power;
+        }else{
+            $().ready(function() {
+                setTimeout(function () {
+                    document.getElementById('alerta').innerHTML = "O valor "+ valor +" para a potência é inválido";
+                    document.getElementById('alerta').hidden = false;
+                }, 1000); // O valor é representado em milisegundos.
+            });
+            document.getElementById('idPower').value = jsonDados.power;
+        } 
+        return false;
+    });
+});
+
+/**funcao master */
+
+document.addEventListener("DOMContentLoaded", function(event){
+
+    $.ajaxSetup({ cache: false });
+        setInterval(function() {
+
+            var d = new Date();
+            var n = d.toLocaleDateString();
+            var m = d.toLocaleTimeString();
+            $('#DateNow').text(m);
+
+            enviaJson(jsonDados);
+            
+        },1000);			
+}, false);
+
+
+/**funcao que altera o json apartir de ligar ou desligar a máquina */
 function alteraLigaDesliga(){
     isLigado = document.getElementById('ligarDesligar').value == 0 ? false : true;
+    console.log(isLigado);
     if(isLigado){
+
         document.getElementById('autoMan').disabled = false;
         document.getElementById('runCmd').disabled = false;
         document.getElementById('idPower').disabled = false;
+
+        if(!isInicializado){
+            jsonDados.speedPV = 1500;
+            jsonDados.power = 100;
+            jsonDados.noRun = 0;
+            jsonDados.autoMan = 1;
+            jsonDados.runCmd = 0;
+            jsonDados.status = 1;
+    
+            document.getElementById('idPower').value = jsonDados.power;
+            document.getElementById("idPower").disabled = true;
+
+            atualizaGrafico(parseInt(jsonDados.speedPV));
+
+            isInicializado = true;
+        }else{
+            //atualizo o json com os dados da tela
+            jsonDados.speedPV = ((document.getElementById('idPower').value) * 1500.0 ) / 100.0;
+            jsonDados.power = document.getElementById('idPower').value;
+            jsonDados.noRun = contadorNoRun;
+            jsonDados.autoMan = autoMan == 1 ? 1 : 0;
+            jsonDados.runCmd = runCmd == 1 ? 1 : 0;
+            jsonDados.status = 1;
+        }
+        document.getElementById('Status_Run').innerHTML = "Running";
     } else {
         document.getElementById('autoMan').disabled = true;
         document.getElementById('runCmd').disabled = true;
         document.getElementById('idPower').disabled = true;
-        this.contadorNoRun++;
-        console.log("a maquina foi parada " + this.contadorNoRun);
+        contadorNoRun++;
+
+        //atualizo o json zerando os dados
+        jsonDados.speedPV = 0;
+        jsonDados.power = 0;
+        jsonDados.noRun = contadorNoRun;
+        jsonDados.autoMan = 0;
+        jsonDados.runCmd =  0;
+        jsonDados.status = 0;
+
+        atualizaGrafico(parseInt(jsonDados.speedPV));
+        document.getElementById('idNoRun').value = contadorNoRun;
+        document.getElementById('Status_Run').innerHTML = "Stop";
+        console.log("a maquina foi parada " + contadorNoRun + ' vezes');
     }
-    
+    console.log('alterando via alteraLigaDesliga '+ JSON.stringify(jsonDados));
 }
 
 function salvaEnderecoServidor(){
     enderecoServidor = document.getElementById('endereco_servidor').value;
-    // window.localStorage.setItem("enderecoServidor", enderecoServidor);
+
+    if(enderecoServidor == ''){
+        document.getElementById('alerta').hidden = false;
+        
+    }else{
+        document.getElementById('alerta').hidden = true;
+    }
 }
 
 function alteraEscolhaDados(){
@@ -44,174 +167,20 @@ function alteraFuncionamento(id){
     var autoMan = document.getElementById('autoMan').value;
 
     if(id == 'autoMan'){
-        document.getElementById("runCmd").selectedIndex = autoMan == 1 ? 0 : 1;
-        document.getElementById("idPower").disabled = autoMan == 1 ? false : true;
+        /** se o auto man for igual a 1 o sum cmd recebe 0 se não ococrre o contrário */
+        document.getElementById("runCmd").selectedIndex     = autoMan == 1 ? 0 : 1;
+        /**se o auto man for igual a 1 o power recebera 0 */
+        document.getElementById("idPower").disabled         = autoMan == 1 ? true : false;
     }else{
-        document.getElementById("autoMan").selectedIndex = runCmd == 1 ? 0 : 1;
-        document.getElementById("idPower").disabled = autoMan == 1 ? true : false;
+        document.getElementById("autoMan").selectedIndex    = runCmd == 1 ? 0 : 1;
+        document.getElementById("idPower").disabled         = autoMan == 1 ? false : true;
     }
-    // jsonDados[] = ;
+    //atualiza os valores do json
+    jsonDados.autoMan = autoMan == 1 ? 1 : 0;
+    jsonDados.runCmd = runCmd == 1 ? 1 : 0;
+
+    console.log('alterando via alteraFuncionamento '+JSON.stringify(jsonDados));
 }
-
-function myFunction() {
-    // Get the checkbox
-    var checkBox = document.getElementById("myCheck");
-    // Get the output text
-    var text = document.getElementById("text");
-  
-    // If the checkbox is checked, display the output text
-    isDadosFalsos = checkBox.checked == true ? true : false;
-    console.log("isDadosFalsos recebeu um: " + isDadosFalsos);
-  }
-
-(function() {
-
-    var $$ = function(selector) {
-        return Array.prototype.slice.call(document.querySelectorAll(selector));
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var checkbox;
-        $$(".switch").forEach(function(switchControl) {
-            if (switchControl.className === ("switch on")) {
-                switchControl.lastElementChild.checked = true;
-            }
-            switchControl.addEventListener("click", function toggleSwitch() {
-                if (switchControl.className === "switch on") {
-                    switchControl.className = 'switch off';
-                } else {
-                    switchControl.className = ("switch on");
-                }
-                checkbox = switchControl.lastElementChild;
-
-                checkbox.checked = !checkbox.checked;
-                var url = "/" + window.location.pathname.substr(1);
-                url="IOServer.htm";
-                var ival = +checkbox.checked;
-                var sdata = checkbox.id;
-                //alert(ival);						
-                sdata=escape(sdata)+'='+ival;
-                //alert(sdata);
-
-                $.post(url,sdata,function(result,status){});
-                //alert(status);
-            }, false);
-    });
-        
-    var pos3 = new JustGage({
-        id: "pos3",
-        value: 0,
-        min: 0,
-        max: 1500,
-        title: "Speed",	
-        label: "RPM",	
-        levelColors: ["#00fff6","#ff00fc","#1200ff"],				
-        textRenderer: customValue,
-        titleFontColor: "red",				
-        valueFontColor: "blue",
-        labelFontColor: "black"				
-    });
-                        
-    document.getElementById('idPower').addEventListener('keypress', function(event1) {				
-        if(event1.key=="Enter"){
-            var val = document.getElementById('idPower').value;
-  
-            $('#NoRun').text(x);					
-            var tmp = $('#Power').val();
-            var max_val = document.getElementById('idPower').max;
-            var min_val = document.getElementById('idPower').min;						
-            if(val>100.0){
-                val = 100.0;
-                alert("Value must be between 0.0 and 100.0");
-                document.getElementById('idPower').value = val;
-            }
-            else if(val<0.0){
-                val = 0.0;
-                alert("Value must be between 0.0 and 100.0");
-                document.getElementById('idPower').value = val;							
-            }
-                       			
-            url="IOServer.htm";
-            name='"IOMotor".Power';
-            val=$('input[id=Power]').val();
-            sdata=escape(name)+'='+val;
-            alert(sdata);
-            $.post(url,sdata,function(result2){});
-         			                			
-            url2="IOServer.htm";
-            name='"IOMotor".Power';
-            //val=$('input[id=Power]').val();
-            sdata=escape(name)+'='+val;
-            //alert(sdata);
-            $.post(url,sdata,function(result2){});
-        }
-        return false;
-    },false);
-
-    //atualiza os dados na tela e envia o json
-    $.ajaxSetup({ cache: false });
-        setInterval(function() {
-            //caso esteja no servidor utilize essa função
-            // request_json_arquivo();
-
-            //caso não esteja utilize essa
-            var json = gerador_dados_na_tela();
-
-            // enviaJson(json);
-        },1000);
-            	
-        function customValue(val) {				
-            if (val < 500) {
-                return 'low';
-            } else if (val <= 1200) {
-                return 'normal';
-            } else {					
-                return 'high';
-            }
-        }				
-    }, false);
-
-})();
-
-
-// Função que gera um número aleatório inteiro entre dois números informados
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-    }
-
-// Função cria um json com os valores aleatórios
-function gerar_dados_json(){
-    
-    var Speed_PV = 1175;
-    var Power = 75;
-    var No_Run = 1;
-    var Auto_Man = 1;
-    var Run_CMD = 0; 
-    var Status = 1;
-
-    var dados ={
-        "speedPV":Speed_PV,
-        "power":Power,
-        "noRun":No_Run,
-        "autoMan":Auto_Man,
-        "runCmd":Run_CMD,
-        "status":Status
-    };
-
-    return dados;
-}
-
-function funcao(e) {
-    alert('I expect this alert only when Cell_3 is clicked');
-
-    if (!e) var e = window.event; 
-    e.cancelBubble = true;
-    if (e.stopPropagation) e.stopPropagation();
-
-    alert("oi");
-  }
 
 
 // Função envia o json para o servidor tal
@@ -245,31 +214,6 @@ function enviaJson(json){
         }
     };
 
-}
-
-// Função atualiza os componentes da tela com os valores gerados aleatórios
-function gerador_dados_na_tela(){
-    var json_gerado = gerar_dados_json();
-
-    if(json_gerado.Auto_Man==1){
-        val = 69.0;
-        document.getElementById('idPower').disabled = true;
-        document.getElementById('Power').value = val;
-    }else{
-        document.getElementById('idPower').disabled = false;
-    }						
-    
-    if(json_gerado.Status ==0){
-        document.getElementById('Status_Run').innerHTML = "Stop";
-    }else{
-        document.getElementById('Status_Run').innerHTML = "Running";
-    }
-
-    var d = new Date();
-    var n = d.toLocaleDateString();
-    var m = d.toLocaleTimeString();
-    $('#DateNow').text(m);
-return json_gerado;
 }
 
 //Função captura os dados de dentro do arquivo dentro do servidor, não funciona sem estar dentro do servidor
@@ -352,23 +296,23 @@ function atualizaTelaComDadosObtidos(result){
 //cemitério de funções
 
 //função captura os dados da tela DOM, mas não é muito interessante pois já consigo capturar os dados apenas alterando o javascript
-function gerarJson(){
+// function gerarJson(){
 
-    var dado_status_run = document.getElementById('Status_Run').innerHTML;
-    console.log(dado_status_run);
-    var dado_no_run = document.getElementById('NoRun').innerHTML;
-    var dado_speed_pv = document.getElementById('Speed_PV').innerHTML;
+    // var dado_status_run = document.getElementById('Status_Run').innerHTML;
+    // console.log(dado_status_run);
+    // var dado_no_run = document.getElementById('NoRun').innerHTML;
+    // var dado_speed_pv = document.getElementById('Speed_PV').innerHTML;
 
-    // var jsonDados = '{"dados" : [{ "status_run": ' + dado_status_run + ' },{ "no_run":'+ dado_no_run +' },{ "speed_pv":'+ dado_speed_pv +' }]}';
-    var dados = { "status_run": dado_status_run,"no_run":dado_no_run,"speed_pv":dado_speed_pv};
+    // // var jsonDados = '{"dados" : [{ "status_run": ' + dado_status_run + ' },{ "no_run":'+ dado_no_run +' },{ "speed_pv":'+ dado_speed_pv +' }]}';
+    // var dados = { "status_run": dado_status_run,"no_run":dado_no_run,"speed_pv":dado_speed_pv};
     
-    console.log(dados);
+    // console.log(dados);
     // var objeto_json = JSON.parse(dados);
 
     // console.log(objeto_json);
-}
+// }
 
 // Função que gera um número aleatório entre dois números informados
-function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
-}
+// function getRandomArbitrary(min, max) {
+//     return Math.random() * (max - min) + min;
+// }

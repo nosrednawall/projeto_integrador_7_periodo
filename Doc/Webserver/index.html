@@ -12,9 +12,9 @@
 	<!-- <link rel="stylesheet" href="css/switch.css" type="text/css" media="screen" /> -->
 	
 	<!-- bibliotecas para funcionamento -->
+	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/raphael.min.js"></script>
 	<script src="js/justgage.js"></script>	
-	<script src="js/jquery-3.2.1.min.js"></script>
 
 	<!-- bibliotecas bootstrap -->
 	<script src="js/popper.min.js"></script>
@@ -51,16 +51,20 @@
 				</div>
 				<div class="col-lg-4 col-md-12 form-group">
 					<label>Endereço do servidor</label>
-					<input type="text" id="endereco_servidor" class="form-control" onblur="salvaEnderecoServidor()" />
+					<input type="text" id="endereco_servidor" class="form-control" onchange="salvaEnderecoServidor()" value="http://0.0.0.0" />
 				</div>
 			</div>
+		</div>
+
+		<div class="alert alert-warning" role="alert" hidden id="alerta">
+			Insira o endereço do servidor que salvará os dados
 		</div>
 
 		<article class="row">
 			<div class="col-lg-4 col-md-12">				
 				<h3>Parametros de execução</h3>
 				<table class="table" >					
-					<tr>
+					<!-- <tr>
 						<th>Funcionamento automático</th>
 						<th>
 							<select class="custom-select" id="autoMan" onchange="alteraFuncionamento(this.id)" disabled>
@@ -77,13 +81,23 @@
 								<option value="1">Ativar</option>
 							</select>
 						</th>
+					</tr> -->
+					<tr>
+						<th>Funcionamento</th>
+						<th> 
+							<select class="custom-select" id="runCmd" onchange="alteraFuncionamento(this.id)" disabled>
+								<option value="0" selected >Automático</option>
+								<option value="1">Manual</option>
+							</select>
+						</th>
 					</tr>
 					<tr>
 						<th title="0 - 100">Potência motor em %</th>						
 						<th>
 							<input size="6" type="text"  min="0.0" max="100.0" class="form-control" id="idPower" value= 0.0 disabled="true" />								
 						</th>				
-					</tr>					
+					</tr>
+					<tr><th><input type="button" id="gg1_refresh" class="btn btn-block btn-primary" value="Aplicar" /></th></tr>				
 				</table>
 			</div> <!--/col-sm-4-->
 			<div class="col-lg-4 col-md-12">				
@@ -91,11 +105,11 @@
 				<table class="table">					
 					<tr>
 						<th>Status de funcionamento</th>
-						<th id="Status_Run">Parado</th>	
+						<th><label id="Status_Run">Parado</label></th>	
 					</tr>
 					<tr>
 						<th>Contador de paradas</th>
-						<th id="NoRun">0</th>
+						<th><input type="text" value="0" id="idNoRun"  disabled class="form-control"/></th>
 					</tr>
 					<tr>
 						<th>Velocidade motor em RPM</th>
@@ -103,7 +117,10 @@
 					</tr>					
 				</table>			
 			</div> <!--/col-sm-4-->
-			<div class="col-lg-4 col-md-12" id="pos3"></div>
+			<div class="container">
+				<div id="gg1" class="col-lg-4 col-md-12" data-value="0" data-min="0" data-max="1500" data-gaugeWidthScale="0.6"></div>
+			</div>
+		
 		</article>		
 		<footer class="text-center" >
 			<div>&copy;2017 NDH</div>
