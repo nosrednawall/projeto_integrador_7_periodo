@@ -96,8 +96,7 @@ function alteraLigaDesliga(){
     console.log(isLigado);
     if(isLigado){
 
-        document.getElementById('autoMan').disabled = false;
-        document.getElementById('runCmd').disabled = false;
+        document.getElementById('funcionamentoId').disabled = false;
         document.getElementById('idPower').disabled = false;
 
         if(!isInicializado){
@@ -111,22 +110,25 @@ function alteraLigaDesliga(){
             document.getElementById('idPower').value = jsonDados.power;
             document.getElementById("idPower").disabled = true;
 
-            atualizaGrafico(parseInt(jsonDados.speedPV));
-
             isInicializado = true;
         }else{
             //atualizo o json com os dados da tela
             jsonDados.speedPV = ((document.getElementById('idPower').value) * 1500.0 ) / 100.0;
             jsonDados.power = document.getElementById('idPower').value;
             jsonDados.noRun = contadorNoRun;
-            jsonDados.autoMan = autoMan == 1 ? 1 : 0;
-            jsonDados.runCmd = runCmd == 1 ? 1 : 0;
+            jsonDados.autoMan = document.getElementById('funcionamentoId').value == 0 ? 1 : 0;
+            jsonDados.runCmd = document.getElementById('funcionamentoId').value == 1 ? 1 : 0;
             jsonDados.status = 1;
+
+            document.getElementById('idPower').disabled = 
+                document.getElementById('funcionamentoId').value == 0 
+                ? true : false;
+
         }
-        document.getElementById('Status_Run').innerHTML = "Running";
+        atualizaGrafico(parseInt(jsonDados.speedPV));
+        document.getElementById('Status_Run').innerHTML = "Funcionando";
     } else {
-        document.getElementById('autoMan').disabled = true;
-        document.getElementById('runCmd').disabled = true;
+        document.getElementById('funcionamentoId').disabled = true;
         document.getElementById('idPower').disabled = true;
         contadorNoRun++;
 
@@ -139,8 +141,8 @@ function alteraLigaDesliga(){
         jsonDados.status = 0;
 
         atualizaGrafico(parseInt(jsonDados.speedPV));
-        document.getElementById('idNoRun').value = contadorNoRun;
-        document.getElementById('Status_Run').innerHTML = "Stop";
+        document.getElementById('idNoRun').innerHTML = contadorNoRun;
+        document.getElementById('Status_Run').innerHTML = "Parado";
         console.log("a maquina foi parada " + contadorNoRun + ' vezes');
     }
     console.log('alterando via alteraLigaDesliga '+ JSON.stringify(jsonDados));
@@ -162,26 +164,43 @@ function alteraEscolhaDados(){
 }
 
 /**Função altera o funcionamento de automático para manual e vice versa */
-function alteraFuncionamento(id){
-    var runCmd = document.getElementById('runCmd').value;
-    var autoMan = document.getElementById('autoMan').value;
+// function alteraFuncionamento(id){
+//     var runCmd = document.getElementById('runCmd').value;
+//     var autoMan = document.getElementById('autoMan').value;
 
-    if(id == 'autoMan'){
-        /** se o auto man for igual a 1 o sum cmd recebe 0 se não ococrre o contrário */
-        document.getElementById("runCmd").selectedIndex     = autoMan == 1 ? 0 : 1;
+//     if(id == 'autoMan'){
+//         /** se o auto man for igual a 1 o sum cmd recebe 0 se não ococrre o contrário */
+//         document.getElementById("runCmd").selectedIndex     = autoMan == 1 ? 0 : 1;
+//         /**se o auto man for igual a 1 o power recebera 0 */
+//         document.getElementById("idPower").disabled         = autoMan == 1 ? true : false;
+//     }else{
+//         document.getElementById("autoMan").selectedIndex    = runCmd == 1 ? 0 : 1;
+//         document.getElementById("idPower").disabled         = autoMan == 1 ? false : true;
+//     }
+//     //atualiza os valores do json
+//     jsonDados.autoMan = autoMan == 1 ? 1 : 0;
+//     jsonDados.runCmd = runCmd == 1 ? 1 : 0;
+
+//     console.log('alterando via alteraFuncionamento '+JSON.stringify(jsonDados));
+// }
+
+function alteraFuncionamento(){
+    var funcionamento = document.getElementById('funcionamentoId').value;
+
+    if(funcionamento == 0 ){
+        jsonDados.autoMan = 1;
+        jsonDados.runCmd = 0;
         /**se o auto man for igual a 1 o power recebera 0 */
-        document.getElementById("idPower").disabled         = autoMan == 1 ? true : false;
+        document.getElementById("idPower").disabled = true;
     }else{
-        document.getElementById("autoMan").selectedIndex    = runCmd == 1 ? 0 : 1;
-        document.getElementById("idPower").disabled         = autoMan == 1 ? false : true;
+        jsonDados.autoMan = 0;
+        jsonDados.runCmd = 1;
+        /**se o auto man for igual a 1 o power recebera 0 */
+        document.getElementById("idPower").disabled = false;
     }
-    //atualiza os valores do json
-    jsonDados.autoMan = autoMan == 1 ? 1 : 0;
-    jsonDados.runCmd = runCmd == 1 ? 1 : 0;
 
     console.log('alterando via alteraFuncionamento '+JSON.stringify(jsonDados));
 }
-
 
 // Função envia o json para o servidor tal
 function enviaJson(json){
