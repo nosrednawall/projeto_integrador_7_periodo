@@ -35,21 +35,21 @@
 				<h4>Configuração inicial</h4>
 			</div>
 			<div class="row">
-				<div class="col-lg-4 col-md-12 form-group">
+				<div class="col-lg-6 col-md-12 form-group">
 					<label>Ligar o motor?</label>
 					<select class="custom-select" id="ligarDesligar" onchange="alteraLigaDesliga()">
 						<option value="0" selected>Desligar</option>
 						<option value="1">Ligar</option>
 					</select>
 				</div>
-				<div class="col-lg-4 col-md-12 form-group">
+				<!-- <div class="col-lg-4 col-md-12 form-group">
 					<label>Ativar envio de dados fictícios?</label>
 					<select class="custom-select" id="escolhaDados" onchange="alteraEscolhaDados()">
 						<option value="0">Desativar</option>
 						<option value="1" selected>Ativar</option>
 					</select>
-				</div>
-				<div class="col-lg-4 col-md-12 form-group">
+				</div> -->
+				<div class="col-lg-6 col-md-12 form-group">
 					<label>Endereço do servidor</label>
 					<input type="text" id="endereco_servidor" class="form-control" onchange="salvaEnderecoServidor()" value="http://0.0.0.0" />
 				</div>
@@ -99,8 +99,9 @@
 					</tr>					
 				</table>			
 			</div> <!--/col-sm-4-->
-			<div class="container">
-				<div id="gg1" class="col-lg-4 col-md-12" data-value="0" data-min="0" data-max="1500" data-gaugeWidthScale="0.6"></div>
+			<div class="col-lg-4 col-md-12">
+				<h3>Velocidade RPM do motor</h3>
+				<div id="gg1" data-value="0" data-min="0" data-max="1500" data-gaugeWidthScale="0.6"></div>
 			</div>
 		
 		</article>		

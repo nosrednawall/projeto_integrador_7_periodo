@@ -41,7 +41,7 @@ public class DadosMaquina implements Serializable {
 
 	@Column(name = "no_run",updatable = false)
 	@NotNull
-	@Min(0) @Max(1)
+	@Min(0)
 	private int noRun;
 
 	@Column(name = "auto_man",updatable = false)
